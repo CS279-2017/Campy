@@ -1,0 +1,14 @@
+{
+  "name": "node_info",
+  "version": "1.0.0",
+  "description": "Testing node features.",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Harrison Stall",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
