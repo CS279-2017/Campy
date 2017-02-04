@@ -9,11 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "compression": "^1.6.2",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "if-env": "^1.0.0",
     "mongoose": "^4.7.1",
+    "morgan": "^1.7.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0"
