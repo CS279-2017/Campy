@@ -5,3 +5,15 @@
 .navbar{
 	height: 10%;
 }
+
+.navbar-nav{
+	height: 100%;
+}
+
+input{
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  color: #dadada;
+}

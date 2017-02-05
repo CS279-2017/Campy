@@ -25584,26 +25584,9 @@
 	            'div',
 	            { id: 'navbar', className: 'navbar-collapse collapse' },
 	            _react2.default.createElement(
-	              'ul',
+	              'div',
 	              { className: 'nav navbar-nav' },
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/', onlyActiveOnIndex: true },
-	                  'Home'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example1'
-	                )
-	              )
+	              _react2.default.createElement('input', { type: 'text', 'class': '  search-query form-control', placeholder: 'Where would you like to camp...' })
 	            ),
 	            _react2.default.createElement(
 	              'ul',

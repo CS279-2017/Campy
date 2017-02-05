@@ -17,10 +17,9 @@ export default React.createClass({
               </a>
             </div>
             <div id="navbar" className="navbar-collapse collapse">
-              <ul className="nav navbar-nav">
-                <li><NavLink to="/" onlyActiveOnIndex={true}>Home</NavLink></li>
-                <li><NavLink to="/example">Example1</NavLink></li>
-              </ul>
+              <div className="nav navbar-nav">
+                <input type="text" class="  search-query form-control" placeholder="Where would you like to camp..." />
+              </div>
               <ul className="nav navbar-nav navbar-right">
                 <li><NavLink to="/example">Example2</NavLink></li>
                 <li><NavLink to="/example">Example3</NavLink></li>
