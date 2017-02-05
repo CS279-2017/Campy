@@ -15,3 +15,20 @@ go to
 ```
 localhost:8080
 ```
+##Hierarchy
+```
+App
+-Client
+--main.js
+--routes.js //contains all clientside routing info
+--modules
+---ModuleName.js //contains each page module convention "Uppercase.js"
+-Public //any publicly available assets
+---css //all client-side css files. Module specific css will be "modulename.css" all lower 
+---js //all client-side js files. Module specific js will be "modulename.js" all lower
+---img //all images
+-Server
+--models //mongo models
+--modules
+--server.js // server-side routing
+```

@@ -66,6 +66,14 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
+	var _Signup = __webpack_require__(226);
+
+	var _Signup2 = _interopRequireDefault(_Signup);
+
+	var _Example = __webpack_require__(227);
+
+	var _Example2 = _interopRequireDefault(_Example);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -25547,9 +25555,10 @@
 	    return _react2.default.createElement(
 	      'div',
 	      null,
+	      _react2.default.createElement('link', { rel: 'stylesheet', href: '/css/nav.css' }),
 	      _react2.default.createElement(
 	        'nav',
-	        { className: 'navbar navbar-default navbar-fixed-top' },
+	        { className: 'navbar navbar-default navbar-static-top' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'container' },
@@ -25568,7 +25577,7 @@
 	            _react2.default.createElement(
 	              'a',
 	              { className: 'navbar-brand', to: '/' },
-	              'Campy'
+	              _react2.default.createElement('img', { className: 'navbar-brand-img', src: '/img/logo.png' })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -25660,6 +25669,11 @@
 					return _react2.default.createElement(
 							'div',
 							null,
+							_react2.default.createElement(
+									'title',
+									null,
+									'Campy - Welcome'
+							),
 							_react2.default.createElement('link', { href: 'https://getbootstrap.com/examples/cover/cover.css', rel: 'stylesheet' }),
 							_react2.default.createElement(
 									'div',
@@ -25682,6 +25696,181 @@
 																	'p',
 																	{ className: 'lead' },
 																	' Welcome to Campy'
+															),
+															_react2.default.createElement(
+																	'p',
+																	{ className: 'lead' },
+																	_react2.default.createElement(
+																			_reactRouter.Link,
+																			{ to: '/signup', className: 'btn btn-lg btn-default' },
+																			'Register'
+																	)
+															),
+															_react2.default.createElement(
+																	'p',
+																	{ className: 'lead' },
+																	_react2.default.createElement(
+																			_reactRouter.Link,
+																			{ to: '/login', className: 'btn btn-lg btn-default' },
+																			'Login'
+																	)
+															)
+													),
+													_react2.default.createElement(
+															'div',
+															{ className: 'mastfoot' },
+															_react2.default.createElement(
+																	'div',
+																	{ className: 'inner' },
+																	_react2.default.createElement(
+																			'p',
+																			null,
+																			'Website created by ',
+																			_react2.default.createElement(
+																					'a',
+																					{ href: 'http://www.turnerstrayhorn.com' },
+																					'Turner'
+																			)
+																	)
+															)
+													)
+											)
+									)
+							)
+					);
+			}
+	});
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// modules/Home.js
+	exports.default = _react2.default.createClass({
+			displayName: 'Signup',
+			render: function render() {
+					return _react2.default.createElement(
+							'div',
+							{ 'class': 'fade', tabindex: '-1', role: 'dialog' },
+							_react2.default.createElement(
+									'div',
+									{ 'class': 'modal-dialog', role: 'document' },
+									_react2.default.createElement(
+											'div',
+											{ 'class': 'modal-content' },
+											_react2.default.createElement(
+													'div',
+													{ 'class': 'modal-header' },
+													_react2.default.createElement(
+															'button',
+															{ type: 'button', 'class': 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+															_react2.default.createElement(
+																	'span',
+																	{ 'aria-hidden': 'true' },
+																	'\xD7'
+															)
+													),
+													_react2.default.createElement(
+															'h4',
+															{ 'class': 'modal-title' },
+															'Modal title'
+													)
+											),
+											_react2.default.createElement(
+													'div',
+													{ 'class': 'modal-body' },
+													_react2.default.createElement(
+															'p',
+															null,
+															'One fine body\u2026'
+													)
+											),
+											_react2.default.createElement(
+													'div',
+													{ 'class': 'modal-footer' },
+													_react2.default.createElement(
+															'a',
+															{ to: '/', 'class': 'btn btn-default' },
+															'Close'
+													),
+													_react2.default.createElement(
+															'a',
+															{ to: '/login', 'class': 'btn btn-default' },
+															'Close'
+													)
+											)
+									)
+							)
+					);
+			}
+	});
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// modules/Home.js
+	exports.default = _react2.default.createClass({
+			displayName: 'Example',
+			render: function render() {
+					return _react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+									'title',
+									null,
+									'Campy - Welcome'
+							),
+							_react2.default.createElement('link', { href: 'https://getbootstrap.com/examples/cover/cover.css', rel: 'stylesheet' }),
+							_react2.default.createElement(
+									'div',
+									{ className: 'site-wrapper' },
+									_react2.default.createElement(
+											'div',
+											{ className: 'site-wrapper-inner' },
+											_react2.default.createElement(
+													'div',
+													{ className: 'cover-container' },
+													_react2.default.createElement(
+															'div',
+															{ className: 'inner cover' },
+															_react2.default.createElement(
+																	'h1',
+																	{ className: 'cover-heading' },
+																	'Campy.'
+															),
+															_react2.default.createElement(
+																	'p',
+																	{ className: 'lead' },
+																	' Test to Campy'
 															),
 															_react2.default.createElement(
 																	'p',
