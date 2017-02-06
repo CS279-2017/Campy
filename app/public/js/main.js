@@ -66,6 +66,14 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
+	var _Signup = __webpack_require__(230);
+
+	var _Signup2 = _interopRequireDefault(_Signup);
+
+	var _Example = __webpack_require__(231);
+
+	var _Example2 = _interopRequireDefault(_Example);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -25539,7 +25547,13 @@
 
 	var _NavLink2 = _interopRequireDefault(_NavLink);
 
+	var _nav = __webpack_require__(232);
+
+	var _nav2 = _interopRequireDefault(_nav);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	__webpack_require__(233);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Nav',
@@ -25549,7 +25563,7 @@
 	      null,
 	      _react2.default.createElement(
 	        'nav',
-	        { className: 'navbar navbar-default navbar-fixed-top' },
+	        { className: 'navbar navbar-default navbar-static-top' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'container' },
@@ -25568,33 +25582,16 @@
 	            _react2.default.createElement(
 	              'a',
 	              { className: 'navbar-brand', to: '/' },
-	              'Campy'
+	              _react2.default.createElement('img', { className: 'navbar-brand-img', src: '/img/logo.png' })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { id: 'navbar', className: 'navbar-collapse collapse' },
 	            _react2.default.createElement(
-	              'ul',
-	              { className: 'nav navbar-nav' },
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/', onlyActiveOnIndex: true },
-	                  'Home'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example1'
-	                )
-	              )
+	              'div',
+	              { className: 'nav navbar-nav searchBar-nav' },
+	              _react2.default.createElement('input', { type: 'text', className: 'searchBar', placeholder: 'Where would you like to camp?' })
 	            ),
 	            _react2.default.createElement(
 	              'ul',
@@ -25604,8 +25601,8 @@
 	                null,
 	                _react2.default.createElement(
 	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example2'
+	                  { className: 'nav-links', to: '/login' },
+	                  'Login'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -25613,22 +25610,18 @@
 	                null,
 	                _react2.default.createElement(
 	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example3'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example4'
+	                  { className: 'nav-links', to: '/register' },
+	                  'Register'
 	                )
 	              )
 	            )
 	          )
 	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'nav-dropdown' },
+	        _react2.default.createElement('img', { className: 'nav-dropdown-arrow', id: 'nav-dropdown-arrow', onClick: _nav2.default, src: '/img/dropdownarrow.png' })
 	      ),
 	      this.props.children
 	    );
@@ -25637,6 +25630,400 @@
 
 /***/ },
 /* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// modules/Home.js
+	__webpack_require__(226);
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'Home',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'title',
+	        null,
+	        'Campy - Welcome'
+	      ),
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Campy'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Loading map...'
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(227);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(229)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./cover.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./cover.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(228)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*\n * Globals\n */\n\n/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n\n/* Custom default button */\n.btn-default,\n.btn-default:hover,\n.btn-default:focus {\n  color: #333;\n  text-shadow: none; /* Prevent inheritance from `body` */\n  background-color: #fff;\n  border: 1px solid #fff;\n}\n\n\n/*\n * Base structure\n */\n\nhtml,\nbody {\n  height: 100%;\n/*  background-color: #333;\n*/}\nbody {\n/*  color: #fff;\n*/  text-align: center;\n}\n\n/* Extra markup and styles for table-esque vertical and horizontal centering */\n.site-wrapper {\n  display: table;\n  width: 100%;\n  height: 100%; /* For at least Firefox */\n  min-height: 100%;\n}\n.site-wrapper-inner {\n  display: table-cell;\n  vertical-align: top;\n}\n.cover-container {\n  margin-right: auto;\n  margin-left: auto;\n}\n\n/* Padding for spacing */\n.inner {\n  padding: 30px;\n}\n\n\n/*\n * Header\n */\n.masthead-brand {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.masthead-nav > li {\n  display: inline-block;\n}\n.masthead-nav > li + li {\n  margin-left: 20px;\n}\n.masthead-nav > li > a {\n  padding-right: 0;\n  padding-left: 0;\n  font-size: 16px;\n  font-weight: bold;\n  color: #fff; /* IE8 proofing */\n  color: rgba(255,255,255,.75);\n  border-bottom: 2px solid transparent;\n}\n.masthead-nav > li > a:hover,\n.masthead-nav > li > a:focus {\n  background-color: transparent;\n  border-bottom-color: #a9a9a9;\n  border-bottom-color: rgba(255,255,255,.25);\n}\n.masthead-nav > .active > a,\n.masthead-nav > .active > a:hover,\n.masthead-nav > .active > a:focus {\n  color: #fff;\n  border-bottom-color: #fff;\n}\n\n@media (min-width: 768px) {\n  .masthead-brand {\n    float: left;\n  }\n  .masthead-nav {\n    float: right;\n  }\n}\n\n\n/*\n * Cover\n */\n\n.cover {\n  padding: 0 20px;\n}\n.cover .btn-lg {\n  padding: 10px 20px;\n  font-weight: bold;\n}\n\n\n/*\n * Footer\n */\n\n.mastfoot {\n  color: #999; /* IE8 proofing */\n  color: rgba(255,255,255,.5);\n}\n\n\n/*\n * Affix and center\n */\n\n@media (min-width: 768px) {\n  /* Pull out the header and footer */\n  .masthead {\n    position: fixed;\n    top: 0;\n  }\n  .mastfoot {\n    position: fixed;\n    bottom: 0;\n  }\n  /* Start the vertical centering */\n  .site-wrapper-inner {\n    vertical-align: middle;\n  }\n  /* Handle the widths */\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 100%; /* Must be percentage or pixels for horizontal alignment */\n  }\n}\n\n@media (min-width: 992px) {\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 700px;\n  }\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 228 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25655,11 +26042,94 @@
 
 	// modules/Home.js
 	exports.default = _react2.default.createClass({
-			displayName: 'Home',
+			displayName: 'Signup',
+			render: function render() {
+					return _react2.default.createElement(
+							'div',
+							{ 'class': 'fade', tabindex: '-1', role: 'dialog' },
+							_react2.default.createElement(
+									'div',
+									{ 'class': 'modal-dialog', role: 'document' },
+									_react2.default.createElement(
+											'div',
+											{ 'class': 'modal-content' },
+											_react2.default.createElement(
+													'div',
+													{ 'class': 'modal-header' },
+													_react2.default.createElement(
+															'button',
+															{ type: 'button', 'class': 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+															_react2.default.createElement(
+																	'span',
+																	{ 'aria-hidden': 'true' },
+																	'\xD7'
+															)
+													),
+													_react2.default.createElement(
+															'h4',
+															{ 'class': 'modal-title' },
+															'Modal title'
+													)
+											),
+											_react2.default.createElement(
+													'div',
+													{ 'class': 'modal-body' },
+													_react2.default.createElement(
+															'p',
+															null,
+															'One fine body\u2026'
+													)
+											),
+											_react2.default.createElement(
+													'div',
+													{ 'class': 'modal-footer' },
+													_react2.default.createElement(
+															'a',
+															{ to: '/', 'class': 'btn btn-default' },
+															'Close'
+													),
+													_react2.default.createElement(
+															'a',
+															{ to: '/login', 'class': 'btn btn-default' },
+															'Close'
+													)
+											)
+									)
+							)
+					);
+			}
+	});
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// modules/Home.js
+	exports.default = _react2.default.createClass({
+			displayName: 'Example',
 			render: function render() {
 					return _react2.default.createElement(
 							'div',
 							null,
+							_react2.default.createElement(
+									'title',
+									null,
+									'Campy - Welcome'
+							),
 							_react2.default.createElement('link', { href: 'https://getbootstrap.com/examples/cover/cover.css', rel: 'stylesheet' }),
 							_react2.default.createElement(
 									'div',
@@ -25681,7 +26151,7 @@
 															_react2.default.createElement(
 																	'p',
 																	{ className: 'lead' },
-																	' Welcome to Campy'
+																	' Test to Campy'
 															),
 															_react2.default.createElement(
 																	'p',
@@ -25726,6 +26196,68 @@
 					);
 			}
 	});
+
+/***/ },
+/* 232 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = toggleDropdown;
+
+
+	var menuDown = false;
+	function toggleDropdown() {
+		menuDown = !menuDown;
+		if (menuDown) {
+			menuUp();
+		} else {
+			menuDown();
+		}
+	}
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(234);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(229)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./nav.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./nav.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(228)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n\n.navbar-brand-img{\n    height: 100%;\n}\n.navbar-brand{\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 70px;\n}\n.navbar {\n\tmin-height:30px !important;\n}\n\n\n.searchBar{\n  width: 100%;\n  height: 70px;\n  border: none;\n  background: transparent;\n  outline: none;\n  color: #959595;\n  font-size: 25px;\n  font-weight: lighter;\n  padding-left: 2px;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n.searchBar-nav{\n\twidth: 40%;\n\theight: 70px;\n}\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 25px;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n\n.nav-dropdown{\n\theight: 25px;\n\tbackground-color: #333;\n}\n\n.nav-dropdown-arrow{\n\theight: 75%;\n}\n\n.nav-dropdown-arrow:hover{\n\theight: 78%;\n}", ""]);
+
+	// exports
+
 
 /***/ }
 /******/ ]);
