@@ -1,11 +1,12 @@
 import React from 'react'
 import NavLink from './NavLink'
+import toggleDropdown from '../js/nav.js'
+require("style-loader!css-loader!../css/nav.css");
 
 export default React.createClass({
   render() {
     return (
       <div>
-        <link rel="stylesheet" href="/css/nav.css"/>
         <nav className="navbar navbar-default navbar-static-top">
           <div className="container">
             <div className="navbar-header">
@@ -28,11 +29,13 @@ export default React.createClass({
           </div>
         </nav>
         <div className="nav-dropdown">
-          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" src="/img/dropdownarrow.png"></img>
+          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" onClick={toggleDropdown} src="/img/dropdownarrow.png"></img>
         </div>
         {this.props.children}
       </div>
     )
-  }
+  
+    }
+  
 })
 
