@@ -17,17 +17,19 @@ export default React.createClass({
               </a>
             </div>
             <div id="navbar" className="navbar-collapse collapse">
-              <div className="nav navbar-nav">
-                <input type="text" class="  search-query form-control" placeholder="Where would you like to camp..." />
+              <div className="nav navbar-nav searchBar-nav">
+                <input type="text" className="searchBar" placeholder="Where would you like to camp?" />
               </div>
               <ul className="nav navbar-nav navbar-right">
-                <li><NavLink to="/example">Example2</NavLink></li>
-                <li><NavLink to="/example">Example3</NavLink></li>
-                <li><NavLink to="/example">Example4</NavLink></li>
+                <li><NavLink className="nav-links" to="/login">Login</NavLink></li>
+                <li><NavLink className="nav-links" to="/register">Register</NavLink></li>
               </ul>
             </div>
           </div>
         </nav>
+        <div className="nav-dropdown">
+          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" src="/img/dropdownarrow.png"></img>
+        </div>
         {this.props.children}
       </div>
     )

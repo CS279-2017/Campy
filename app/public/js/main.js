@@ -25585,8 +25585,8 @@
 	            { id: 'navbar', className: 'navbar-collapse collapse' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'nav navbar-nav' },
-	              _react2.default.createElement('input', { type: 'text', 'class': '  search-query form-control', placeholder: 'Where would you like to camp...' })
+	              { className: 'nav navbar-nav searchBar-nav' },
+	              _react2.default.createElement('input', { type: 'text', className: 'searchBar', placeholder: 'Where would you like to camp?' })
 	            ),
 	            _react2.default.createElement(
 	              'ul',
@@ -25596,8 +25596,8 @@
 	                null,
 	                _react2.default.createElement(
 	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example2'
+	                  { className: 'nav-links', to: '/login' },
+	                  'Login'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -25605,22 +25605,18 @@
 	                null,
 	                _react2.default.createElement(
 	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example3'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _NavLink2.default,
-	                  { to: '/example' },
-	                  'Example4'
+	                  { className: 'nav-links', to: '/register' },
+	                  'Register'
 	                )
 	              )
 	            )
 	          )
 	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'nav-dropdown' },
+	        _react2.default.createElement('img', { className: 'nav-dropdown-arrow', id: 'nav-dropdown-arrow', src: '/img/dropdownarrow.png' })
 	      ),
 	      this.props.children
 	    );
@@ -25657,7 +25653,7 @@
 									null,
 									'Campy - Welcome'
 							),
-							_react2.default.createElement('link', { href: 'https://getbootstrap.com/examples/cover/cover.css', rel: 'stylesheet' }),
+							_react2.default.createElement('link', { href: '/css/cover.css', rel: 'stylesheet' }),
 							_react2.default.createElement(
 									'div',
 									{ className: 'site-wrapper' },

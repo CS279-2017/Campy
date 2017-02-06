@@ -7,7 +7,7 @@ export default React.createClass({
   	return(
   		<div>
   		<title>Campy - Welcome</title>
-  		<link href="https://getbootstrap.com/examples/cover/cover.css" rel="stylesheet"/>
+  		<link href="/css/cover.css" rel="stylesheet"/>
 	  	<div className="site-wrapper">
 	      <div className="site-wrapper-inner">
 	        <div className="cover-container">
