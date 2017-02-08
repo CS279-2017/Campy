@@ -27,12 +27,11 @@ let ip = process.env.MONGOIP
 let listeningport = 8080
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
+console.log(connection_string)
 mongoose.connect(connection_string);
 let db = mongoose.connection;
 
 loadTestData()
-
-
 
 var sess = {
   secret: 'keyboard cat',
