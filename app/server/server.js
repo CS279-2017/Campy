@@ -30,9 +30,7 @@ let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appn
 mongoose.connect(connection_string);
 let db = mongoose.connection;
 
-loadTestData()
-
-
+// loadTestData()
 
 var sess = {
   secret: 'keyboard cat',
