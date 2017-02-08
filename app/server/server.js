@@ -1,6 +1,6 @@
 'use strict';
 
-let express         = require('express'),
+const express       = require('express'),
     bodyParser      = require('body-parser'),
     logger          = require('morgan'),
     _               = require('lodash'),
@@ -20,6 +20,7 @@ let user = process.env.MONGOUSER
 let mongopass = process.env.MONGOPASSWORD
 let appname = process.env.APPNAME
 let ip = process.env.MONGOIP
+let listeningport = 8080
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
 mongoose.connect(connection_string);
@@ -74,6 +75,6 @@ app.post('/v1/session', function(req, res) {
 });
 
 
-let server = app.listen(8080, function () {
-    console.log('Example app listening on ' + server.address().port);
+let server = app.listen(listeningport, function () {
+    console.log('Campy listening on ' + listeningport);
 });
