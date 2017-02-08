@@ -1,14 +1,15 @@
 'use strict';
 
-const express       = require('express'),
+let express       = require('express'),
     bodyParser      = require('body-parser'),
     logger          = require('morgan'),
     _               = require('lodash'),
     session         = require('express-session'),
     mongoose        = require('mongoose'),
     path            = require('path'),
+    User            = require('../models/User')
 
-app = express();
+const app = express();
 app.set('views', './views')
 app.use(logger('combined'));
 app.use(bodyParser.json({}));
@@ -25,6 +26,8 @@ let listeningport = 8080
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
 mongoose.connect(connection_string);
 let db = mongoose.connection;
+// var test = new User({username: "turnerstayhorn", password:"password", passwordResetToken: "sillyreset", reviews: ["Haha this is awful", "Amazing site!"], votedReviews: ["Cool"]})
+// db.collection('Users').insert(test);
 
 var sess = {
   secret: 'keyboard cat',
@@ -73,7 +76,6 @@ app.post('/v1/session', function(req, res) {
 
     }
 });
-
 
 let server = app.listen(listeningport, function () {
     console.log('Campy listening on ' + listeningport);
