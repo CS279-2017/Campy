@@ -31,8 +31,7 @@ console.log(connection_string)
 mongoose.connect(connection_string);
 let db = mongoose.connection;
 
-//Uncomment to start from scratch with new data.
-//loadTestData()
+// loadTestData()
 
 var sess = {
   secret: 'keyboard cat',
