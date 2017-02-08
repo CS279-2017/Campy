@@ -1,29 +1,33 @@
 'use strict';
 
-let express         = require('express'),
+let express       = require('express'),
     bodyParser      = require('body-parser'),
     logger          = require('morgan'),
     _               = require('lodash'),
     session         = require('express-session'),
     mongoose        = require('mongoose'),
     path            = require('path'),
+    User            = require('../models/User')
 
-app = express();
+const app = express();
 app.set('views', './views')
 app.use(logger('combined'));
 app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({ extended: true }));
 const saltRounds = 10;
 
+let port = process.env.MONGOPORT
+let user = process.env.MONGOUSER
+let mongopass = process.env.MONGOPASSWORD
+let appname = process.env.APPNAME
+let ip = process.env.MONGOIP
+let listeningport = 8080
 
-let port = "32776"
-let vunetID = "strayhwt"
-let ip = "192.168.99.100"
+let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
+mongoose.connect(connection_string);
 let db = mongoose.connection;
-
-mongoose.connect('mongodb://'+ip+':'+port+"/"+vunetID);
-
-
+// var test = new User({username: "turnerstayhorn", password:"password", passwordResetToken: "sillyreset", reviews: ["Haha this is awful", "Amazing site!"], votedReviews: ["Cool"]})
+// db.collection('Users').insert(test);
 
 var sess = {
   secret: 'keyboard cat',
@@ -73,7 +77,6 @@ app.post('/v1/session', function(req, res) {
     }
 });
 
-
-let server = app.listen(8080, function () {
-    console.log('Example app listening on ' + server.address().port);
+let server = app.listen(listeningport, function () {
+    console.log('Campy listening on ' + listeningport);
 });
