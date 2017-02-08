@@ -7,7 +7,10 @@ let express       = require('express'),
     session         = require('express-session'),
     mongoose        = require('mongoose'),
     path            = require('path'),
-    User            = require('../models/User')
+    User            = require('../models/User'),
+    Review          = require('../models/Review'),
+    Campsite        = require('../models/Campsite'),
+    ObjectId        = mongoose.Schema.ObjectId
 
 const app = express();
 app.set('views', './views')
@@ -26,8 +29,10 @@ let listeningport = 8080
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
 mongoose.connect(connection_string);
 let db = mongoose.connection;
-// var test = new User({username: "turnerstayhorn", password:"password", passwordResetToken: "sillyreset", reviews: ["Haha this is awful", "Amazing site!"], votedReviews: ["Cool"]})
-// db.collection('Users').insert(test);
+
+loadTestData()
+
+
 
 var sess = {
   secret: 'keyboard cat',
@@ -80,3 +85,21 @@ app.post('/v1/session', function(req, res) {
 let server = app.listen(listeningport, function () {
     console.log('Campy listening on ' + listeningport);
 });
+
+
+/**
+Loads test information into the MongoDB store.
+*/
+function loadTestData() {
+    var testUser1 = new User({username: "turnerstrayhorn", password:"password1", passwordResetToken: "sillyreset", reviews: ["1"], votedReviews: []})
+    var testUser2 = new User({username: "harrisonstall", password:"password2", passwordResetToken: "sillyreset", reviews: [], votedReviews: ["1"]})
+    db.collection('Users').insert(testUser1);
+    db.collection('Users').insert(testUser2);
+    var reviewID = new ObjectId()
+    var testCampsite = new Campsite({creator: "harrisonstall", rating: 5, description: "There are some cool waterfalls. Highly recommend.",
+                                    directions: "Hop the boulder", price: 0, lat: 51.5033640, long: -0.1276250, size: "Small", tags: ["waterfall", "fun"],
+                                    fire: true, reviews: [reviewID]});
+    db.collection('Campsite').insert(testCampsite)
+    var testReview = new Review({creator: "turnerstrayhorn", rating: 5, campsite: "Reedy Falls", reviewBody: "Yo this place was amazing!"})
+    db.collection('Reviews').insert(testReview);
+}
