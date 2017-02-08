@@ -25550,6 +25550,7 @@
 	var _NavLink2 = _interopRequireDefault(_NavLink);
 
 	var _nav = __webpack_require__(225);
+<<<<<<< HEAD
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25559,6 +25560,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+=======
+
+	var _nav2 = _interopRequireDefault(_nav);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> 24f2b28ea0d454d7ea51261cdacec7e80a3e3810
 	__webpack_require__(226);
 
 	exports.default = _react2.default.createClass({
@@ -25886,6 +25894,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+<<<<<<< HEAD
 	exports.toggleDropdown = toggleDropdown;
 	exports.menuUp = menuUp;
 	exports.menuDown = menuDown;
@@ -25908,6 +25917,19 @@
 
 	function menuDown() {
 		this.refs.navDropdown.style.backgroundcolor = "red";
+=======
+	exports.default = toggleDropdown;
+
+
+	var menuDown = false;
+	function toggleDropdown() {
+		menuDown = !menuDown;
+		if (menuDown) {
+			menuUp();
+		} else {
+			menuDown();
+		}
+>>>>>>> 24f2b28ea0d454d7ea51261cdacec7e80a3e3810
 	}
 
 /***/ },
@@ -25945,7 +25967,11 @@
 
 
 	// module
+<<<<<<< HEAD
 	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n\n.navbar-brand-img{\n    height: 100%;\n}\n.navbar-brand{\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 70px;\n}\n.navbar {\n\tmin-height:30px !important;\n}\n\n\n.searchBar{\n  width: 100%;\n  height: 70px;\n  border: none;\n  background: transparent;\n  outline: none;\n  color: #959595;\n  font-size: 25px;\n  font-weight: lighter;\n  padding-left: 2px;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n.searchBar-nav{\n\twidth: 40%;\n\theight: 70px;\n}\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 25px;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n.filter-tag{\n\tpadding: 6px 12px;\n\tfont-size:18px;\n\tfloat:left;\n\tmargin-top:5px;\n\tmargin-left: 5px;\n\tborder: 1px solid #dadada;\n\tcolor: #dadada;\n\tborder-radius: 4px;\n\tbackground-color: transparent;\n}\n.filter-tag:hover{\n  border: 1px solid white;\n  color: #333;\n  background-color:#959595;\n}\n.nav-dropdown{\n\tbackground-color: #333;\n}\n\n.nav-dropdown-up{\n\tposition: relative;\n\theight: 25px;\n}\n.nav-dropdown-down{\n\tposition: relative;\n\theight: 100px;\n}\n\n\n.nav-dropdown-arrow{\n\tposition: absolute;\n    bottom: 2px;\n\tvertical-align:bottom;\n\twidth: 35px;\n}\n\n.nav-dropdown-arrow:hover{\n\ttransform: scale(1.1);\n}", ""]);
+=======
+	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n\n.navbar-brand-img{\n    height: 100%;\n}\n.navbar-brand{\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 70px;\n}\n.navbar {\n\tmin-height:30px !important;\n}\n\n\n.searchBar{\n  width: 100%;\n  height: 70px;\n  border: none;\n  background: transparent;\n  outline: none;\n  color: #959595;\n  font-size: 25px;\n  font-weight: lighter;\n  padding-left: 2px;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n.searchBar-nav{\n\twidth: 40%;\n\theight: 70px;\n}\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 25px;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n\n.nav-dropdown{\n\theight: 25px;\n\tbackground-color: #333;\n}\n\n.nav-dropdown-arrow{\n\theight: 75%;\n}\n\n.nav-dropdown-arrow:hover{\n\theight: 78%;\n}", ""]);
+>>>>>>> 24f2b28ea0d454d7ea51261cdacec7e80a3e3810
 
 	// exports
 
