@@ -24,10 +24,9 @@ let ip = process.env.MONGOIP
 let listeningport = 8080
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
+console.log(connection_string)
 mongoose.connect(connection_string);
 let db = mongoose.connection;
-// var test = new User({username: "turnerstayhorn", password:"password", passwordResetToken: "sillyreset", reviews: ["Haha this is awful", "Amazing site!"], votedReviews: ["Cool"]})
-// db.collection('Users').insert(test);
 
 var sess = {
   secret: 'keyboard cat',
