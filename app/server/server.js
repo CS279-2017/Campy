@@ -15,15 +15,15 @@ app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({ extended: true }));
 const saltRounds = 10;
 
+let port = process.env.MONGOPORT
+let user = process.env.MONGOUSER
+let mongopass = process.env.MONGOPASSWORD
+let appname = process.env.APPNAME
+let ip = process.env.MONGOIP
 
-let port = "32776"
-let vunetID = "strayhwt"
-let ip = "192.168.99.100"
+let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
+mongoose.connect(connection_string);
 let db = mongoose.connection;
-
-mongoose.connect('mongodb://'+ip+':'+port+"/"+vunetID);
-
-
 
 var sess = {
   secret: 'keyboard cat',

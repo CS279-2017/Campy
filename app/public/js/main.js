@@ -62,15 +62,15 @@
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _Home = __webpack_require__(225);
+	var _Home = __webpack_require__(230);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Signup = __webpack_require__(230);
+	var _Signup = __webpack_require__(233);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
 
-	var _Example = __webpack_require__(231);
+	var _Example = __webpack_require__(234);
 
 	var _Example2 = _interopRequireDefault(_Example);
 
@@ -25547,13 +25547,13 @@
 
 	var _NavLink2 = _interopRequireDefault(_NavLink);
 
-	var _nav = __webpack_require__(232);
+	var _nav = __webpack_require__(225);
 
 	var _nav2 = _interopRequireDefault(_nav);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(233);
+	__webpack_require__(226);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Nav',
@@ -25630,49 +25630,25 @@
 
 /***/ },
 /* 225 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
+	exports.default = toggleDropdown;
 
-	var _react = __webpack_require__(1);
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(159);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// modules/Home.js
-	__webpack_require__(226);
-
-	exports.default = _react2.default.createClass({
-	  displayName: 'Home',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'title',
-	        null,
-	        'Campy - Welcome'
-	      ),
-	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        'Campy'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        'Loading map...'
-	      )
-	    );
-	  }
-	});
+	var menuDown = false;
+	function toggleDropdown() {
+		menuDown = !menuDown;
+		if (menuDown) {
+			menuUp();
+		} else {
+			menuDown();
+		}
+	}
 
 /***/ },
 /* 226 */
@@ -25690,8 +25666,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./cover.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./cover.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./nav.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./nav.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25709,7 +25685,7 @@
 
 
 	// module
-	exports.push([module.id, "/*\n * Globals\n */\n\n/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n\n/* Custom default button */\n.btn-default,\n.btn-default:hover,\n.btn-default:focus {\n  color: #333;\n  text-shadow: none; /* Prevent inheritance from `body` */\n  background-color: #fff;\n  border: 1px solid #fff;\n}\n\n\n/*\n * Base structure\n */\n\nhtml,\nbody {\n  height: 100%;\n/*  background-color: #333;\n*/}\nbody {\n/*  color: #fff;\n*/  text-align: center;\n}\n\n/* Extra markup and styles for table-esque vertical and horizontal centering */\n.site-wrapper {\n  display: table;\n  width: 100%;\n  height: 100%; /* For at least Firefox */\n  min-height: 100%;\n}\n.site-wrapper-inner {\n  display: table-cell;\n  vertical-align: top;\n}\n.cover-container {\n  margin-right: auto;\n  margin-left: auto;\n}\n\n/* Padding for spacing */\n.inner {\n  padding: 30px;\n}\n\n\n/*\n * Header\n */\n.masthead-brand {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.masthead-nav > li {\n  display: inline-block;\n}\n.masthead-nav > li + li {\n  margin-left: 20px;\n}\n.masthead-nav > li > a {\n  padding-right: 0;\n  padding-left: 0;\n  font-size: 16px;\n  font-weight: bold;\n  color: #fff; /* IE8 proofing */\n  color: rgba(255,255,255,.75);\n  border-bottom: 2px solid transparent;\n}\n.masthead-nav > li > a:hover,\n.masthead-nav > li > a:focus {\n  background-color: transparent;\n  border-bottom-color: #a9a9a9;\n  border-bottom-color: rgba(255,255,255,.25);\n}\n.masthead-nav > .active > a,\n.masthead-nav > .active > a:hover,\n.masthead-nav > .active > a:focus {\n  color: #fff;\n  border-bottom-color: #fff;\n}\n\n@media (min-width: 768px) {\n  .masthead-brand {\n    float: left;\n  }\n  .masthead-nav {\n    float: right;\n  }\n}\n\n\n/*\n * Cover\n */\n\n.cover {\n  padding: 0 20px;\n}\n.cover .btn-lg {\n  padding: 10px 20px;\n  font-weight: bold;\n}\n\n\n/*\n * Footer\n */\n\n.mastfoot {\n  color: #999; /* IE8 proofing */\n  color: rgba(255,255,255,.5);\n}\n\n\n/*\n * Affix and center\n */\n\n@media (min-width: 768px) {\n  /* Pull out the header and footer */\n  .masthead {\n    position: fixed;\n    top: 0;\n  }\n  .mastfoot {\n    position: fixed;\n    bottom: 0;\n  }\n  /* Start the vertical centering */\n  .site-wrapper-inner {\n    vertical-align: middle;\n  }\n  /* Handle the widths */\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 100%; /* Must be percentage or pixels for horizontal alignment */\n  }\n}\n\n@media (min-width: 992px) {\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 700px;\n  }\n}", ""]);
+	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n\n.navbar-brand-img{\n    height: 100%;\n}\n.navbar-brand{\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 70px;\n}\n.navbar {\n\tmin-height:30px !important;\n}\n\n\n.searchBar{\n  width: 100%;\n  height: 70px;\n  border: none;\n  background: transparent;\n  outline: none;\n  color: #959595;\n  font-size: 25px;\n  font-weight: lighter;\n  padding-left: 2px;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n.searchBar-nav{\n\twidth: 40%;\n\theight: 70px;\n}\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 25px;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n\n.nav-dropdown{\n\theight: 25px;\n\tbackground-color: #333;\n}\n\n.nav-dropdown-arrow{\n\theight: 75%;\n}\n\n.nav-dropdown-arrow:hover{\n\theight: 78%;\n}", ""]);
 
 	// exports
 
@@ -26029,6 +26005,92 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// modules/Home.js
+	__webpack_require__(231);
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'Home',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'title',
+	        null,
+	        'Campy - Welcome'
+	      ),
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Campy'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Loading map...'
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(232);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(229)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./cover.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./cover.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(228)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*\n * Globals\n */\n\n/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n\n/* Custom default button */\n.btn-default,\n.btn-default:hover,\n.btn-default:focus {\n  color: #333;\n  text-shadow: none; /* Prevent inheritance from `body` */\n  background-color: #fff;\n  border: 1px solid #fff;\n}\n\n\n/*\n * Base structure\n */\n\nhtml,\nbody {\n  height: 100%;\n/*  background-color: #333;\n*/}\nbody {\n/*  color: #fff;\n*/  text-align: center;\n}\n\n/* Extra markup and styles for table-esque vertical and horizontal centering */\n.site-wrapper {\n  display: table;\n  width: 100%;\n  height: 100%; /* For at least Firefox */\n  min-height: 100%;\n}\n.site-wrapper-inner {\n  display: table-cell;\n  vertical-align: top;\n}\n.cover-container {\n  margin-right: auto;\n  margin-left: auto;\n}\n\n/* Padding for spacing */\n.inner {\n  padding: 30px;\n}\n\n\n/*\n * Header\n */\n.masthead-brand {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.masthead-nav > li {\n  display: inline-block;\n}\n.masthead-nav > li + li {\n  margin-left: 20px;\n}\n.masthead-nav > li > a {\n  padding-right: 0;\n  padding-left: 0;\n  font-size: 16px;\n  font-weight: bold;\n  color: #fff; /* IE8 proofing */\n  color: rgba(255,255,255,.75);\n  border-bottom: 2px solid transparent;\n}\n.masthead-nav > li > a:hover,\n.masthead-nav > li > a:focus {\n  background-color: transparent;\n  border-bottom-color: #a9a9a9;\n  border-bottom-color: rgba(255,255,255,.25);\n}\n.masthead-nav > .active > a,\n.masthead-nav > .active > a:hover,\n.masthead-nav > .active > a:focus {\n  color: #fff;\n  border-bottom-color: #fff;\n}\n\n@media (min-width: 768px) {\n  .masthead-brand {\n    float: left;\n  }\n  .masthead-nav {\n    float: right;\n  }\n}\n\n\n/*\n * Cover\n */\n\n.cover {\n  padding: 0 20px;\n}\n.cover .btn-lg {\n  padding: 10px 20px;\n  font-weight: bold;\n}\n\n\n/*\n * Footer\n */\n\n.mastfoot {\n  color: #999; /* IE8 proofing */\n  color: rgba(255,255,255,.5);\n}\n\n\n/*\n * Affix and center\n */\n\n@media (min-width: 768px) {\n  /* Pull out the header and footer */\n  .masthead {\n    position: fixed;\n    top: 0;\n  }\n  .mastfoot {\n    position: fixed;\n    bottom: 0;\n  }\n  /* Start the vertical centering */\n  .site-wrapper-inner {\n    vertical-align: middle;\n  }\n  /* Handle the widths */\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 100%; /* Must be percentage or pixels for horizontal alignment */\n  }\n}\n\n@media (min-width: 992px) {\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 700px;\n  }\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 			value: true
 	});
 
@@ -26101,7 +26163,7 @@
 	});
 
 /***/ },
-/* 231 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26196,68 +26258,6 @@
 					);
 			}
 	});
-
-/***/ },
-/* 232 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = toggleDropdown;
-
-
-	var menuDown = false;
-	function toggleDropdown() {
-		menuDown = !menuDown;
-		if (menuDown) {
-			menuUp();
-		} else {
-			menuDown();
-		}
-	}
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(234);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(229)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./nav.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./nav.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(228)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n\n.navbar-brand-img{\n    height: 100%;\n}\n.navbar-brand{\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 70px;\n}\n.navbar {\n\tmin-height:30px !important;\n}\n\n\n.searchBar{\n  width: 100%;\n  height: 70px;\n  border: none;\n  background: transparent;\n  outline: none;\n  color: #959595;\n  font-size: 25px;\n  font-weight: lighter;\n  padding-left: 2px;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n.searchBar-nav{\n\twidth: 40%;\n\theight: 70px;\n}\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 25px;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n\n.nav-dropdown{\n\theight: 25px;\n\tbackground-color: #333;\n}\n\n.nav-dropdown-arrow{\n\theight: 75%;\n}\n\n.nav-dropdown-arrow:hover{\n\theight: 78%;\n}", ""]);
-
-	// exports
-
 
 /***/ }
 /******/ ]);
