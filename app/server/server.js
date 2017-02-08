@@ -27,6 +27,7 @@ let ip = process.env.MONGOIP
 let listeningport = 8080
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
+console.log(connection_string)
 mongoose.connect(connection_string);
 let db = mongoose.connection;
 
@@ -44,6 +45,15 @@ app.use(express.static(path.join(__dirname, '../public/')));
 //index
 app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, '../public/index.html'))
+});
+
+//get campsites
+app.get('/v1/campsites', function(req, res) {
+    
+    console.log('GET campsites request made')
+    Campsite.find({}, function(err, data) {
+        res.send(JSON.stringify(data));
+    });
 });
 
 // Handle POST to create a user session
@@ -91,13 +101,13 @@ Loads test information into the MongoDB store.
 function loadTestData() {
     var testUser1 = new User({username: "turnerstrayhorn", password:"password1", passwordResetToken: "sillyreset", reviews: ["1"], votedReviews: []})
     var testUser2 = new User({username: "harrisonstall", password:"password2", passwordResetToken: "sillyreset", reviews: [], votedReviews: ["1"]})
-    db.collection('Users').insert(testUser1);
-    db.collection('Users').insert(testUser2);
+    db.collection('users').insert(testUser1);
+    db.collection('users').insert(testUser2);
     var reviewID = new ObjectId()
     var testCampsite = new Campsite({creator: "harrisonstall", rating: 5, description: "There are some cool waterfalls. Highly recommend.",
                                     directions: "Hop the boulder", price: 0, lat: 51.5033640, long: -0.1276250, size: "Small", tags: ["waterfall", "fun"],
                                     fire: true, reviews: [reviewID]});
-    db.collection('Campsite').insert(testCampsite)
+    db.collection('campsites').insert(testCampsite)
     var testReview = new Review({creator: "turnerstrayhorn", rating: 5, campsite: "Reedy Falls", reviewBody: "Yo this place was amazing!"})
-    db.collection('Reviews').insert(testReview);
+    db.collection('reviews').insert(testReview);
 }

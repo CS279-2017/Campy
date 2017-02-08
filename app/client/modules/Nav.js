@@ -1,9 +1,12 @@
 import React from 'react'
 import NavLink from './NavLink'
-import toggleDropdown from '../js/nav.js'
+import TagDropdown from '../components/TagDropdown'
+
 require("style-loader!css-loader!../css/nav.css");
 
+
 export default React.createClass({
+
   render() {
     return (
       <div>
@@ -28,9 +31,7 @@ export default React.createClass({
             </div>
           </div>
         </nav>
-        <div className="nav-dropdown">
-          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" onClick={toggleDropdown} src="/img/dropdownarrow.png"></img>
-        </div>
+        <TagDropdown/>
         {this.props.children}
       </div>
     )
@@ -38,4 +39,7 @@ export default React.createClass({
     }
   
 })
+
+
+
 
