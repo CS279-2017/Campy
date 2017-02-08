@@ -62,15 +62,15 @@
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _Home = __webpack_require__(225);
+	var _Home = __webpack_require__(230);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Signup = __webpack_require__(230);
+	var _Signup = __webpack_require__(233);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
 
-	var _Example = __webpack_require__(231);
+	var _Example = __webpack_require__(234);
 
 	var _Example2 = _interopRequireDefault(_Example);
 
@@ -25539,6 +25539,8 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -25547,13 +25549,17 @@
 
 	var _NavLink2 = _interopRequireDefault(_NavLink);
 
-	var _nav = __webpack_require__(232);
-
-	var _nav2 = _interopRequireDefault(_nav);
+	var _nav = __webpack_require__(225);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(233);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(226);
 
 	exports.default = _react2.default.createClass({
 	  displayName: 'Nav',
@@ -25618,61 +25624,291 @@
 	          )
 	        )
 	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'nav-dropdown' },
-	        _react2.default.createElement('img', { className: 'nav-dropdown-arrow', id: 'nav-dropdown-arrow', onClick: _nav2.default, src: '/img/dropdownarrow.png' })
-	      ),
+	      _react2.default.createElement(TagDropdown, null),
 	      this.props.children
 	    );
 	  }
 	});
 
+	//Dropdown Menu Component
+
+	var TagDropdown = function (_React$Component) {
+	  _inherits(TagDropdown, _React$Component);
+
+	  function TagDropdown() {
+	    _classCallCheck(this, TagDropdown);
+
+	    var _this = _possibleConstructorReturn(this, (TagDropdown.__proto__ || Object.getPrototypeOf(TagDropdown)).call(this));
+
+	    _this.state = {
+	      visible: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(TagDropdown, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      if (!this.state.visible) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'nav-dropdown nav-dropdown-up' },
+	          _react2.default.createElement('img', { className: 'nav-dropdown-arrow', id: 'nav-dropdown-arrow', onClick: function onClick() {
+	              return _this2.setState({ visible: true });
+	            }, src: '/img/dropdownarrow.png' })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'nav-dropdown nav-dropdown-down' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              '$'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              '$$'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              '$$$'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'TagDaddy'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'btn btn-lg filter-tag' },
+	              'Tag'
+	            )
+	          ),
+	          _react2.default.createElement('img', { className: 'nav-dropdown-arrow', id: 'nav-dropdown-arrow', onClick: function onClick() {
+	              return _this2.setState({ visible: false });
+	            }, src: '/img/dropdowndismiss.png' })
+	        );
+	      }
+	    }
+	  }]);
+
+	  return TagDropdown;
+	}(_react2.default.Component);
+
 /***/ },
 /* 225 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
+	exports.toggleDropdown = toggleDropdown;
+	exports.menuUp = menuUp;
+	exports.menuDown = menuDown;
+	exports.menu = menu;
 
-	var _react = __webpack_require__(1);
 
-	var _react2 = _interopRequireDefault(_react);
+	var menu = false;
+	function toggleDropdown() {
+		if (menu) {
+			menuUp();
+		} else {
+			menuDown();
+		}
+		exports.menu = menu = !menu;
+	}
 
-	var _reactRouter = __webpack_require__(159);
+	function menuUp() {
+		this.refs.navDropdown.style.backgroundcolor = "blue";
+	}
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// modules/Home.js
-	__webpack_require__(226);
-
-	exports.default = _react2.default.createClass({
-	  displayName: 'Home',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'title',
-	        null,
-	        'Campy - Welcome'
-	      ),
-	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        'Campy'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        'Loading map...'
-	      )
-	    );
-	  }
-	});
+	function menuDown() {
+		this.refs.navDropdown.style.backgroundcolor = "red";
+	}
 
 /***/ },
 /* 226 */
@@ -25690,8 +25926,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./cover.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./cover.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./nav.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./nav.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -25709,7 +25945,7 @@
 
 
 	// module
-	exports.push([module.id, "/*\n * Globals\n */\n\n/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n\n/* Custom default button */\n.btn-default,\n.btn-default:hover,\n.btn-default:focus {\n  color: #333;\n  text-shadow: none; /* Prevent inheritance from `body` */\n  background-color: #fff;\n  border: 1px solid #fff;\n}\n\n\n/*\n * Base structure\n */\n\nhtml,\nbody {\n  height: 100%;\n/*  background-color: #333;\n*/}\nbody {\n/*  color: #fff;\n*/  text-align: center;\n}\n\n/* Extra markup and styles for table-esque vertical and horizontal centering */\n.site-wrapper {\n  display: table;\n  width: 100%;\n  height: 100%; /* For at least Firefox */\n  min-height: 100%;\n}\n.site-wrapper-inner {\n  display: table-cell;\n  vertical-align: top;\n}\n.cover-container {\n  margin-right: auto;\n  margin-left: auto;\n}\n\n/* Padding for spacing */\n.inner {\n  padding: 30px;\n}\n\n\n/*\n * Header\n */\n.masthead-brand {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.masthead-nav > li {\n  display: inline-block;\n}\n.masthead-nav > li + li {\n  margin-left: 20px;\n}\n.masthead-nav > li > a {\n  padding-right: 0;\n  padding-left: 0;\n  font-size: 16px;\n  font-weight: bold;\n  color: #fff; /* IE8 proofing */\n  color: rgba(255,255,255,.75);\n  border-bottom: 2px solid transparent;\n}\n.masthead-nav > li > a:hover,\n.masthead-nav > li > a:focus {\n  background-color: transparent;\n  border-bottom-color: #a9a9a9;\n  border-bottom-color: rgba(255,255,255,.25);\n}\n.masthead-nav > .active > a,\n.masthead-nav > .active > a:hover,\n.masthead-nav > .active > a:focus {\n  color: #fff;\n  border-bottom-color: #fff;\n}\n\n@media (min-width: 768px) {\n  .masthead-brand {\n    float: left;\n  }\n  .masthead-nav {\n    float: right;\n  }\n}\n\n\n/*\n * Cover\n */\n\n.cover {\n  padding: 0 20px;\n}\n.cover .btn-lg {\n  padding: 10px 20px;\n  font-weight: bold;\n}\n\n\n/*\n * Footer\n */\n\n.mastfoot {\n  color: #999; /* IE8 proofing */\n  color: rgba(255,255,255,.5);\n}\n\n\n/*\n * Affix and center\n */\n\n@media (min-width: 768px) {\n  /* Pull out the header and footer */\n  .masthead {\n    position: fixed;\n    top: 0;\n  }\n  .mastfoot {\n    position: fixed;\n    bottom: 0;\n  }\n  /* Start the vertical centering */\n  .site-wrapper-inner {\n    vertical-align: middle;\n  }\n  /* Handle the widths */\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 100%; /* Must be percentage or pixels for horizontal alignment */\n  }\n}\n\n@media (min-width: 992px) {\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 700px;\n  }\n}", ""]);
+	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n\n.navbar-brand-img{\n    height: 100%;\n}\n.navbar-brand{\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 70px;\n}\n.navbar {\n\tmin-height:30px !important;\n}\n\n\n.searchBar{\n  width: 100%;\n  height: 70px;\n  border: none;\n  background: transparent;\n  outline: none;\n  color: #959595;\n  font-size: 25px;\n  font-weight: lighter;\n  padding-left: 2px;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n.searchBar-nav{\n\twidth: 40%;\n\theight: 70px;\n}\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 25px;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n.filter-tag{\n\tpadding: 6px 12px;\n\tfont-size:18px;\n\tfloat:left;\n\tmargin-top:5px;\n\tmargin-left: 5px;\n\tborder: 1px solid #dadada;\n\tcolor: #dadada;\n\tborder-radius: 4px;\n\tbackground-color: transparent;\n}\n.filter-tag:hover{\n  border: 1px solid white;\n  color: #333;\n  background-color:#959595;\n}\n.nav-dropdown{\n\tbackground-color: #333;\n}\n\n.nav-dropdown-up{\n\tposition: relative;\n\theight: 25px;\n}\n.nav-dropdown-down{\n\tposition: relative;\n\theight: 100px;\n}\n\n\n.nav-dropdown-arrow{\n\tposition: absolute;\n    bottom: 2px;\n\tvertical-align:bottom;\n\twidth: 35px;\n}\n\n.nav-dropdown-arrow:hover{\n\ttransform: scale(1.1);\n}", ""]);
 
 	// exports
 
@@ -26029,6 +26265,92 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// modules/Home.js
+	__webpack_require__(231);
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'Home',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'title',
+	        null,
+	        'Campy - Welcome'
+	      ),
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Campy'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Loading map...'
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(232);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(229)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./cover.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./cover.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(228)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*\n * Globals\n */\n\n/* Links */\na,\na:focus,\na:hover {\n  color: #fff;\n}\n\n/* Custom default button */\n.btn-default,\n.btn-default:hover,\n.btn-default:focus {\n  color: #333;\n  text-shadow: none; /* Prevent inheritance from `body` */\n  background-color: #fff;\n  border: 1px solid #fff;\n}\n\n\n/*\n * Base structure\n */\n\nhtml,\nbody {\n  height: 100%;\n/*  background-color: #333;\n*/}\nbody {\n/*  color: #fff;\n*/  text-align: center;\n}\n\n/* Extra markup and styles for table-esque vertical and horizontal centering */\n.site-wrapper {\n  display: table;\n  width: 100%;\n  height: 100%; /* For at least Firefox */\n  min-height: 100%;\n}\n.site-wrapper-inner {\n  display: table-cell;\n  vertical-align: top;\n}\n.cover-container {\n  margin-right: auto;\n  margin-left: auto;\n}\n\n/* Padding for spacing */\n.inner {\n  padding: 30px;\n}\n\n\n/*\n * Header\n */\n.masthead-brand {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n\n.masthead-nav > li {\n  display: inline-block;\n}\n.masthead-nav > li + li {\n  margin-left: 20px;\n}\n.masthead-nav > li > a {\n  padding-right: 0;\n  padding-left: 0;\n  font-size: 16px;\n  font-weight: bold;\n  color: #fff; /* IE8 proofing */\n  color: rgba(255,255,255,.75);\n  border-bottom: 2px solid transparent;\n}\n.masthead-nav > li > a:hover,\n.masthead-nav > li > a:focus {\n  background-color: transparent;\n  border-bottom-color: #a9a9a9;\n  border-bottom-color: rgba(255,255,255,.25);\n}\n.masthead-nav > .active > a,\n.masthead-nav > .active > a:hover,\n.masthead-nav > .active > a:focus {\n  color: #fff;\n  border-bottom-color: #fff;\n}\n\n@media (min-width: 768px) {\n  .masthead-brand {\n    float: left;\n  }\n  .masthead-nav {\n    float: right;\n  }\n}\n\n\n/*\n * Cover\n */\n\n.cover {\n  padding: 0 20px;\n}\n.cover .btn-lg {\n  padding: 10px 20px;\n  font-weight: bold;\n}\n\n\n/*\n * Footer\n */\n\n.mastfoot {\n  color: #999; /* IE8 proofing */\n  color: rgba(255,255,255,.5);\n}\n\n\n/*\n * Affix and center\n */\n\n@media (min-width: 768px) {\n  /* Pull out the header and footer */\n  .masthead {\n    position: fixed;\n    top: 0;\n  }\n  .mastfoot {\n    position: fixed;\n    bottom: 0;\n  }\n  /* Start the vertical centering */\n  .site-wrapper-inner {\n    vertical-align: middle;\n  }\n  /* Handle the widths */\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 100%; /* Must be percentage or pixels for horizontal alignment */\n  }\n}\n\n@media (min-width: 992px) {\n  .masthead,\n  .mastfoot,\n  .cover-container {\n    width: 700px;\n  }\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 			value: true
 	});
 
@@ -26101,7 +26423,7 @@
 	});
 
 /***/ },
-/* 231 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26196,68 +26518,6 @@
 					);
 			}
 	});
-
-/***/ },
-/* 232 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = toggleDropdown;
-
-
-	var menuDown = false;
-	function toggleDropdown() {
-		menuDown = !menuDown;
-		if (menuDown) {
-			menuUp();
-		} else {
-			menuDown();
-		}
-	}
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(234);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(229)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./nav.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./nav.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(228)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n\n.navbar-brand-img{\n    height: 100%;\n}\n.navbar-brand{\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 70px;\n}\n.navbar {\n\tmin-height:30px !important;\n}\n\n\n.searchBar{\n  width: 100%;\n  height: 70px;\n  border: none;\n  background: transparent;\n  outline: none;\n  color: #959595;\n  font-size: 25px;\n  font-weight: lighter;\n  padding-left: 2px;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n.searchBar-nav{\n\twidth: 40%;\n\theight: 70px;\n}\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 25px;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n\n.nav-dropdown{\n\theight: 25px;\n\tbackground-color: #333;\n}\n\n.nav-dropdown-arrow{\n\theight: 75%;\n}\n\n.nav-dropdown-arrow:hover{\n\theight: 78%;\n}", ""]);
-
-	// exports
-
 
 /***/ }
 /******/ ]);

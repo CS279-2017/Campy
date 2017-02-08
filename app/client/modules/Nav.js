@@ -1,9 +1,11 @@
 import React from 'react'
 import NavLink from './NavLink'
-import toggleDropdown from '../js/nav.js'
+import  {toggleDropdown, menuUp, menuDown, menu} from '../js/nav.js'
 require("style-loader!css-loader!../css/nav.css");
 
+
 export default React.createClass({
+
   render() {
     return (
       <div>
@@ -28,9 +30,7 @@ export default React.createClass({
             </div>
           </div>
         </nav>
-        <div className="nav-dropdown">
-          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" onClick={toggleDropdown} src="/img/dropdownarrow.png"></img>
-        </div>
+        <TagDropdown/>
         {this.props.children}
       </div>
     )
@@ -38,4 +38,74 @@ export default React.createClass({
     }
   
 })
+
+
+//Dropdown Menu Component
+class TagDropdown extends React.Component {
+  constructor(){
+    super();
+    this.state={
+      visible: false
+    }
+  }
+  render() {
+    if(!this.state.visible){
+      return(
+        <div className="nav-dropdown nav-dropdown-up">
+          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" onClick={() =>this.setState({visible: true})} src="/img/dropdownarrow.png"></img>
+        </div>
+      )
+    }else{
+      return(
+        <div className="nav-dropdown nav-dropdown-down">
+          <div className="row">
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">$</a>
+            <a className="btn btn-lg filter-tag">$$</a>
+            <a className="btn btn-lg filter-tag">$$$</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+          </div>
+          <div className="row">
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+            <a className="btn btn-lg filter-tag">TagDaddy</a>
+            <a className="btn btn-lg filter-tag">Tag</a>
+
+          </div>
+          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" onClick={() =>this.setState({visible: false})} src="/img/dropdowndismiss.png"></img>
+        </div>
+      )
+    }
+  }
+}
 

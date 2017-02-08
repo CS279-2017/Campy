@@ -58,16 +58,43 @@ body, html{
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
-
+.filter-tag{
+	padding: 6px 12px;
+	font-size:18px;
+	float:left;
+	margin-top:5px;
+	margin-left: 5px;
+	border: 1px solid #dadada;
+	color: #dadada;
+	border-radius: 4px;
+	background-color: transparent;
+}
+.filter-tag:hover{
+  border: 1px solid white;
+  color: #333;
+  background-color:#959595;
+}
 .nav-dropdown{
-	height: 25px;
 	background-color: #333;
 }
 
+.nav-dropdown-up{
+	position: relative;
+	height: 25px;
+}
+.nav-dropdown-down{
+	position: relative;
+	height: 100px;
+}
+
+
 .nav-dropdown-arrow{
-	height: 75%;
+	position: absolute;
+    bottom: 2px;
+	vertical-align:bottom;
+	width: 35px;
 }
 
 .nav-dropdown-arrow:hover{
-	height: 78%;
+	transform: scale(1.1);
 }
