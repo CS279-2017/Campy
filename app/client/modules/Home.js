@@ -1,19 +1,17 @@
 // modules/Home.js
 import React from 'react'
+import Helmet from "react-helmet"
 import { Link } from 'react-router'
-import MyMap from '../components/Map'
+import GettingStartedGoogleMap from '../components/Map'
 require("style-loader!css-loader!../css/cover.css");
+require("style-loader!css-loader!../css/map.css");
 
 export default React.createClass({
 
   render() {
   	return(
-  		<div>
-  		    <MyMap/>
-	  		<title>Campy - Welcome</title>
-	  		<h1>Campy</h1>
-	  		<p>Loading map...</p>
-	    </div>
-  )
+
+  		<GettingStartedGoogleMap/>
+  	)
   }
 })
