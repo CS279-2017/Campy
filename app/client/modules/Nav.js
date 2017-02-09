@@ -1,14 +1,16 @@
 import React from 'react'
 import NavLink from './NavLink'
-import  {toggleDropdown, menuUp, menuDown, menu} from '../js/nav.js'
+import TagDropdown from '../components/TagDropdown'
+
 require("style-loader!css-loader!../css/nav.css");
+require("style-loader!css-loader!../css/app.css");
 
 
 export default React.createClass({
 
   render() {
     return (
-      <div>
+      <div className="app">
         <nav className="navbar navbar-default navbar-static-top">
           <div className="container">
             <div className="navbar-header">
@@ -19,9 +21,11 @@ export default React.createClass({
                 <img className="navbar-brand-img" src="/img/logo.png"/>
               </a>
             </div>
-            <div id="navbar" className="navbar-collapse collapse">
-              <div className="nav navbar-nav searchBar-nav">
-                <input type="text" className="searchBar" placeholder="Where would you like to camp?" />
+            <div id="navbar">
+              <div className="nav navbar-nav">
+                  <div className="text-box">
+                   <input type="text" className="searchBar" placeholder="Where would you like to camp?" />
+                  </div>
               </div>
               <ul className="nav navbar-nav navbar-right">
                 <li><NavLink className="nav-links" to="/login">Login</NavLink></li>
@@ -40,72 +44,5 @@ export default React.createClass({
 })
 
 
-//Dropdown Menu Component
-class TagDropdown extends React.Component {
-  constructor(){
-    super();
-    this.state={
-      visible: false
-    }
-  }
-  render() {
-    if(!this.state.visible){
-      return(
-        <div className="nav-dropdown nav-dropdown-up">
-          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" onClick={() =>this.setState({visible: true})} src="/img/dropdownarrow.png"></img>
-        </div>
-      )
-    }else{
-      return(
-        <div className="nav-dropdown nav-dropdown-down">
-          <div className="row">
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">$</a>
-            <a className="btn btn-lg filter-tag">$$</a>
-            <a className="btn btn-lg filter-tag">$$$</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-          </div>
-          <div className="row">
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
-            <a className="btn btn-lg filter-tag">TagDaddy</a>
-            <a className="btn btn-lg filter-tag">Tag</a>
 
-          </div>
-          <img className="nav-dropdown-arrow" id="nav-dropdown-arrow" onClick={() =>this.setState({visible: false})} src="/img/dropdowndismiss.png"></img>
-        </div>
-      )
-    }
-  }
-}
 
