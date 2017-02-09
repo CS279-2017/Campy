@@ -31,7 +31,7 @@ console.log(connection_string)
 mongoose.connect(connection_string);
 let db = mongoose.connection;
 
-// loadTestData()
+//loadTestData()
 
 var sess = {
   secret: 'keyboard cat',
@@ -105,7 +105,7 @@ function loadTestData() {
     db.collection('users').insert(testUser2);
     var reviewID = new ObjectId()
     var testCampsite = new Campsite({creator: "harrisonstall", rating: 5, description: "There are some cool waterfalls. Highly recommend.",
-                                    directions: "Hop the boulder", price: 0, lat: 51.5033640, long: -0.1276250, size: "Small", tags: ["waterfall", "fun"],
+                                    directions: "Hop the boulder", price: 0, lat: 36.142980, long: -86.805682, size: "Small", tags: ["waterfall", "fun"],
                                     fire: true, reviews: [reviewID]});
     db.collection('campsites').insert(testCampsite)
     var testReview = new Review({creator: "turnerstrayhorn", rating: 5, campsite: "Reedy Falls", reviewBody: "Yo this place was amazing!"})
