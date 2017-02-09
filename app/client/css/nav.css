@@ -101,7 +101,7 @@ body, html{
 
 .nav-dropdown-up{
 	position: relative;
-	height: 3%;
+	height: 2%;
 	min-height:20px;
 
 }
@@ -118,5 +118,5 @@ body, html{
 	margin-top: 5px;
 }
 .nav-dropdown-arrow:hover{
-	transform: scale(1.1);
+	transform: scale(1.2);
 }
