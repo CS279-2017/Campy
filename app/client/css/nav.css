@@ -80,7 +80,8 @@ body, html{
 
 .nav-dropdown-up{
 	position: relative;
-	height: 25px;
+	height: 2%;
+	min-height:20px;
 }
 .nav-dropdown-down{
 	position: relative;
@@ -96,5 +97,5 @@ body, html{
 }
 
 .nav-dropdown-arrow:hover{
-	transform: scale(1.1);
+	transform: scale(1.2);
 }
