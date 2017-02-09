@@ -37,18 +37,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
 export default class GettingStartedExample extends Component {
 
   state = {
-    markers: [{
-      position: {
-        lat: 36.1627,
-        lng: -86.7816,
-      },
-      key: `Nashville`,
-      defaultAnimation: 2,
-      icon: {
-            scaledSize: new google.maps.Size(30, 30),
-            url: 'img/marker.png' 
-      },
-    }],
+    markers: [],
   };
 
   handleMapLoad = this.handleMapLoad.bind(this);
@@ -57,9 +46,6 @@ export default class GettingStartedExample extends Component {
 
   handleMapLoad(map) {
     this._mapComponent = map;
-    if (map) {
-      console.log(map.getZoom());
-    }
   }
 
   /*
@@ -88,6 +74,55 @@ export default class GettingStartedExample extends Component {
     // }
   }
 
+  /*
+  * Make api calls here
+  */
+  componentDidMount() {
+    this.campsites = this.campsiteList();
+  }
+  /*
+  *
+  *Call campsites api
+  */
+  campsiteList() {
+    let map = this;
+    return $.getJSON('/v1/campsites', function(data){
+      map.placeMarkers(data);
+
+    });
+  }
+  /*
+  * Place campsite markers
+  *
+  */
+  placeMarkers(sites){
+    if(!sites){
+      return;
+    }
+    let map = this;
+    sites.forEach(function(site){
+      const campMarkers = [
+        ...map.state.markers,
+        {
+          position: new google.maps.LatLng(site.lat, site.long),
+          defaultAnimation: 2,
+          icon: {
+            scaledSize: new google.maps.Size(30, 30),
+            url: 'img/marker.png' 
+          },
+          key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
+        },
+      ];
+      map.setState({
+        markers: campMarkers,
+      });
+    });
+
+  }
+  /*
+  * Example method
+  *
+  */
   handleMarkerRightClick(targetMarker) {
     /*
      * All you modify is data, and the view is driven by data.
