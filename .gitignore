@@ -1,5 +1,7 @@
 ~$Models_Mockup.pptx
 
+.DS_Store
+
 # Logs
 logs
 *.log
