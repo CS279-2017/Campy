@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     passwordResetToken: String,
     passwordResetExpires: Date,
     reviews: [String],
-    votedReviews: [String]
+    votedReviews: [String, Boolean] // Boolean true = positive, false = negative
 
 }, { timestamps: true });
 
