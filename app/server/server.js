@@ -27,11 +27,8 @@ let ip = process.env.MONGOIP
 let listeningport = 8080
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
-console.log(connection_string)
 mongoose.connect(connection_string);
 let db = mongoose.connection;
-
-//loadTestData()
 
 var sess = {
   secret: 'keyboard cat',
@@ -93,21 +90,3 @@ app.post('/v1/session', function(req, res) {
 let server = app.listen(listeningport, function () {
     console.log('Campy listening on ' + listeningport);
 });
-
-
-/**
-Loads test information into the MongoDB store.
-*/
-function loadTestData() {
-    var testUser1 = new User({username: "turnerstrayhorn", password:"password1", passwordResetToken: "sillyreset", reviews: ["1"], votedReviews: []})
-    var testUser2 = new User({username: "harrisonstall", password:"password2", passwordResetToken: "sillyreset", reviews: [], votedReviews: ["1"]})
-    db.collection('users').insert(testUser1);
-    db.collection('users').insert(testUser2);
-    var reviewID = new ObjectId()
-    var testCampsite = new Campsite({creator: "harrisonstall", rating: 5, description: "There are some cool waterfalls. Highly recommend.",
-                                    directions: "Hop the boulder", price: 0, lat: 36.142980, long: -86.805682, size: "Small", tags: ["waterfall", "fun"],
-                                    fire: true, reviews: [reviewID]});
-    db.collection('campsites').insert(testCampsite)
-    var testReview = new Review({creator: "turnerstrayhorn", rating: 5, campsite: "Reedy Falls", reviewBody: "Yo this place was amazing!"})
-    db.collection('reviews').insert(testReview);
-}

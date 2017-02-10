@@ -8,9 +8,9 @@ const userSchema = new mongoose.Schema({
     passwordResetToken: String,
     passwordResetExpires: Date,
     reviews: [String],
-    votedReviews: [String, Boolean] // Boolean true = positive, false = negative
+    votedReviews: [String]
 
-}, { timestamps: true });
+}, { timestamps: true }, {_id: false});
 
 /**
  * Password hash middleware.
