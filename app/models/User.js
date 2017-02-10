@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     reviews: [String],
     votedReviews: [String]
 
-}, { timestamps: true }, {_id: false});
+}, { timestamps: true });
 
 /**
  * Password hash middleware.
