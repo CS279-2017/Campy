@@ -1,10 +1,11 @@
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     username: { type: String, unique: true },
     password: String,
+    salt: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
     reviews: [String],
@@ -23,6 +24,7 @@ userSchema.pre('save', function save(next) {
       bcrypt.hash(user.password, salt, null, (err, hash) => {
         if (err) { return next(err); }
         user.password = hash;
+        user.salt = salt;
         next();
       });
     });
