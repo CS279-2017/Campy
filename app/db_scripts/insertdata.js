@@ -2,9 +2,10 @@ let mongoose        = require('mongoose'),
     ObjectId        = mongoose.Types.ObjectId,
     User            = require('../models/User'),
     Review          = require('../models/Review'),
-    Campsite        = require('../models/Campsite')
+    Campsite        = require('../models/Campsite'),
+    bcrypt          = require('bcrypt')
 
-
+let saltRounds = 10
 let port = process.env.MONGOPORT
 let user = process.env.MONGOUSER
 let mongopass = process.env.MONGOPASSWORD
@@ -31,14 +32,24 @@ Campsite.remove({}, function(err) {
     });
 });
 /**
-Loads test information into the MongoDB store.
+Loads test information into the MongoDB store. PWs are hashed.
 */
 function loadTestData(callback) {
     var reviewID = new ObjectId()
 
-    var testUser1 = new User({username: "turnerstrayhorn", password:"password1", passwordResetToken: "sillyreset", reviews: [reviewID], votedReviews: []})
-    var testUser2 = new User({username: "harrisonstall", password:"password2", passwordResetToken: "sillyreset", reviews: [], votedReviews: [reviewID]})
-    var testUser3 = new User({username: "longadams", password:"password3", passwordResetToken: "sillyreset", reviews: [], votedReviews: [reviewID]})
+    var salt1 = bcrypt.genSaltSync(saltRounds);
+    var hash1 = bcrypt.hashSync("password1", salt1);
+
+    var salt2 = bcrypt.genSaltSync(saltRounds);
+    var hash2 = bcrypt.hashSync("password2", salt2);
+
+    var salt3 = bcrypt.genSaltSync(saltRounds);
+    var hash3 = bcrypt.hashSync("password3", salt3);
+
+
+    var testUser1 = new User({username: "turnerstrayhorn", password:hash1, salt: salt1, passwordResetToken: "sillyreset", reviews: [reviewID], votedReviews: []})
+    var testUser2 = new User({username: "harrisonstall", password:hash2, salt: salt2, passwordResetToken: "sillyreset", reviews: [], votedReviews: [reviewID]})
+    var testUser3 = new User({username: "longadams", password:hash3, salt: salt3, passwordResetToken: "sillyreset", reviews: [], votedReviews: [reviewID]})
     db.collection('users').insert(testUser1);
     db.collection('users').insert(testUser2);
     db.collection('users').insert(testUser3);
