@@ -10,7 +10,11 @@ let express       = require('express'),
     User            = require('../models/User'),
     Review          = require('../models/Review'),
     Campsite        = require('../models/Campsite'),
-    ObjectId        = mongoose.Schema.ObjectId
+    ObjectId        = mongoose.Schema.ObjectId,
+    passport        = require('passport'),
+    LocalStrategy   = require('passport-local').Strategy,
+    cookieParser    = require('cookie-parser'),
+    bcrypt          = require('bcrypt');
 
 const app = express();
 app.set('views', './views')
@@ -35,57 +39,60 @@ var sess = {
   cookie: {},
   maxage:2592000000
 }
-app.use(session(sess))
-
 app.use(express.static(path.join(__dirname, '../public/')));
+app.use(session(sess))
+app.use(cookieParser())
+app.use(passport.initialize())
+app.use(passport.session())
 
-//index
+// TODO: fix some issues with the passport setup.
+passport.use(new LocalStrategy(function(username, password, done) {
+    User.findOne({username: username}, function(err, user) {
+        if (err) { return done(err) }
+        if (!user) { return done(null, false)}
+        return done(null, user)
+    });
+}));
+passport.serializeUser(function(user, done) {
+    done(null, user);
+})
+passport.deserializeUser(function(user, done) {
+    User.findById(user._id, function(err, user) {
+        done(err, user);
+    })
+})
+
+// Index route
 app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, '../public/index.html'))
 });
 
-//get campsites
-app.get('/v1/campsites', function(req, res) {
-    
+// Handles logins and session creation
+app.post('/v1/login', passport.authenticate('local'), function(req, res) {
+    if (!req.body || !req.body.username || !req.body.password) {
+        res.status(400).send({ error: 'username and password required' });
+    }
+    let data = req.body;
+
+    User.findOne({username: req.body.username}, function(err, user) {
+        if (err) {
+            res.send({error: 'error occurred on login'})
+        } else if (bcrypt.compareSync(data.password, user.password)) {
+            res.send('Your login using a hashed password was successful!')
+        } else {
+            res.send('Invalid password')
+        }
+    })  
+})
+
+// Provides all campsites in a response to the client.
+app.get('/v1/campsites', function(req, res) {    
     console.log('GET campsites request made')
     Campsite.find({}, function(err, data) {
         res.send(JSON.stringify(data));
     });
 });
 
-// Handle POST to create a user session
-app.post('/v1/session', function(req, res) {
-    if (!req.body || !req.body.username || !req.body.password) {
-        res.status(400).send({ error: 'username and password required' });
-    } else {
-
-        let data = req.body;
-        User.findOne({username: data.username}, function(err, user){
-            if(!err){
-                let badPassword = true;
-                let salt = user.salt;
-                let pass = bcrypt.hashSync(req.body.password, salt);
-                let hash = user.password;
-                if(pass === hash){
-                    console.log(pass);
-                    badPassword = false;
-                }
-                if (!user || badPassword) {
-                    if (user) console.log('It the password: ' + user.password + ' vs. ' + req.body.password);
-                    else console.log('No user found: ' + req.body.username);
-                    res.status(401).send({ error: 'unauthorized' });
-                } else {
-
-                    res.status(201).send({
-                        username:       user.username,
-                        primary_email:  user.primary_email
-                    });
-                }
-            }
-        });
-
-    }
-});
 
 let server = app.listen(listeningport, function () {
     console.log('Campy listening on ' + listeningport);
