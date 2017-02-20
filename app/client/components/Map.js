@@ -10,6 +10,7 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker,
+  InfoBox,
 } from "react-google-maps";
 
 /*
@@ -129,6 +130,7 @@ export default class GettingStartedExample extends Component {
      * This is so called data-driven-development. (And yes, it's now in
      * web front end and even with google maps API.)
      */
+     
     const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
     this.setState({
       markers: nextMarkers,

@@ -1,7 +1,8 @@
 import React from 'react'
 import NavLink from './NavLink'
 import TagDropdown from '../components/TagDropdown'
-
+import LoginModal from '../components/LoginModal'
+import ReactDOM from 'react-dom'
 require("style-loader!css-loader!../css/nav.css");
 require("style-loader!css-loader!../css/app.css");
 
@@ -28,13 +29,14 @@ export default React.createClass({
                   </div>
               </div>
               <ul className="nav navbar-nav navbar-right">
-                <li><NavLink className="nav-links" to="/login">Login</NavLink></li>
+                <li><NavLink className="nav-links" onClick={()=>{this.refs.loginModal.open()}}>Login</NavLink></li>
                 <li><NavLink className="nav-links" to="/register">Register</NavLink></li>
               </ul>
             </div>
           </div>
         </nav>
         <TagDropdown/>
+        <LoginModal ref='loginModal'/>
         {this.props.children}
       </div>
     )
