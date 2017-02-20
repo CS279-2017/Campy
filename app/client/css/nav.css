@@ -74,6 +74,9 @@ body, html{
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
+.nav-links:hover{
+	transform: scale(1.1);
+}
 .row{
 	margin-right: 0px;
 	margin-left: 0px;

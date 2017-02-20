@@ -7,14 +7,16 @@ let Modal = ReactBootstrap.Modal
 let OverlayTrigger = ReactBootstrap.OverlayTrigger
 let Button = ReactBootstrap.Button
 
-export default class LoginModal extends React.Component {
+export default class registerModal extends React.Component {
 
   constructor(){
   	super();
   	this.state =(
   		{ showModal: false, 
   		 password: "",
-  		 user: "" 
+       passwordCheck:"",
+  		 user: "",
+       email:""
   		});
   	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +45,7 @@ export default class LoginModal extends React.Component {
     
 	$.ajax({
 	  type: "POST",
-	  url: "/login",
+	  url: "/register",
 	  data: data,
 	  success: success
 	});
@@ -66,17 +68,15 @@ export default class LoginModal extends React.Component {
 	     <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
 				<div className="loginmodal-container">
           <p className="closeButton" onClick={()=>{this.close()}}>x</p>
-					<h1>Login to Your Account</h1><br/>
+					<h1>Register Your Account</h1><br/>
 
 				  <form onSubmit={this.handleSubmit}>
 					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
-					<input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
-					<input type="submit" name="login" className="login loginmodal-submit" value="Login"/>
+          <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
+          <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Password"/>
+					<input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email"/>
+          <input type="submit" name="login" className="login loginmodal-submit" value="Register"/>
 				  </form>
-				
-				  <div className="login-help">
-					   <a href="#">Forgot Password</a>
-				  </div>
 				</div>	          
 	     </Modal>
 	)
