@@ -43,7 +43,7 @@ export default class LoginModal extends React.Component {
     
 	$.ajax({
 	  type: "POST",
-	  url: "/login",
+	  url: "/v1/login",
 	  data: data,
 	  success: success
 	});
