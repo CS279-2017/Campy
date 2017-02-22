@@ -26,6 +26,9 @@ body, html{
 .navbar-nav > li > a, .navbar-brand{
     height: 100%;
 }
+.navbar-nav > li {
+	height: 100%;
+}
 .navbar {
 	height:7% !important;
 
@@ -122,4 +125,12 @@ body, html{
 }
 .nav-dropdown-arrow:hover{
 	transform: scale(1.2);
+}
+
+.profile-img{
+	margin-top: 30%;
+    background: url(http://placehold.it/200x200&text=profilepic) 50% 50% no-repeat; /* 50% 50% centers image in div */
+    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ 
+    width: 40px;
+    height: 40px;
 }
