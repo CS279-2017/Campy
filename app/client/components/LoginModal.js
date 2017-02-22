@@ -37,9 +37,7 @@ export default class LoginModal extends React.Component {
     	username:this.state.user,
     	password:this.state.password
     }
-    let success = function(){
-    	alert(this.close());
-    }
+    let success = this.close();
     
 	$.ajax({
 	  type: "POST",
