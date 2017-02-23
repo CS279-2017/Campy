@@ -39,7 +39,8 @@ app.use(express.static(path.join(__dirname, '../public/')));
 var sess = {
   secret: 'keyboard cat',
   saveUninitialized: false,
-  resave: false
+  resave: false,
+  cookie: { secure: true }
 }
 app.use(session(sess))
 app.use(cookieParser())
