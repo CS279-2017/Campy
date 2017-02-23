@@ -15,6 +15,7 @@ let express       = require('express'),
     LocalStrategy   = require('passport-local').Strategy,
     cookieParser    = require('cookie-parser'),
     bcrypt          = require('bcrypt'),
+    MongoStore      = require('connect-mongo')(session),
     flash           = require ('connect-flash');
 
 const app = express();
@@ -39,7 +40,8 @@ app.use(express.static(path.join(__dirname, '../public/')));
 var sess = {
   secret: 'keyboard cat',
   saveUninitialized: false,
-  resave: false
+  resave: false,
+  store: new MongoStore({mongooseConnection: db})
 }
 app.use(session(sess))
 app.use(cookieParser())
