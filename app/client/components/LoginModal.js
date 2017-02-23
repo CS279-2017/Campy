@@ -51,12 +51,14 @@ export default class LoginModal extends React.Component {
     	password:this.state.password
     }
 
+    let success = this.close();
 
     //post to login
-  	let request = $.ajax({
+  	$.ajax({
   	  type: "POST",
   	  url: "/v1/login",
   	  data: data,
+      success:success,
     });
     
   }
