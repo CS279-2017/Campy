@@ -9,35 +9,49 @@ const userSchema = new mongoose.Schema({
     passwordResetToken: String,
     passwordResetExpires: Date,
     reviews: [String],
-    votedReviews: [String]
+    votedReviews: [String],
+    email: String
 
 }, { timestamps: true });
+const saltRounds = 10;
+const User = mongoose.model('User', userSchema);
+module.exports = User;
 
-/**
- * Password hash middleware.
- */
-userSchema.pre('save', function save(next) {
-    const user = this;
-    if (!user.isModified('password')) { return next(); }
-    bcrypt.genSalt(10, (err, salt) => {
-      if (err) { return next(err); }
-      bcrypt.hash(user.password, salt, null, (err, hash) => {
-        if (err) { return next(err); }
-        user.password = hash;
-        user.salt = salt;
-        next();
-      });
-    });
-});
+module.exports.getUserByUsername = function(username, callback) {
+    var query = {username: username};
+    User.findOne(query, callback);
+}
 
-/**
- * Helper method for validating user's password.
- */
-userSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-      cb(err, isMatch);
+module.exports.comparePassword = function comparePassword(candidatePassword, hash,  callback) {
+    bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+      if (err) throw err;
+      callback(null, isMatch);
     });
 };
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports.getUserById = function(id, callback) {
+    var query = {_id: id};
+    User.findById(id, callback);
+}
+
+module.exports.createUser = function(user, callback) {
+    this.getUserByUsername(user.username, function(err, res) {
+        // If there is no record in the DB that matches the username, then we can add a new user to the DB.
+        if (!res) {
+            let salt = bcrypt.genSaltSync(saltRounds);
+            var hash = bcrypt.hashSync(user.password, salt);
+
+            var userToInsert = new User({username: user.username, password: hash, email: user.email, salt: salt});
+            userToInsert.save(function(err) {
+                if (err) {
+                    callback(err);
+                } else {
+                    console.log('Added user ' + user.username);
+                    callback(null);
+                }
+            })
+        } else {
+            callback('User already exists in the database');
+        }
+    });
+}
