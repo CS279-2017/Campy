@@ -21,6 +21,7 @@ export default React.createClass({
   checkLogin(){
     var self = this;
     $.getJSON('/v1/ping').done(function (data) {
+      console.log(data);
       if(data.loggedIn != self.state.isLoggedIn){
         self.setState({isLoggedIn : data.loggedIn});
       }

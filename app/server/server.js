@@ -86,15 +86,6 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-// Middleware to check if a user is authenticated
-function loggedIn(req, res, next) {
-    if (req.user != undefined) {
-        console.log('User ' + req.user)
-        next(JSON.stringify({username: req.user.username, loggedIn: true }));
-    } else {
-        res.send(JSON.stringify({username: "", loggedIn: false }));
-    }
-}
 
 // Index route
 app.get('/', function(req, res){
@@ -104,9 +95,12 @@ app.get('/', function(req, res){
 
 // Endpoint used for testing the loggedIn middleware and ensure that
 // authentication functions properly
-app.get('/v1/ping', loggedIn, function(req, res) {
-    console.log(req.username);
-    res.send(JSON.stringify({username: "", loggedIn : true}))
+app.get('/v1/ping', function(req, res) {
+    if(req.user){
+        res.send(JSON.stringify({username: req.user.username, loggedIn : true}));
+    }else{
+        res.send(JSON.stringify({username: "", loggedIn : false}));
+    }
 });
 
 
@@ -114,9 +108,6 @@ app.get('/v1/ping', loggedIn, function(req, res) {
 app.post('/v1/login', passport.authenticate('local'), function(req, res) { 
     console.log('Successfully logged in ')
     let future = new Date();
-    // future.setDate(future.getDate() + 30);
-    // req.session.expires = future.getTime()
-    // req.session.username = req.body.username;
     res.redirect('/');
 });
 
