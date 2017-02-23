@@ -10,9 +10,26 @@ require("style-loader!css-loader!../css/app.css");
 
 export default React.createClass({
   getInitialState() {
-    return { isLoggedIn: false};
+    return{
+      isLoggedIn: false,
+      username:""
+    }
   },
-
+  componentWillMount(){
+    this.checkLogin();
+  },
+  checkLogin(){
+    var self = this;
+    $.getJSON('/v1/ping').done(function (data) {
+      if(data.loggedIn != self.state.isLoggedIn){
+        self.setState({isLoggedIn : data.loggedIn});
+      }
+      if(data.username != self.username){
+        self.setState({username : data.username});
+      }
+    });
+    console.log(self);
+  },
 
 
   render() {
@@ -39,6 +56,7 @@ export default React.createClass({
                 <ul className="nav navbar-nav navbar-right">
                   <li><NavLink className="nav-links" onClick={()=>{this.refs.campsiteModal.open()}}>+Add A Campsite</NavLink></li>
                   <li><img className="profile-img img-rounded" src={'http://placehold.it/200x200&text=profilepic'}/></li>
+                  <li><NavLink className="nav-links profile-link" onClick={()=>{alert("going to profile")}}>{this.state.username}</NavLink></li>
                 </ul>
               </div>
             </div>

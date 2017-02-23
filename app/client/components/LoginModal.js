@@ -14,10 +14,13 @@ export default class LoginModal extends React.Component {
   	this.state =(
   		{ showModal: false, 
   		 password: "",
-  		 user: "" 
+  		 user: "" ,
+       error:""
   		});
   	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.loginerror = this.loginerror.bind(this);
+
     this.state.user 
 
   }
@@ -30,6 +33,16 @@ export default class LoginModal extends React.Component {
     this.setState({ showModal: false });
   }
 
+  login(){
+    this.close();
+    alert("Logged In");
+  }
+
+  loginerror(textStatus){
+    alert(textStatus);
+    this.state.error = textStatus;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -37,15 +50,15 @@ export default class LoginModal extends React.Component {
     	username:this.state.user,
     	password:this.state.password
     }
-    let success = this.close();
-    
-	$.ajax({
-	  type: "POST",
-	  url: "/v1/login",
-	  data: data,
-	  success: success
-	});
 
+
+    //post to login
+  	let request = $.ajax({
+  	  type: "POST",
+  	  url: "/v1/login",
+  	  data: data,
+    });
+    
   }
 
   handleChange(event) {
@@ -71,7 +84,9 @@ export default class LoginModal extends React.Component {
 					<input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
 					<input type="submit" name="login" className="login loginmodal-submit" value="Login"/>
 				  </form>
-				
+				  <div className="error">
+             <p className = "login-error">{this.state.error}</p>
+          </div>
 				  <div className="login-help">
 					   <a href="#">Forgot Password</a>
 				  </div>
