@@ -86,6 +86,14 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+// Put the logged in middleware in the right place to authenticate enpdpoints
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
 
 // Index route
 app.get('/', function(req, res){
