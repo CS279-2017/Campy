@@ -119,7 +119,6 @@ app.post('/v1/login', passport.authenticate('local'), function(req, res) {
     res.redirect('/');
 });
 
-
 // Handles registration
 app.post('/v1/register', function(req, res) {
     let data = req.body;
@@ -136,8 +135,14 @@ app.post('/v1/register', function(req, res) {
     });
 });
 
+// Logs a user out, clearing req.user property and clearing the login session if any
+app.get('/v1/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 // Provides all campsites in a response to the client.
-app.get('/v1/campsites', function(req, res) {    
+app.get('/v1/campsites', loggedIn, function(req, res) {    
     console.log('GET campsites request made')
     Campsite.find({}, function(err, data) {
         res.send(JSON.stringify(data));
