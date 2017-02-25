@@ -32,6 +32,22 @@ export default React.createClass({
     console.log(self);
   },
 
+  callPath(path){
+     //post to login
+    let self = this;
+    let success = function(){
+      self.checkLogin();
+    }
+    $.ajax({
+      type: "GET",
+      url: path,
+      success:success,
+    });
+  },
+
+  update(){
+    this.checkLogin();
+  },
 
   render() {
     //if logged in
@@ -49,15 +65,15 @@ export default React.createClass({
                 </a>
               </div>
               <div id="navbar">
-                <div className="nav navbar-nav">
-                    <div className="text-box">
+                <div className="nav navbar-nav searchbar-holder">
+                    <div className="text-box logged-in-text-box">
                      <input type="text" className="searchBar" placeholder="Where would you like to camp?" />
                     </div>
                 </div>
                 <ul className="nav navbar-nav navbar-right">
-                  <li><NavLink className="nav-links" onClick={()=>{this.refs.campsiteModal.open()}}>+Add A Campsite</NavLink></li>
                   <li><img className="profile-img img-rounded" src={'http://placehold.it/200x200&text=profilepic'}/></li>
-                  <li><NavLink className="nav-links profile-link" onClick={()=>{alert("going to profile")}}>{this.state.username}</NavLink></li>
+                  <li><NavLink className="nav-links absolute" onClick={()=>{this.refs.campsiteModal.open()}}>+Add A Campsite</NavLink></li>
+                  <li><NavLink className="nav-links profile-link absolute" onClick={()=>{this.callPath("/v1/logout"); this.checkLogin()}}>Logout</NavLink></li>
                 </ul>
               </div>
             </div>
@@ -82,7 +98,7 @@ export default React.createClass({
               </div>
               <div id="navbar">
                 <div className="nav navbar-nav">
-                    <div className="text-box">
+                    <div className="text-box logged-out-text-box">
                      <input type="text" className="searchBar" placeholder="Where would you like to camp?" />
                     </div>
                 </div>
@@ -94,7 +110,7 @@ export default React.createClass({
             </div>
           </nav>
           <TagDropdown/>
-          <LoginModal ref='loginModal'/>
+          <LoginModal ref='loginModal' self={this}/>
           <RegisterModal ref='registerModal'/>
           {this.props.children}
         </div>

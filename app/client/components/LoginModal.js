@@ -50,9 +50,13 @@ export default class LoginModal extends React.Component {
     	username:this.state.user,
     	password:this.state.password
     }
-
-    let success = this.close();
-
+    let self = this;
+    let success = function(){
+      self.close();
+      console.log(self.props.self);
+      self.props.self.update();
+      //self.props.self.render();
+    }
     //post to login
   	$.ajax({
   	  type: "POST",
