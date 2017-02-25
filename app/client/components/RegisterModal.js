@@ -40,14 +40,18 @@ export default class registerModal extends React.Component {
     	password:this.state.password,
       email:this.state.email
     }
-    let success = this.close();
+    let self = this;
+    let success = function(){
+      self.close();
+      self.props.self.update();
+    }
 
     
 	$.ajax({
 	  type: "POST",
 	  url: "/v1/register",
 	  data: data,
-	  success: success
+	  success: success,
 	});
 
   }

@@ -46,12 +46,23 @@ body, html{
 	font-weight: lighter;
 	padding-left: 2px;
 }
+.absolute{
+	position: absolute;
+}
 .text-box{
 	position: absolute;
 	bottom: 25%;
 	width: 40%;
 }
+.logged-in-text-box{
+	width: 30%;
+}
+.logged-out-text-box{
+	width: 40%;
+}
+.searchbar-holder{
 
+}
 .searchBar::-webkit-input-placeholder{
 	border-bottom: 1px solid #C3C3C3;
 
