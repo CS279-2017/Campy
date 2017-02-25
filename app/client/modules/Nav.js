@@ -111,7 +111,7 @@ export default React.createClass({
           </nav>
           <TagDropdown/>
           <LoginModal ref='loginModal' self={this}/>
-          <RegisterModal ref='registerModal'/>
+          <RegisterModal ref='registerModal' self={this}/>
           {this.props.children}
         </div>
       )

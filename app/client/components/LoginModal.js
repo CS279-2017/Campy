@@ -55,8 +55,8 @@ export default class LoginModal extends React.Component {
       self.close();
       console.log(self.props.self);
       self.props.self.update();
-      //self.props.self.render();
     }
+
     //post to login
   	$.ajax({
   	  type: "POST",
