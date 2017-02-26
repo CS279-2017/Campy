@@ -114,11 +114,11 @@ app.get('/v1/ping', function(req, res) {
 
 // Handles login
 app.post('/v1/login', passport.authenticate('local'), function(req, res) { 
-    console.log('Successfully logged in ')
-    res.redirect('/');
+    console.log('Successfully logged in ' + req.user.username);
+    res.send({success: 'Login successful'});
 });
 
-// Handles registration
+// Handles registration and logs the user in
 app.post('/v1/register', function(req, res, next) {
         let data = req.body;
 
@@ -128,11 +128,16 @@ app.post('/v1/register', function(req, res, next) {
             }
             else {
                 let responseString = 'Successfully created user ' + data.username;
+                console.log(responseString);
                 next()
             }
         })
     },
-    passport.authenticate('local', {successRedirect: '/', failureRedirect: '/v1/campsites'}));
+    passport.authenticate('local'),
+    function(req, res) {
+        console.log('Logged in after registering.');
+        res.send({success: 'Registration successful'});
+    });
 
 // Logs a user out, clearing req.user property and clearing the login session if any
 app.get('/v1/logout', function(req, res) {
