@@ -115,25 +115,24 @@ app.get('/v1/ping', function(req, res) {
 // Handles login
 app.post('/v1/login', passport.authenticate('local'), function(req, res) { 
     console.log('Successfully logged in ')
-    let future = new Date();
     res.redirect('/');
 });
 
 // Handles registration
-app.post('/v1/register', function(req, res) {
-    let data = req.body;
+app.post('/v1/register', function(req, res, next) {
+        let data = req.body;
 
-    User.createUser(data, function(err) {
-        if (err) {
-            res.status(400).send({error: 'user already exists in the database'});
-        }
-        else {
-            let responseString = 'Successfully created user ' + data.username;
-            console.log(responseString);
-            res.redirect('/');
-        }
-    });
-});
+        User.createUser(data, function(err) {
+            if (err) {
+                res.status(400).send({error: 'user already exists in the database'});
+            }
+            else {
+                let responseString = 'Successfully created user ' + data.username;
+                next()
+            }
+        })
+    },
+    passport.authenticate('local', {successRedirect: '/', failureRedirect: '/v1/campsites'}));
 
 // Logs a user out, clearing req.user property and clearing the login session if any
 app.get('/v1/logout', function(req, res) {
