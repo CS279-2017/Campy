@@ -1,6 +1,5 @@
 import React from 'react'
 import NavLink from './NavLink'
-import TagDropdown from '../components/TagDropdown'
 import LoginModal from '../components/LoginModal'
 import RegisterModal from '../components/RegisterModal'
 import ReactDOM from 'react-dom'
@@ -78,7 +77,6 @@ export default React.createClass({
               </div>
             </div>
           </nav>
-          <TagDropdown/>
           {this.props.children}
         </div>
         )
@@ -109,7 +107,6 @@ export default React.createClass({
               </div>
             </div>
           </nav>
-          <TagDropdown/>
           <LoginModal ref='loginModal' self={this}/>
           <RegisterModal ref='registerModal' self={this}/>
           {this.props.children}
