@@ -31,7 +31,13 @@ body, html{
 }
 .navbar {
 	height:7% !important;
+}
+#navbar {
+	height: 100%;
+}
 
+.navbar-right{
+	height:100%;
 }
 
 
@@ -60,9 +66,7 @@ body, html{
 .logged-out-text-box{
 	width: 40%;
 }
-.searchbar-holder{
 
-}
 .searchBar::-webkit-input-placeholder{
 	border-bottom: 1px solid #C3C3C3;
 
@@ -80,17 +84,20 @@ body, html{
 .navbar-nav li a {
 	line-height: 35px;
 }
+
 .nav-links{
 	margin-left: 20px;
 	color:#f39a22;
-	font-size: 25px;
+	font-size: 2rem;
 	background: -webkit-linear-gradient(#f39a22, #f8b217);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
+
 .nav-links:hover{
 	transform: scale(1.1);
 }
+
 .row{
 	margin-right: 0px;
 	margin-left: 0px;
@@ -108,6 +115,11 @@ body, html{
 	position:relative;
 }
 .filter-tag:hover{
+  border: 1px solid white;
+  color: #333;
+  background-color:#959595;
+}
+.filter-tag-active{
   border: 1px solid white;
   color: #333;
   background-color:#959595;
@@ -133,6 +145,7 @@ body, html{
 	width: auto;
 	height: 8px;
 	margin-top: 5px;
+	left:50%;
 }
 .nav-dropdown-arrow:hover{
 	transform: scale(1.2);

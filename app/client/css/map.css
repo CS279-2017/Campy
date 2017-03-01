@@ -1,12 +1,22 @@
 
 .GMap {
   height: 90%;
-  position: absolute;
   width: 90%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
 }
 .GMap-canvas {
   top: 20px;
   display: block;
   width: 90%;
   height: 90%;
+
 }
+
+.map-container{
+	height: 100%;
+	position: relative;
+}
+

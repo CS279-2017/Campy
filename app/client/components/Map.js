@@ -1,5 +1,6 @@
 /* global google */
 import _ from "lodash";
+import TagDropdown from './TagDropdown'
 
 import {
   default as React,
@@ -22,7 +23,7 @@ import {
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={5}
+    defaultZoom={10}
     defaultCenter={{lat: 36.186314,lng: -87.0654323 }}
     onClick={props.onMapClick}
   >
@@ -89,7 +90,6 @@ export default class GettingStartedExample extends Component {
     let map = this;
     return $.getJSON('/v1/campsites', function(data){
       map.placeMarkers(data);
-
     });
   }
   /*
@@ -100,11 +100,14 @@ export default class GettingStartedExample extends Component {
     if(!sites){
       return;
     }
+    console.log(sites);
     let map = this;
     sites.forEach(function(site){
       const campMarkers = [
         ...map.state.markers,
         {
+          tags:site.tags,
+          show:true,
           position: new google.maps.LatLng(site.lat, site.long),
           defaultAnimation: 2,
           icon: {
@@ -137,22 +140,56 @@ export default class GettingStartedExample extends Component {
     });
   }
 
+  //removes any markers without tags given
+  //tags is array of strings
+  removeMarkersWithoutTags(tags){
+    console.log(tags);
+    if(tags.length > 0){
+      for(let i = 0; i < this.state.markers.length; i++){
+        let sitetags = this.state.markers[i].tags;
+        let match = 0;
+
+        for(let k = 0; k < tags.length; k++){
+          for(let j = 0; j < sitetags.length; j++)
+          if(tags[k].toLowerCase() == sitetags[j].toLowerCase()){
+            match++;
+          }
+        }
+        if(match != tags.length){
+          this.state.markers[i].show = false;
+        }else{
+          this.state.markers[i].show = true;
+        }
+      }
+    }else{
+      for(let i = 0; i < this.state.markers.length; i++){
+        this.state.markers[i].show = true;
+      }
+    }
+    
+    this.forceUpdate();
+    console.log(this.state.markers);
+  }
+
   render() {
     return (
-      <div style={{height: `90%`}}>
+      <div className="map-container">
+        <TagDropdown self={this}/>
+        <div style={{height: '90%'}}>
 
-        <GettingStartedGoogleMap
-          containerElement={
-            <div style={{ height: `100%` }} />
-          }
-          mapElement={
-            <div style={{ height: `100%` }} />
-          }
-          onMapLoad={this.handleMapLoad}
-          onMapClick={this.handleMapClick}
-          markers={this.state.markers}
-          onMarkerRightClick={this.handleMarkerRightClick}
-        />
+          <GettingStartedGoogleMap
+            containerElement={
+              <div style={{ height: `100%` }} />
+            }
+            mapElement={
+              <div style={{ height: `100%` }} />
+            }
+            onMapLoad={this.handleMapLoad}
+            onMapClick={this.handleMapClick}
+            markers={this.state.markers.filter(function(m){return m.show;})}
+            onMarkerRightClick={this.handleMarkerRightClick}
+          />
+        </div>
       </div>
     );
   }
