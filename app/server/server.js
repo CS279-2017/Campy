@@ -16,6 +16,9 @@ let express       = require('express'),
     cookieParser    = require('cookie-parser'),
     bcrypt          = require('bcrypt'),
     MongoStore      = require('connect-mongo')(session),
+    AWS             = require('aws-sdk'),
+    multer          = require('multer'),
+    multerS3        = require('multer-s3'),
     flash           = require ('connect-flash');
 
 const app = express();
@@ -31,10 +34,27 @@ let mongopass = process.env.MONGOPASSWORD
 let appname = process.env.APPNAME
 let ip = process.env.MONGOIP
 let listeningport = 8080
+let bucketname = process.env.BUCKETNAME
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
 mongoose.connect(connection_string);
 let db = mongoose.connection;
+
+var s3 = new AWS.S3();
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: bucketname,
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+        console.log(file)
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+});
 
 app.use(express.static(path.join(__dirname, '../public/')));
 var sess = {
@@ -138,6 +158,13 @@ app.post('/v1/register', function(req, res, next) {
         console.log('Logged in after registering.');
         res.send({success: 'Registration successful'});
     });
+
+// Stores an image the user is uploading
+app.post('/v1/campsiteimage', upload.single('campsitephoto'), function(req, res) {
+    console.log('Uploaded image ' + req.file.key);
+    console.log();
+    res.send('Uploaded image successfully');
+});
 
 // Logs a user out, clearing req.user property and clearing the login session if any
 app.get('/v1/logout', function(req, res) {
