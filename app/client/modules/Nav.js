@@ -1,8 +1,10 @@
 import React from 'react'
 import NavLink from './NavLink'
 import LoginModal from '../components/LoginModal'
+import CampsiteModal from '../components/CampsiteModal'
 import RegisterModal from '../components/RegisterModal'
 import ReactDOM from 'react-dom'
+
 require("style-loader!css-loader!../css/nav.css");
 require("style-loader!css-loader!../css/app.css");
 
@@ -75,6 +77,7 @@ export default React.createClass({
               </div>
             </div>
           </nav>
+          <CampsiteModal ref='campsiteModal' self={this}/>
           {this.props.children}
         </div>
         )

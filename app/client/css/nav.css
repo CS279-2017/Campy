@@ -126,16 +126,16 @@ body, html{
 }
 .nav-dropdown{
 	background-color: #333;
+	z-index: 2; /* Stay on top */
+	position: relative;
 }
 
 .nav-dropdown-up{
-	position: relative;
 	height: 2%;
 	min-height:20px;
 
 }
 .nav-dropdown-down{
-	position: relative;
 	height: 11%;
 }
 .nav-dropdown-arrow{

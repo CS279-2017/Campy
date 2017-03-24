@@ -1,6 +1,7 @@
 /* global google */
 import _ from "lodash";
 import TagDropdown from './TagDropdown'
+import SideBar from './SideBar'
 import canUseDOM from "can-use-dom";
 
 import {
@@ -28,7 +29,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     {props.markers.map(marker => (
       <Marker
         {...marker}
-        onRightClick={() => props.onMarkerRightClick(marker)}
+        onClick={() => props.onMarkerClick(marker)}
       />
     ))}
   </GoogleMap>
@@ -45,7 +46,8 @@ export default class GettingStartedExample extends Component {
     zoom:5,
     defaultCenter:{
       lng:-98.5795, lat:39.8282
-    }
+    },
+    selected:null,
   };
 
   handleMapLoad = this.handleMapLoad.bind(this);
@@ -61,25 +63,7 @@ export default class GettingStartedExample extends Component {
    * Go and try click now.
    */
   handleMapClick(event) {
-    console.log("Map clicked at " + event.latLng);
-    // const nextMarkers = [
-    //   ...this.state.markers,
-    //   {
-    //     position: event.latLng,
-    //     defaultAnimation: 2,
-    //     key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
-    //   },
-    // ];
-    // this.setState({
-    //   markers: nextMarkers,
-    // });
-
-    // if (nextMarkers.length === 3) {
-    //   this.props.toast(
-    //     `Right click on the marker to remove it`,
-    //     `Also check the code!`
-    //   );
-    // }
+    this.setState({selectedSite:null});
   }
 
   /*
@@ -145,7 +129,8 @@ export default class GettingStartedExample extends Component {
             scaledSize: new google.maps.Size(30, 30),
             url: 'img/marker.png' 
           },
-          key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
+          key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys,
+          metadata:site,
         },
       ];
       map.setState({
@@ -206,7 +191,8 @@ export default class GettingStartedExample extends Component {
     return (
       <div className="map-container">
         <TagDropdown self={this}/>
-        <div style={{height: '90%'}}>
+        <SideBar selectedSite={this.state.selectedSite}/>
+        <div style={{height: '100%'}}>
 
           <GettingStartedGoogleMap
             containerElement={
@@ -220,7 +206,7 @@ export default class GettingStartedExample extends Component {
             center = {this.state.defaultCenter}
             zoom = {this.state.zoom}
             markers={this.state.markers.filter(function(m){return m.show;})}
-            onMarkerRightClick={this.handleMarkerRightClick}
+            onMarkerClick={(marker)=>{this.setState({selectedSite:marker.metadata})}}
             onCenterChanged={this.handleCenterChanged}
           />
         </div>
