@@ -72,7 +72,7 @@ export default class registerModal extends React.Component {
 	     <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
 				<div className="loginmodal-container">
           <p className="closeButton" onClick={()=>{this.close()}}>x</p>
-					<h1>Register Your Account</h1><br/>
+          <h1><img className="login-register-image" src={"/img/register.png"}/></h1><br/>
 
 				  <form onSubmit={this.handleSubmit}>
 					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>

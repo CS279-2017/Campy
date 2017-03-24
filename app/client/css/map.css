@@ -1,6 +1,6 @@
 
 .GMap {
-  height: 90%;
+  height: 100%;
   width: 90%;
   position: absolute;
   top: 0;
@@ -16,7 +16,7 @@
 }
 
 .map-container{
-	height: 100%;
+	height: 90%;
 	position: relative;
 }
 

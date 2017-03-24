@@ -1,0 +1,40 @@
+/* The side navigation menu */
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 25%;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: 0;
+    background-color: #686868;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.left-align{
+    text-align: left;
+}
+.sidebar-container{
+    position: relative; /* Stay in place */
+    padding-top: 60px; /* Place content 60px from the top */
+    width: 90%;
+    margin:0 auto;
+}
+
+.sidebar-closeButton{
+    position: absolute;
+    left: 10px;
+    font-size: 2em;
+    color: #959595;
+}
+
+.campsite-img{
+    max-width: 100%;
+    max-height: 180px;
+}
+
+a{
+    color:orange;
+}

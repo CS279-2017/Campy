@@ -35,7 +35,10 @@
     "react-helmet": "^4.0.0",
     "react-pure-render": "^1.0.2",
     "react-router": "^2.0.0",
-    "react-side-effect": "^1.1.0"
+    "react-side-effect": "^1.1.0",
+    "react-star-rating": "^1.4.2",
+    "react-star-rating-component": "^1.2.4",
+    "react-stars": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
