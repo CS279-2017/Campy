@@ -71,7 +71,6 @@ export default class GettingStartedExample extends Component {
   */
   componentDidMount() {
     this.campsites = this.campsiteList();
-
     /*
     * Get geolocation
     */
