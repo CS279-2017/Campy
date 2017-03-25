@@ -1,6 +1,68 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
-/****** LOGIN MODAL ******/
+.small-map-container{
+  height: 200px;
+}
+
+h4{
+  color: white;
+  text-align: left;
+}
+p{
+  color: white;
+  text-align: left;
+  font-weight: lighter;
+ 
+}
+
+label{
+  color:white;
+}
+.fires-box{
+  padding-top: 10px;
+  font-weight: 400;
+}
+.left-align{
+  text-align: left;
+}
+
+textarea{
+  width: 100%;
+  height:80px;
+}
+
+.closeButton{
+  padding-top: 5px;
+}
+
+.bold{
+  padding-top: 5px;
+  font-weight: bolder;
+}
+.add-form{
+  background-color: #5b5b5b;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.price-buttons{
+  text-align: left;
+}
+.tent-buttons{
+  text-align: left;
+}
+.radio-inline{
+  color:white;
+}
+.campsitemodal-color{
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/****** CAMPSITE MODAL ******/
 .closeButton{
   position: absolute;
   top:0; 
@@ -19,9 +81,12 @@
     box-shadow: none;
 
 }
-.loginmodal-container {
+.campsitemodal-container {
 
-  padding: 30px;
+}
+
+.campsitemodal-container {
+  padding: 0px;
   max-width: 350px;
   width: 100% !important;
   background-color: #333;
@@ -32,7 +97,7 @@
   font-family: roboto;
 }
 
-.loginmodal-container h1 {
+.campsitemodal-container h1 {
   text-align: center;
   font-size: 1.8em;
   font-weight: lighter;
@@ -40,14 +105,14 @@
   color : -webkit-linear-gradient(#f39a22, #f8b217);
 }
 
-.loginmodal-container input[type=submit] {
+.campsitemodal-container input[type=submit] {
   width: 100%;
   display: block;
   margin-bottom: 10px;
   position: relative;
 }
 
-.loginmodal-container input[type=text], input[type=password] {
+.campsitemodal-container input[type=text], input[type=password] {
   height: 44px;
   font-size: 16px;
   width: 100%;
@@ -62,7 +127,7 @@
   -moz-box-sizing: border-box;
 }
 
-.loginmodal-container input[type=text]:hover, input[type=password]:hover {
+.campsitemodal-container input[type=text]:hover, input[type=password]:hover {
   border: 1px solid #b9b9b9;
   border-top: 1px solid #a0a0a0;
   -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
@@ -70,7 +135,7 @@
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.loginmodal {
+.campsitemodal {
   text-align: center;
   font-size: 14px;
   font-family: 'Arial', sans-serif;
@@ -82,7 +147,7 @@
   user-select: none; */
 }
 
-.loginmodal-submit {
+.campsitemodal-submit {
   /* border: 1px solid #3079ed; */
   border: 0px;
   color: #fff;
@@ -91,10 +156,15 @@
   padding: 17px 0px;
   font-family: roboto;
   font-size: 14px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin:5px;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
-.loginmodal-submit:hover {
+.campsitemodal-submit:hover {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
   text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -102,7 +172,7 @@
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
-.loginmodal-container a {
+.campsitemodal-container a {
   text-decoration: none;
   color: #666;
   font-weight: 400;
@@ -114,9 +184,9 @@
 .error{
   color:red;
 }
-.login-help{
+.campsite-help{
   font-size: 12px;
 }
-.login-register-image{
+.campsite-register-image{
   height: 60px;
 }
