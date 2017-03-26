@@ -18,6 +18,35 @@ p{
 label{
   color:white;
 }
+.error{
+  color: red;
+  text-align: center;
+}
+.image-drop-container{
+  width: 100%;
+}
+.image-drop{
+  border: dashed #333;
+  height: 80px;
+  text-align: center;
+}
+.dark-gray{
+  padding-top: 10px;
+  font-weight: bolder;
+  text-align: center;
+  color:#333;
+}
+.preview-image{
+  width:50px;
+  height: auto;
+  float: center;
+  padding: 0px 5px;
+}
+.center-text{
+  text-align: center;
+  padding-top: 15px;
+  color: #333;
+}
 .fires-box{
   padding-top: 10px;
   font-weight: 400;

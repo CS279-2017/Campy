@@ -1,7 +1,8 @@
 import React from 'react'
 import Slideshow from './Slideshow'
 import ReactStars from 'react-stars'
- 
+import StarRating from 'react-star-rating';
+
 
 require("style-loader!css-loader!../css/sidebar.css");
 
@@ -15,8 +16,27 @@ export default class SideBar extends React.Component {
       site:null,
       image:0,
     }
+    this.handleRating = this.handleRating.bind(this);
   }
 
+  handleRating(event, rate){
+    if(this.state.site){
+      let data = {
+        rate:rate.rating,
+        id:this.state.site._id
+      }
+      let self = this;
+      let success = function(){
+        console.log("change rating");
+      }
+      $.ajax({
+        type: "POST",
+        url: "/v1/ratesite",
+        data: data,
+        success:success,
+      });
+    }
+  }
 
   showCampsite(campsite){
     let date = this.formatDate(campsite.dateCreated);
@@ -26,11 +46,19 @@ export default class SideBar extends React.Component {
     return(
       <div className="sidebar">
         <div className="sidebar-container">
-          <h1>{campsite.name}</h1>
+          <div className="site-title">
+            <h1>{campsite.name}</h1>
+          </div>
+          <div className="campsite-rater">
+                <StarRating name="airbnb-rating" editing={true} rating={campsite.rating} onRatingClick={this.handleRating} ratingAmount={5} />
+          </div>
           <p>Added: {date}</p>
           <Slideshow className="campsite-img" slides={images}/>
-          <p className='left-align'><b>Description - </b> {campsite.description}</p>
-          <p className='left-align'><b>Directions - </b> {campsite.directions}</p>
+          <div className="sidebar-info-container">
+          <p className='sidebar-info left-align'><b>Description - </b> {campsite.description}</p>
+          
+          <p className='sidebar-info left-align'><b>Special Directions - </b> {campsite.directions}</p>
+          </div>
         </div>
       </div>
     )

@@ -1,6 +1,7 @@
 import React from 'react'
 import NavLink from '../modules/NavLink'
 import StarRating from 'react-star-rating';
+import Dropzone from 'react-dropzone';
 
 require("style-loader!css-loader!../css/campsitemodal.css");
 
@@ -58,13 +59,15 @@ export default class CampsiteModal extends React.Component {
        tents:1,
        tags:"",
        rating:3,
-
+       files:[],
+       error:""
   		});
+    this.key = 0;
   	this.handleChange = this.handleChange.bind(this);
     this.handleRating = this.handleRating.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
-
+    this.onDrop = this.onDrop.bind(this);
     this.state.user 
 
   }
@@ -88,15 +91,48 @@ export default class CampsiteModal extends React.Component {
        tents:1,
        tags:"",
        rating:3,
+       error:""
     });
   }
 
   handleSubmit(event) {
     let s = this.state;
     if(s.campsiteName && s.marker[0] && s.description && s.tags){
-      console.log("Good");
+      //im assuming you'll do creator, date, and transform size (if you want) SS
+      let tags = s.tags;
+      tags = tags.replace(/\s/g,'');
+      tags = tags.split(",")
+      let marker = s.marker[0];
+      //post data
+      let data = {
+        description: s.description,
+        directions: s.specialdirections,
+        fire: s.fires,
+        name: s.campsiteName,
+        rating: s.rating,
+        size: s.tents,
+        tags: tags,
+        lat: marker.position.lat,
+        long: marker.position.long,
+        files: s.files
+      }
+      
+      let self = this;
+      let success = function(){
+        self.close();
+      }
+
+      $.ajax({
+      type: "POST",
+      url: "/v1/addsite",
+      data: data,
+      success:success,
+      });
+    
     }else{
-      console.log("Bad");
+      this.setState({
+        error:"Please fill all required fields and give site at least one tag."
+      });
     }
   }
 
@@ -138,7 +174,19 @@ export default class CampsiteModal extends React.Component {
   previousStep(){
     this.setState({step:this.state.step - 1});
   }
-
+  onDrop(acceptedFile) {
+      console.log(acceptedFile);
+      this.setState({
+        files: this.state.files.concat(acceptedFile)
+      });
+  }
+  getkey(){
+    this.key++;
+    return this.key;
+  }
+///////////////////////////////////////////////////////
+///////////////////RENDER METHODS//////////////////////
+///////////////////////////////////////////////////////
   NameAndMap(){
     return (
        <Modal className="campsite-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
@@ -147,7 +195,7 @@ export default class CampsiteModal extends React.Component {
         <div>
             <div className="campsitemodal-color">
               <h1><img className="login-register-image" src={"/img/logo.png"}/></h1><br/>
-              <h4>Step 1/3</h4>
+              <h4>Step 1/4</h4>
               <p>Name and Location:</p>
             </div>
             <div className="add-form">
@@ -191,7 +239,7 @@ export default class CampsiteModal extends React.Component {
             <p className="closeButton" onClick={()=>{this.close()}}>x</p>
             <div>
                 <div className="campsitemodal-color">
-                  <h4>Step 2/3</h4>
+                  <h4>Step 2/4</h4>
                   <p>Special Directions and Description</p>             
                 </div>
                 <div className="add-form" >
@@ -236,8 +284,8 @@ export default class CampsiteModal extends React.Component {
             <p className="closeButton" onClick={()=>{this.close()}}>x</p>
             <div>
                 <div className="campsitemodal-color">
-                  <h4>Step 3/3</h4>
-                  <p>Special Directions and Description</p>             
+                  <h4>Step 3/4</h4>
+                  <p>Size and Tags</p>             
                 </div>
                 <div className="add-form">
 
@@ -262,7 +310,7 @@ export default class CampsiteModal extends React.Component {
                   <p className="bold">Tags (Separate by Commas):</p>
                   <textarea name="tags" value={this.state.tags} onChange={this.handleChange} placeholder="hammocks, pets, restroom, etc..."></textarea>
                   <input type="button" name="back" className="login campsitemodal-submit" onClick={()=>{this.previousStep()}} value="Back"/>
-                  <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.handleSubmit()}} value="Submit"/>
+                  <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.nextStep(3)}} value="Next"/>
                 
                 </div>
                 
@@ -274,6 +322,40 @@ export default class CampsiteModal extends React.Component {
       ) 
   }
 
+  Images(){
+    return (
+               <Modal className="campsite-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
+                <div className="campsitemodal-color">             
+                <div className="campsitemodal-container">
+                <p className="closeButton" onClick={()=>{this.close()}}>x</p>
+                <div>
+                    <div className="campsitemodal-color">
+                      <h4>Step 4/4</h4>
+                      <p>Recommended - Add Photos</p>             
+                    </div>
+                    <div className="add-form">
+                    <div className="image-drop-container">
+                      <Dropzone className="image-drop" onDrop={this.onDrop}>
+                        <div><p className="center-text">Drop Images here or Click to Open File Browser</p></div>
+                      </Dropzone>
+                      {this.state.files.length > 0 ? <div>
+                      <p className="dark-gray">Uploading {this.state.files.length} files...</p>
+                      <div>{this.state.files.map((file) => <img key={this.getkey()} className="preview-image" src={file.preview} /> )}</div>
+                      </div> : null}
+                    </div>
+                    <p className="error">{this.state.error}</p>
+                    <input type="button" name="back" className="login campsitemodal-submit" onClick={()=>{this.previousStep()}} value="Back"/>
+                    <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.handleSubmit()}} value="Submit"/>
+                    
+                    </div>
+                    
+                  </div>
+
+                </div>   
+                </div>         
+               </Modal>
+          ) 
+  }
   render() {
     if(!this.state.showModal){
       return(<div></div>);
@@ -286,6 +368,8 @@ export default class CampsiteModal extends React.Component {
         case 3:
           return this.SizeAndTags()
         case 4:
+          return this.Images()
+        case 5:
           return(<div></div>);
 
       }

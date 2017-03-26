@@ -6,23 +6,35 @@
     z-index: 1; /* Stay on top */
     top: 0;
     right: 0;
-    background-color: #686868;
+    background-color: #333;
     overflow-x: hidden; /* Disable horizontal scroll */
     overflow-y: hidden;
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
 }
-
+.sidebar-info{
+    padding-top: 10px;
+    font-size:1.15em;
+}
 .left-align{
     text-align: left;
 }
+.site-title{
+    color: white;
+    text-transform:capitalize;
+}
 .sidebar-container{
-    position: relative; /* Stay in place */
     padding-top: 60px; /* Place content 60px from the top */
+    color:white;
+    position: relative; /* Stay in place */
     width: 90%;
     margin:0 auto;
 }
-
+.sidebar-info-container{
+    margin-top: 20px;
+    padding: 10px 5px;
+    background-color: #686868;
+}
 .sidebar-closeButton{
     position: absolute;
     left: 10px;
@@ -31,6 +43,7 @@
 }
 
 .campsite-img{
+    background-color: #333;
     max-width: 100%;
     max-height: 180px;
 }
