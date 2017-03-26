@@ -120,7 +120,6 @@ app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, '../public/index.html'))
 });
 
-
 // Endpoint used for testing the loggedIn middleware and ensure that
 // authentication functions properly
 app.get('/v1/ping', function(req, res) {
@@ -158,6 +157,14 @@ app.post('/v1/register', function(req, res, next) {
         console.log('Logged in after registering.');
         res.send({success: 'Registration successful'});
     });
+
+app.post('/v1/ratecampsite', function(req, res) {
+    let campsiteName = req.body.campsitename;
+    Campsite.update({ name : campsiteName }, { $push: {rating: req.body.rating} }, function(err, campsite) {
+        if (err) res.send('Failed to update campsite ' + campsiteName);
+        res.send(campsite);
+    });
+});
 
 // Stores an image the user is uploading
 app.post('/v1/campsiteimage', upload.single('campsitephoto'), function(req, res) {

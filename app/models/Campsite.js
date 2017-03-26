@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const campsiteSchema = new mongoose.Schema({
     name: String,
     creator: String, // technically User.username
-    rating: Number,
+    rating: [Number],
     dateCreated: {type: Date, default: Date.now },
     description: String,
     directions: String,
