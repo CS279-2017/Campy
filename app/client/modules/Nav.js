@@ -49,9 +49,7 @@ export default React.createClass({
   },
 
   updateMap(){
-    this.props.children.forEach(function(child){
-      child.forceUpdate();
-    })
+    
   },
 
   render() {

@@ -16,6 +16,7 @@ export default class SideBar extends React.Component {
       site:null,
       image:0,
     }
+    this.key = 0;
     this.handleRating = this.handleRating.bind(this);
   }
 
@@ -36,6 +37,10 @@ export default class SideBar extends React.Component {
         success:success,
       });
     }
+  }
+  getkey(){
+    this.key++;
+    return this.key;
   }
 
   showCampsite(campsite){

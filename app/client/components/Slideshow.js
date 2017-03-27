@@ -45,7 +45,7 @@ export default class Slideshow extends React.Component {
           {
             this.props.slides.map((slide, index) => (
               <li className={ classNames({ active: index == this.state.activeIndex }) }>
-                  <img className='campsite-img' src={ slide.imageUrl } />
+                  <img className='campsite-img' key={slide.imageUrl} src={ slide.imageUrl } />
               </li>
             ))
           }
@@ -53,7 +53,7 @@ export default class Slideshow extends React.Component {
         <ul className="slideshow-dots">
           {
             this.props.slides.map((slide, index) => (
-              <li className={ (index == this.state.activeIndex) ? 'active': '' }>
+              <li key={slide.imageUrl + "dot"} className={ (index == this.state.activeIndex) ? 'active': '' }>
                 <a onClick={ (event)=> this.jumpToSlide(index) }>{ index + 1 }</a>
               </li>
             ))

@@ -157,34 +157,32 @@ export default class GettingStartedExample extends Component {
 
   // //removes any markers without tags given
   // //tags is array of strings
-  // removeMarkersWithoutTags(tags){
-  //   console.log(tags);
-  //   if(tags.length > 0){
-  //     for(let i = 0; i < this.state.markers.length; i++){
-  //       let sitetags = this.state.markers[i].tags;
-  //       let match = 0;
+  removeMarkersWithoutTags(tags){
+    if(tags.length > 0){
+      for(let i = 0; i < this.state.markers.length; i++){
+        let sitetags = this.state.markers[i].tags;
+        let match = 0;
 
-  //       for(let k = 0; k < tags.length; k++){
-  //         for(let j = 0; j < sitetags.length; j++)
-  //         if(tags[k].toLowerCase() == sitetags[j].toLowerCase()){
-  //           match++;
-  //         }
-  //       }
-  //       if(match != tags.length){
-  //         this.state.markers[i].show = false;
-  //       }else{
-  //         this.state.markers[i].show = true;
-  //       }
-  //     }
-  //   }else{
-  //     for(let i = 0; i < this.state.markers.length; i++){
-  //       this.state.markers[i].show = true;
-  //     }
-  //   }
+        for(let k = 0; k < tags.length; k++){
+          for(let j = 0; j < sitetags.length; j++)
+          if(tags[k].toLowerCase() == sitetags[j].toLowerCase()){
+            match++;
+          }
+        }
+        if(match != tags.length){
+          this.state.markers[i].show = false;
+        }else{
+          this.state.markers[i].show = true;
+        }
+      }
+    }else{
+      for(let i = 0; i < this.state.markers.length; i++){
+        this.state.markers[i].show = true;
+      }
+    }
     
-  //   this.forceUpdate();
-  //   console.log(this.state.markers);
-  // }
+    this.forceUpdate();
+  }
 
   render() {
     return (
