@@ -140,7 +140,7 @@ export default class CampsiteModal extends React.Component {
 
 
   onDrop(acceptedFile) {
-
+      console.log(acceptedFile);
       this.setState({
         uploadstatus: "uploading..."
       });
@@ -148,16 +148,15 @@ export default class CampsiteModal extends React.Component {
       $.ajax({
         type: "POST",
         url: "/v1/campsiteimage",
-        headers:{"enctype":"multipart/form-data"},
+        contentType: "multipart/form-data",
         data: acceptedFile,
         success: function(data) {
           console.log(data);
           if(data){
-          this.setState({
-            images: images.push(data.imagename),
-            uploadstatus: ""
-          });
-
+            this.setState({
+              images: this.state.images.push(data.imagename),
+              uploadstatus: ""
+            });
           }
         }.bind(this),
         error: function(err){
@@ -374,9 +373,12 @@ export default class CampsiteModal extends React.Component {
                     </div>
                     <div className="add-form">
                     <div className="image-drop-container">
+
+                      <form className="upload" encType="multipart/form-data">
                       <Dropzone className="image-drop" onDrop={this.onDrop}>
                         <div><p className="center-text">Drop Images here or Click to Open File Browser</p></div>
                       </Dropzone>
+                      </form>
                       {this.state.images.length > 0 ? <div>
                       <p className="dark-gray">{this.state.uploadstatus}</p>
                       <div>{this.state.images.map((file) => <img key={this.getkey()} className="preview-image" src={file.preview} /> )}</div>
