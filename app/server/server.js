@@ -21,6 +21,7 @@ let express       = require('express'),
     multerS3        = require('multer-s3'),
     flash           = require ('connect-flash');
 
+
 const app = express();
 app.set('views', './views')
 app.use(logger('combined'));
@@ -47,7 +48,7 @@ var upload = multer({
     bucket: bucketname,
     acl: 'public-read',
     metadata: function (req, file, cb) {
-        console.log(file)
+      console.log(file)
       cb(null, {fieldName: file.fieldname});
     },
     key: function (req, file, cb) {
@@ -188,7 +189,8 @@ app.post('/v1/addsite', function(req, res) {
         tags : data.tags,
         lat : data.lat,
         long : data.long,
-        creator: req.user.username
+        creator: req.user.username,
+        images: data.images
     });
     
     Campsite.create(campsite, function(err, newsite) {
@@ -203,9 +205,11 @@ app.post('/v1/addsite', function(req, res) {
 });
 
 
-app.post('/v1/campsiteimage', upload.array('images'), function(req,res){
-    console.log(req.files);
-    res.send(req.files);
+app.post('/v1/campsiteimage', upload.single('images'), function(req,res){
+    console.log();
+    console.log();
+    console.log(req.file);
+    res.send(req.file.originalname);
 });
 
 // Logs a user out, clearing req.user property and clearing the login session if any

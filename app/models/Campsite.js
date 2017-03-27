@@ -13,8 +13,8 @@ const campsiteSchema = new mongoose.Schema({
     size: String,
     tags: [String],
     fire: Boolean,
-    reviews: [String] // string IDs of reviews corresponding to this site
-
+    reviews: [String], // string IDs of reviews corresponding to this site
+    images:[String]
 }, { timestamps: true });
 
 const Campsite = mongoose.model('Campsite', campsiteSchema);

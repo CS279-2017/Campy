@@ -48,6 +48,12 @@ export default React.createClass({
     this.checkLogin();
   },
 
+  updateMap(){
+    this.props.children.forEach(function(child){
+      child.forceUpdate();
+    })
+  },
+
   render() {
     //if logged in
     if(this.state.isLoggedIn){

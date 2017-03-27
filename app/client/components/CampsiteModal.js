@@ -78,6 +78,7 @@ export default class CampsiteModal extends React.Component {
   }
   
   close(){
+    console.log("closing");
     this.clearValues();
     this.setState({ showModal: false });
   }
@@ -92,7 +93,8 @@ export default class CampsiteModal extends React.Component {
        tents:1,
        tags:"",
        rating:3,
-       error:""
+       error:"",
+       images:[]
     });
   }
 
@@ -127,6 +129,7 @@ export default class CampsiteModal extends React.Component {
     }
     marker = [marker];
     this.setState({marker:marker});
+    console.log(marker);
   }
   nextStep(num){
     //TODO: check for all info
@@ -145,31 +148,41 @@ export default class CampsiteModal extends React.Component {
         uploadstatus: "uploading..."
       });
 
-      $.ajax({
-        type: "POST",
-        url: "/v1/campsiteimage",
-        contentType: "multipart/form-data",
-        data: acceptedFile,
-        success: function(data) {
-          console.log(data);
-          if(data){
-            this.setState({
-              images: this.state.images.push(data.imagename),
-              uploadstatus: ""
-            });
-          }
-        }.bind(this),
-        error: function(err){
-          this.setState({
-            error:"File could not be uploaded.",
-            uploadstatus: ""
-          });
-        }.bind(this),
-      });
 
-      // this.setState({
-      //   images: this.state.images.concat(acceptedFile)
-      // });
+      let formData = new FormData();
+      //acceptedFile.forEach(function(file){
+
+      let file = acceptedFile[0];
+      let blob = new Blob([file], { type: file.type});
+      //rename
+      let name =  (new Date().toDateString()) + file.name;
+      formData.append("images", blob, name);
+
+      let request = new XMLHttpRequest();
+      request.open("POST", "/v1/campsiteimage");
+      let self = this;
+
+      //callback
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          //add image
+          self.setState({
+            uploadstatus:"",
+            images: self.state.images.concat([name]),
+            error:"",
+          });
+
+        }else if (this.readyState == 4 && this.status == 500) {
+          //produce error msg
+          self.setState({
+            uploadstatus:"",
+            error: "An has error occurred.",
+          });
+        }
+      };
+      //send request
+      request.send(formData);
+
 
   }
 
@@ -197,14 +210,13 @@ export default class CampsiteModal extends React.Component {
         size: s.tents,
         tags: tags,
         lat: marker.position.lat,
-        long: marker.position.long,
+        long: marker.position.lng,
         images: s.images
       }
       
       let self = this;
       let success = function(){
-        console.log("success");
-        //self.close();
+        self.close();
       }
 
       $.ajax({
@@ -374,14 +386,14 @@ export default class CampsiteModal extends React.Component {
                     <div className="add-form">
                     <div className="image-drop-container">
 
-                      <form className="upload" encType="multipart/form-data">
+                      <form className="uploadImage" encType="multipart/form-data">
                       <Dropzone className="image-drop" onDrop={this.onDrop}>
                         <div><p className="center-text">Drop Images here or Click to Open File Browser</p></div>
                       </Dropzone>
                       </form>
                       {this.state.images.length > 0 ? <div>
                       <p className="dark-gray">{this.state.uploadstatus}</p>
-                      <div>{this.state.images.map((file) => <img key={this.getkey()} className="preview-image" src={file.preview} /> )}</div>
+                      <div>{this.state.images.map((url) => <img key={this.getkey()} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/" + url} /> )}</div>
                       </div> : null}
                     </div>
                     <p className="error">{this.state.error}</p>

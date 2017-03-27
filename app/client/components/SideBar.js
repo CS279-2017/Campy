@@ -39,8 +39,9 @@ export default class SideBar extends React.Component {
   }
 
   showCampsite(campsite){
+    console.log(campsite);
     let date = this.formatDate(campsite.dateCreated);
-    let images = this.getImages(campsite._id);
+    let images = this.getImages(campsite.images);
 
     let i = 0;
     return(
@@ -56,9 +57,12 @@ export default class SideBar extends React.Component {
           <Slideshow className="campsite-img" slides={images}/>
           <div className="sidebar-info-container">
           <p className='sidebar-info left-align'><b>Description - </b> {campsite.description}</p>
+          {campsite.directions ? <p className='sidebar-info left-align'><b>Special Directions - </b> {campsite.directions}</p> : null}
           
-          <p className='sidebar-info left-align'><b>Special Directions - </b> {campsite.directions}</p>
           </div>
+          <p className='sidebar-info'><b>Campfire - </b> {campsite.fire ? "Allowed" : "Not Allowed"}</p>
+          <p className='sidebar-info left-align'><b>Tags - </b>{campsite.tags.map(function(tag, i){if(i+1 == campsite.tags.length){return tag;}else{return tag+", ";}})}</p>
+
         </div>
       </div>
     )
@@ -66,9 +70,18 @@ export default class SideBar extends React.Component {
   }
 
   //compile list of image urls
-  getImages(id){
+  getImages(images){
+    if(!images || images.length == 0){
+      return([{imageUrl:'http://placehold.it/600x400&text=No Images'}]);
+    }else{
+      let ret = [];
+      images.forEach(function(imName){
+        ret.push({imageUrl:"https://s3.amazonaws.com/campyapp1/" + imName});
+      });
+      return ret;
+    }
     //if no image exists, use http://placehold.it/600x400&text=No-Images
-    return([{imageUrl:'http://eurotravel360.com/wp-content/uploads/2013/05/What-to-Consider-When-Choosing-a-Campsite.jpg'},{imageUrl:'http://placehold.it/600x400&text=c2'},{imageUrl:'http://placehold.it/600x400&text=c3'}])
+    //return([{imageUrl:'http://eurotravel360.com/wp-content/uploads/2013/05/What-to-Consider-When-Choosing-a-Campsite.jpg'},{imageUrl:'http://placehold.it/600x400&text=c2'},{imageUrl:'http://placehold.it/600x400&text=c3'}])
   }
 
   formatDate(date){
