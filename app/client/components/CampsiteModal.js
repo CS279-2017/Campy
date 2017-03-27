@@ -148,7 +148,7 @@ export default class CampsiteModal extends React.Component {
       $.ajax({
         type: "POST",
         url: "/v1/campsiteimage",
-        enctype:"multipart/form-data",
+        headers:{"enctype":"multipart/form-data"},
         data: acceptedFile,
         success: function(data) {
           console.log(data);
