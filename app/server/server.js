@@ -158,7 +158,15 @@ app.post('/v1/register', function(req, res, next) {
         res.send({success: 'Registration successful'});
     });
 
-app.post('/v1/ratecampsite', function(req, res) {
+
+//TODO
+app.get('/v1/rating', function(req, res) {
+    let campsiteId = req.body.campsiteid;
+    // Campsite.findById({})
+});
+
+
+app.post('/v1/rating', function(req, res) {
     let campsiteName = req.body.campsitename;
     Campsite.update({ name : campsiteName }, { $push: {rating: req.body.rating} }, function(err, campsite) {
         if (err) res.send('Failed to update campsite ' + campsiteName);
@@ -166,11 +174,38 @@ app.post('/v1/ratecampsite', function(req, res) {
     });
 });
 
-// Stores an image the user is uploading
-app.post('/v1/campsiteimage', upload.single('campsitephoto'), function(req, res) {
-    console.log('Uploaded image ' + req.file.key);
-    console.log();
-    res.send('Uploaded image successfully');
+app.post('/v1/addsite', function(req, res) {
+    let data = req.body;
+    // console.log(data);
+    // console.log();
+    var campsite = new Campsite({
+        description: data.description, 
+        directions : data.directions,
+        fire : data.fire,
+        name : data.name,
+        rating : [data.rating],
+        size : data.size,
+        tags : data.tags,
+        lat : data.lat,
+        long : data.long,
+        creator: req.user.username
+    });
+    
+    Campsite.create(campsite, function(err, newsite) {
+        if (err) {
+            console.log('Campsite not properly created.');
+            res.send("Failed to upload campsite");
+        }
+        console.log('Added new site: ');
+        console.log(newsite);
+        res.send(newsite);
+    });
+});
+
+
+app.post('/v1/campsiteimage', upload.array('images'), function(req,res){
+    console.log(req.files);
+    res.send(req.files);
 });
 
 // Logs a user out, clearing req.user property and clearing the login session if any
