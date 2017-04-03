@@ -141,10 +141,16 @@ app.post('/v1/login', passport.authenticate('local'), function(req, res) {
 // Handles registration and logs the user in
 app.post('/v1/register', function(req, res, next) {
         let data = req.body;
+        //check password
+        var passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})");
+        if(!passwordRegex.test(data.password)){
+            res.status(400).send({error: 'Password must be 6 characters long, contain one uppercase, one lowercase, and one number'});
+            return;
+        }
 
         User.createUser(data, function(err) {
             if (err) {
-                res.status(400).send({error: 'user already exists in the database'});
+                res.status(400).send({error: 'User already exists in the database'});
             }
             else {
                 let responseString = 'Successfully created user ' + data.username;
@@ -160,19 +166,61 @@ app.post('/v1/register', function(req, res, next) {
     });
 
 
-//TODO
-app.get('/v1/rating', function(req, res) {
-    let campsiteId = req.body.campsiteid;
-    // Campsite.findById({})
+//Returns the rating array for a campsite and whether or not the user has already rated this campsite
+//so it can be blocked on clientside.
+app.get('/v1/rate',loggedIn, function(req, res) {
+    let siteId = req.query.campsiteid;
+    Campsite.findOne({_id: siteId}, function (err, site) {
+        //if error
+        if(err){
+            res.send(400, "Campsite not found.");
+        }
+        //else find user
+        User.getUserByUsername(req.user.username, function(err, user){
+            //shouldn't ever get this error.
+            if(err){res.send(401, "User doesn't exist.");}
+            
+            let data = {
+                rating:site.rating,
+                voted:false
+            }
+
+            //check user vote
+            if(user.votedReviews.indexOf(siteId) != -1){
+                //toggle voted
+                data.voted = true;
+                res.send(data);
+            }else{
+                //user hasn't voted yet.
+                res.send(data);
+            }
+        });
+
+    } );
 });
 
-
-app.post('/v1/rating', function(req, res) {
-    let campsiteName = req.body.campsitename;
-    Campsite.update({ name : campsiteName }, { $push: {rating: req.body.rating} }, function(err, campsite) {
-        if (err) res.send('Failed to update campsite ' + campsiteName);
-        res.send(campsite);
+//rates a campsite and pushes it into user array of voted campsites
+app.post('/v1/rate',loggedIn, function(req, res) {
+    let siteId = req.body.campsiteid;
+    User.getUserByUsername(req.user.username, function(err, user){
+        if(err){res.send(401, "User doesn't exist.");}
+        
+        if(user.votedReviews.indexOf(siteId) != -1){
+            res.send(401, "User has already voted");
+        }else{
+            Campsite.findOneAndUpdate({ _id: siteId }, { $push: {rating: parseInt(req.body.rating)} }, function(err, campsite) {
+                if (err) res.send(500, 'Failed to update campsite');
+                user.votedReviews.push(siteId);
+                user.save(function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+                res.send(200);
+            });  
+        }
     });
+    
 });
 
 app.post('/v1/addsite', function(req, res) {
@@ -195,8 +243,12 @@ app.post('/v1/addsite', function(req, res) {
     
     Campsite.create(campsite, function(err, newsite) {
         if (err) {
-            console.log('Campsite not properly created.');
-            res.send("Failed to upload campsite");
+            if(err.code == 11000 ){
+                res.send(400, {error:"Campsite name is taken, please name something else."});
+            }else{
+                res.send(500, {error:"Campsite could not be created. Try again later."});
+            }
+            return;
         }
         console.log('Added new site: ');
         console.log(newsite);
@@ -206,8 +258,6 @@ app.post('/v1/addsite', function(req, res) {
 
 
 app.post('/v1/campsiteimage', upload.single('images'), function(req,res){
-    console.log();
-    console.log();
     console.log(req.file);
     res.send(req.file.originalname);
 });
@@ -224,6 +274,13 @@ app.get('/v1/campsites', loggedIn, function(req, res) {
     Campsite.find({}, function(err, data) {
         res.send(JSON.stringify(data));
     });
+});
+// Provides all campsites in a response to the client.
+app.get('/v1/campsites/window', loggedIn, function(req, res) {    
+    console.log('GET campsites request made')
+    let window = req.query.window;
+    let sites = Campsite.getCampsitesByWindow(window);
+    res.send(sites);
 });
 
 

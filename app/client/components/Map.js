@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import {
+  triggerEvent,
   withGoogleMap,
   GoogleMap,
   Marker,
@@ -38,9 +39,6 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
 
 export default class GettingStartedExample extends Component {
 
-
-
-
   state = {
     markers: [],
     zoom:5,
@@ -52,6 +50,7 @@ export default class GettingStartedExample extends Component {
 
   handleMapLoad = this.handleMapLoad.bind(this);
   handleMapClick = this.handleMapClick.bind(this);
+  campsiteList = this.campsiteList.bind(this);
   // handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
 
   handleMapLoad(map) {
@@ -70,7 +69,6 @@ export default class GettingStartedExample extends Component {
   * Make api calls here
   */
   componentDidMount() {
-    this.campsites = this.campsiteList();
     /*
     * Get geolocation
     */
@@ -84,7 +82,6 @@ export default class GettingStartedExample extends Component {
           },
           zoom:10
         });
-
       },
       (error) => console.log("Location Could Not be Retrieved."),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -100,11 +97,26 @@ export default class GettingStartedExample extends Component {
   *
   *Call campsites api
   */
-  campsiteList() {
-    let map = this;
-    return $.getJSON('/v1/campsites', function(data){
-      map.placeMarkers(data);
-    });
+  campsiteList(thewindow) {
+    console.log(this);
+    // let self = this;
+
+    // let success = function(data){
+    //   self.placeMarkers(data);
+    // }
+    // let error = function(){
+    //   console.log("No campsites")
+    // }
+
+    // $.ajax({
+    //     type: "GET",
+    //     dataType: 'json',
+    //     url: "/v1/campsites/window",
+    //     data: thewindow,
+    //     success:success,
+    //     error:error
+    // });
+
   }
 
   /*
@@ -193,10 +205,10 @@ export default class GettingStartedExample extends Component {
 
           <GettingStartedGoogleMap
             containerElement={
-              <div style={{ height: `100%` }} />
+              <div style={{ height: '100%' }} />
             }
             mapElement={
-              <div style={{ height: `100%` }} />
+              <div style={{ height: '100%' }} />
             }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
@@ -204,7 +216,7 @@ export default class GettingStartedExample extends Component {
             zoom = {this.state.zoom}
             markers={this.state.markers.filter(function(m){return m.show;})}
             onMarkerClick={(marker)=>{this.setState({selectedSite:marker.metadata})}}
-            onCenterChanged={this.handleCenterChanged}
+            onIdle={console.log("Center Changed")}
           />
         </div>
       </div>

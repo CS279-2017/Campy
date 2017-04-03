@@ -16,7 +16,8 @@ export default class registerModal extends React.Component {
   		 password: "",
        passwordCheck:"",
   		 user: "",
-       email:""
+       email:"",
+       error:""
   		});
   	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,6 +36,11 @@ export default class registerModal extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    if(this.state.password != this.state.passwordCheck){
+      this.setState({error:"Passwords must match."})
+      return;
+    }
+
     const data = {
     	username:this.state.user,
     	password:this.state.password,
@@ -45,6 +51,10 @@ export default class registerModal extends React.Component {
       self.close();
       self.props.self.update();
     }
+    let error = function(xhr, ajaxOptions, thrownError){
+      console.log(xhr);
+      self.setState({error:JSON.parse(xhr.responseText).error});
+    }
 
     
 	$.ajax({
@@ -52,6 +62,7 @@ export default class registerModal extends React.Component {
 	  url: "/v1/register",
 	  data: data,
 	  success: success,
+    error:error
 	});
 
   }
@@ -79,6 +90,7 @@ export default class registerModal extends React.Component {
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
           <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Password"/>
 					<input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email"/>
+          <p className="error">{this.state.error}</p>
           <input type="submit" name="login" className="login loginmodal-submit" value="Register"/>
 				  </form>
 				</div>	          
