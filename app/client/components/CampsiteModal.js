@@ -2,6 +2,7 @@ import React from 'react'
 import NavLink from '../modules/NavLink'
 import StarRating from 'react-star-rating';
 import Dropzone from 'react-dropzone';
+import Tags from '../data/Tags.js'
 
 require("style-loader!css-loader!../css/campsitemodal.css");
 
@@ -12,12 +13,28 @@ import {
   InfoBox,
 } from "react-google-maps";
 
+import SearchBox from "react-google-maps/lib/places/SearchBox";
+
 
 let ReactBootstrap = require('react-bootstrap');
 let Modal = ReactBootstrap.Modal
 let OverlayTrigger = ReactBootstrap.OverlayTrigger
 let Button = ReactBootstrap.Button
 
+const INPUT_STYLE = {
+  boxSizing: 'border-box',
+  MozBoxSizing: 'border-box',
+  border: '1px solid transparent',
+  width: '150px',
+  height: '32px',
+  marginTop: '10px',
+  padding: '0 15px',
+  borderRadius: '1px',
+  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+  fontSize: '14px',
+  outline: 'none',
+  textOverflow: 'ellipses',
+};
 
 const SmallMap = withGoogleMap(props => (
   <GoogleMap
@@ -25,7 +42,16 @@ const SmallMap = withGoogleMap(props => (
     zoom={props.zoom}
     center={props.center}
     onClick={props.onMapClick}
+    onBoundsChanged={props.onBoundsChanged}
   >
+  <SearchBox
+      ref={props.onSearchBoxMounted}
+      bounds={props.bounds}
+      controlPosition={google.maps.ControlPosition.TOP_LEFT}
+      onPlacesChanged={props.onPlacesChanged}
+      inputPlaceholder="Search location..."
+      inputStyle={INPUT_STYLE}
+  />
   {props.markers.map(marker => (
       <Marker
         {...marker}
@@ -46,7 +72,7 @@ export default class CampsiteModal extends React.Component {
        showModal: false, 
        error:"",
        step:1,
-       defaultCenter:{
+       center:{
         lng:-98.5795, lat:39.8282
        },
        zoom:3,
@@ -57,11 +83,12 @@ export default class CampsiteModal extends React.Component {
        fires:false,
        price:0,
        tents:1,
-       tags:"",
+       tags:[],
        rating:3,
        images:[],
        error:"",
        uploadstatus:"",
+       chooseTags:Tags.tags(),
   		});
     this.key = 0;
   	this.handleChange = this.handleChange.bind(this);
@@ -69,9 +96,45 @@ export default class CampsiteModal extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
     this.onDrop = this.onDrop.bind(this);
-    this.state.user 
+    this.selectTag = this.selectTag.bind(this);
+  
+    //test
+    this.handleMapLoad = this.handleMapLoad.bind(this);
+    this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
+    this.handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
+    this.handlePlacesChanged = this.handlePlacesChanged.bind(this);
 
   }
+  //test
+  handleMapLoad(map) {
+    this._map = map;
+  }
+
+  handleBoundsChanged() {
+    this.setState({
+      bounds: this._map.getBounds(),
+      center: this._map.getCenter(),
+    });
+  }
+
+  handleSearchBoxMounted(searchBox) {
+    this._searchBox = searchBox;
+  }
+
+  handlePlacesChanged() {
+    const places = this._searchBox.getPlaces();
+
+    console.log(places);
+
+    // Set markers; set map center to first search result
+    const mapCenter = places.length > 0 ? places[0].geometry.location : this.state.center;
+
+    this.setState({
+      center: mapCenter,
+      zoom: 15,
+    });
+  }
+  //endtest
 
   open(){
     this.setState({ showModal: true, step:1 });
@@ -91,10 +154,10 @@ export default class CampsiteModal extends React.Component {
        fires:false,
        price:0,
        tents:1,
-       tags:"",
+       tags:[],
        rating:3,
        error:"",
-       images:[]
+       images:[],
     });
   }
 
@@ -131,9 +194,41 @@ export default class CampsiteModal extends React.Component {
     this.setState({marker:marker});
     console.log(marker);
   }
+
+
+  //Handles step transition for the form.
   nextStep(num){
+    console.log(this.state.chooseTags);
     //TODO: check for all info
-    this.setState({step:this.state.step + 1});
+    let error = "";
+    let s = this.state;
+    switch(this.state.step){
+      case 1:
+        if(s.campsiteName == "" || !s.marker[0]){
+          error = "Please enter a name and place a marker on the map.";
+        }
+       
+        break;
+      case 2:
+        if(!s.description){
+          error = "Please add a description for the campsite."
+        }else if(s.description.length < 50){
+          error = "Description should be at least 50 characters."
+        }
+        break;
+      case 3:
+        if(!s.tags[0]){
+          error = "Please select at least one tag."
+        }
+        break;
+      case 4:
+        break;
+    }
+    if(error != ""){
+      this.setState({error:error});
+    }else{
+      this.setState({error:"",step:this.state.step + 1});
+    }
   }
 
   previousStep(){
@@ -192,13 +287,40 @@ export default class CampsiteModal extends React.Component {
     return this.key;
   }
 
+  removeImage(file){
+    arr = this.state.images;
+    
+    for (let i = 0; i < arr.length(); i++)
+    {
+      if (arr[i].equals(file))
+      {
+        array.splice(i, 1);
+        break;
+      }
+    }
+    this.setState({images:arr});
+  }
+
+  //toggles tag selection in campsite
+  selectTag(name){
+    let arr = this.state.tags;
+
+    let i = arr.indexOf(name);
+    if (i > -1) {
+      arr.splice(i, 1);
+    }else{
+      arr.push(name);
+    }
+    
+    this.setState({tags:arr});
+    console.log(this.state.tags);
+  }
+
+  //handles submission of everything
   handleSubmit(event) {
     let s = this.state;
-    if(s.campsiteName && s.marker[0] && s.description && s.tags){
+    if(s.campsiteName && s.marker[0] && s.description && s.tags[0]){
       //im assuming you'll do creator, date, and transform size (if you want) SS
-      let tags = s.tags;
-      tags = tags.replace(/\s/g,'');
-      tags = tags.split(",")
       let marker = s.marker[0];
       //post data
       let data = {
@@ -208,7 +330,7 @@ export default class CampsiteModal extends React.Component {
         name: s.campsiteName,
         rating: s.rating,
         size: s.tents,
-        tags: tags,
+        tags: s.tags,
         lat: marker.position.lat,
         long: marker.position.lng,
         images: s.images
@@ -218,6 +340,9 @@ export default class CampsiteModal extends React.Component {
       let success = function(){
         self.close();
       }
+      let error = function(xhr, ajaxOptions, thrownError){
+        self.setState({error:JSON.parse(xhr.responseText).error});
+      }
 
       $.ajax({
         type: "POST",
@@ -225,6 +350,7 @@ export default class CampsiteModal extends React.Component {
         url: "/v1/addsite",
         data: data,
         success:success,
+        error:error
       });
     
     }else{
@@ -266,13 +392,20 @@ export default class CampsiteModal extends React.Component {
                 }
                 onMapLoad={this.handleMapLoad}
                 onMapClick={this.handleMapClick}
-                center = {this.state.defaultCenter}
+                center = {this.state.center}
                 zoom = {this.state.zoom}
                 markers={this.state.marker}
                 onCenterChanged={this.handleCenterChanged}
+
+
+                onBoundsChanged={this.handleBoundsChanged}
+                onSearchBoxMounted={this.handleSearchBoxMounted}
+                bounds={this.state.bounds}
+                onPlacesChanged={this.handlePlacesChanged}
               />
               </div>
-              <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.nextStep(1)}} value="Next"/>
+              <p className="error">{this.state.error}</p>
+              <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.nextStep()}} value="Next"/>
             </div>
             
           </div>
@@ -297,25 +430,26 @@ export default class CampsiteModal extends React.Component {
                   <p className="bold">Price:</p>             
                   <div className="row price-buttons">
                     <label className="radio-inline">
-                      <input type="radio" name="price" value="0"/>FREE
+                      <input type="radio" name="price" value="0" onChange={this.handleChange} checked={this.state.price == 0}/>FREE
                     </label>
                     <label className="radio-inline">
-                      <input type="radio" name="price" value="1"/>$
+                      <input type="radio" name="price" value="1" onChange={this.handleChange} checked={this.state.price == 1}/>$
                     </label>
                     <label className="radio-inline">
-                      <input type="radio" name="price" value="2"/>$$
+                      <input type="radio" name="price" value="2" onChange={this.handleChange} checked={this.state.price == 2}/>$$
                     </label> 
                     <label className="radio-inline">
-                      <input type="radio" name="price" value="3"/>$$$
+                      <input type="radio" name="price" value="3" onChange={this.handleChange} checked={this.state.price == 3}/>$$$
                     </label>
                   </div>
                   <p className="bold">Description:</p>
                   <textarea name="description" value={this.state.description} onChange={this.handleChange} placeholder="Required"></textarea>
+                  <p className="description-chars">Characters: {this.state.description.length}</p>
                   <p className="bold">Special Directions:</p>
                   <textarea name="specialdirections" value={this.state.specialdirections} onChange={this.handleChange} placeholder="Optional"></textarea>
-
+                  <p className="error">{this.state.error}</p>
                   <input type="button" name="back" className="login campsitemodal-submit" onClick={()=>{this.previousStep()}} value="Back"/>
-                  <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.nextStep(2)}} value="Next"/>
+                  <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.nextStep()}} value="Next"/>
                 </div>
                 
               </div>
@@ -357,10 +491,21 @@ export default class CampsiteModal extends React.Component {
                   <div className="left-align">
                   <label className="fires-box"><input type="checkbox" name="fires" onChange={this.handleChange} value="true" checked={this.state.fires}/> Campfires?</label>
                   </div>
-                  <p className="bold">Tags (Separate by Commas):</p>
-                  <textarea name="tags" value={this.state.tags} onChange={this.handleChange} placeholder="hammocks, pets, restroom, etc..."></textarea>
+                  <div className="">
+                  <p className="bold">Tags (Select Multiple):</p>
+                    <div className="tag-box">
+                    {this.state.chooseTags.map((tag)=>{
+                      if(this.state.tags.indexOf(tag.name)>-1){
+                        return <a className="btn btn-lg campsite-tag campsite-tag-active" key={tag.name} onClick={() => this.selectTag(tag.name)}>{tag.name}</a>
+                      }else{
+                        return <a className="btn btn-lg campsite-tag" key={tag.name} onClick={() => this.selectTag(tag.name)}>{tag.name}</a>
+                      }
+                    })}
+                    </div>
+                    <p className="error">{this.state.error}</p>
+                  </div>
                   <input type="button" name="back" className="login campsitemodal-submit" onClick={()=>{this.previousStep()}} value="Back"/>
-                  <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.nextStep(3)}} value="Next"/>
+                  <input type="button" name="next" className="login campsitemodal-submit" onClick={()=>{this.nextStep()}} value="Next"/>
                 
                 </div>
                 
@@ -393,7 +538,8 @@ export default class CampsiteModal extends React.Component {
                       </form>
                       {this.state.images.length > 0 ? <div>
                       <p className="dark-gray">{this.state.uploadstatus}</p>
-                      <div>{this.state.images.map((url) => <img key={this.getkey()} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/" + url} /> )}</div>
+                      <div>{this.state.images.map((url) => <img key={this.getkey()} onClick={()=>{this.removeImage(file)}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/" + url} /> )}</div>
+
                       </div> : null}
                     </div>
                     <p className="error">{this.state.error}</p>

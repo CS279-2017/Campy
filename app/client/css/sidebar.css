@@ -2,6 +2,7 @@
 .sidebar {
     height: 100%; /* 100% Full-height */
     width: 25%;
+    min-width: 270px;
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
@@ -15,6 +16,24 @@
 .sidebar-info{
     padding-top: 10px;
     font-size:1.15em;
+}
+.ratings{
+    float:right;
+}
+.campsite-rater{
+  display: table;
+  margin: 0 auto;
+}
+
+.num-ratings{
+    float: left; 
+    text-align: center;
+}
+.clear{
+    clear:both;
+}
+.center{
+    text-align: center;
 }
 .left-align{
     text-align: left;

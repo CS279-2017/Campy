@@ -4,7 +4,6 @@ body, html{
 }
 .container{
 	height:100%;
-
 }
 .navbar-header{
 	height:100%;
@@ -18,7 +17,6 @@ body, html{
 .navbar-brand{
 	position: relative;
  	display: inline;
-
     max-height: 100%;
     width: auto;
     padding: 5px;
@@ -30,7 +28,9 @@ body, html{
 	height: 100%;
 }
 .navbar {
-	height:7% !important;
+	height:7%;
+	min-height: 59px;
+
 }
 #navbar {
 	height: 100%;
@@ -61,7 +61,7 @@ body, html{
 	width: 40%;
 }
 .logged-in-text-box{
-	width: 30%;
+	width: 35%;
 }
 .logged-out-text-box{
 	width: 40%;
@@ -133,10 +133,9 @@ body, html{
 .nav-dropdown-up{
 	height: 2%;
 	min-height:20px;
-
 }
 .nav-dropdown-down{
-	height: 11%;
+	height: 100px;
 }
 .nav-dropdown-arrow{
 	position: absolute;

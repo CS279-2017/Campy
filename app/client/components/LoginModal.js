@@ -45,6 +45,10 @@ export default class LoginModal extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    if(this.state.user == "" || this.state.password == "" ){
+     this.setState({error:"Please enter username and password."});
+     return;
+    }
 
     const data = {
     	username:this.state.user,
@@ -53,16 +57,23 @@ export default class LoginModal extends React.Component {
     let self = this;
     let success = function(){
       self.close();
-      console.log(self.props.self);
       self.props.self.update();
     }
-
+    let error = function(xhr, ajaxOptions, thrownError){
+      console.log(xhr);
+      if(xhr.responseText == "Unauthorized"){
+        self.setState({error:"Username or Password is not valid. Capitalization matters!"});
+      }else{
+        self.setState({error:("An error occurred. Please try again.")});
+      }
+    }
     //post to login
   	$.ajax({
   	  type: "POST",
   	  url: "/v1/login",
   	  data: data,
       success:success,
+      error:error
     });
     
   }
@@ -88,11 +99,9 @@ export default class LoginModal extends React.Component {
 				  <form onSubmit={this.handleSubmit}>
 					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
 					<input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
-					<input type="submit" name="login" className="login loginmodal-submit" value="Login"/>
+					<p className = "error">{this.state.error}</p>
+          <input type="submit" name="login" className="login loginmodal-submit" value="Login"/>
 				  </form>
-				  <div className="error">
-             <p className = "login-error">{this.state.error}</p>
-          </div>
 				  <div className="login-help">
 					   <a href="#">Forgot Password</a>
 				  </div>
