@@ -10,10 +10,12 @@ require("style-loader!css-loader!../css/app.css");
 
 
 export default React.createClass({
-  getInitialState() {
+  getInitialState() {    
     return{
       isLoggedIn: false,
-      username:""
+      username:"",
+      searchQuery:"",
+      finalQuery:"",
     }
   },
   componentWillMount(){
@@ -48,11 +50,28 @@ export default React.createClass({
     this.checkLogin();
   },
 
-  updateMap(){
-    
+  handleChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({
+      [name]: value
+    });
   },
+  handleKeyPress(e){
+    if(e.key == "Enter"){
+      this.setState({finalQuery:this.state.searchQuery});
+    }
+  },
+  
 
   render() {
+    const childrenWithProps = React.Children.map(this.props.children,
+     (child) => React.cloneElement(child, {
+       searchQuery: this.state.finalQuery,
+     })
+    );
+
     //if logged in
     if(this.state.isLoggedIn){
       return (
@@ -70,7 +89,7 @@ export default React.createClass({
               <div id="navbar">
                 <div className="nav navbar-nav searchbar-holder">
                     <div className="text-box logged-in-text-box">
-                     <input type="text" className="searchBar" placeholder="Where would you like to camp?" />
+                     <input type="text" name="searchQuery" className="searchBar" value={this.state.searchQuery} onKeyPress={this.handleKeyPress} onChange={this.handleChange} placeholder="Where would you like to camp?" />
                     </div>
                 </div>
                 <ul className="nav navbar-nav navbar-right">
@@ -82,7 +101,7 @@ export default React.createClass({
             </div>
           </nav>
           <CampsiteModal ref='campsiteModal' self={this}/>
-          {this.props.children}
+          {childrenWithProps}
         </div>
         )
       //if not logged in
@@ -102,7 +121,8 @@ export default React.createClass({
               <div id="navbar">
                 <div className="nav navbar-nav">
                     <div className="text-box logged-out-text-box">
-                     <input type="text" className="searchBar" placeholder="Where would you like to camp?" />
+                     <input type="text" className="searchBar" value={this.state.searchQuery} onChange={this.handleChange} onKeyPress={this.handleKeyPress} placeholder="Where would you like to camp?" />
+                    
                     </div>
                 </div>
                 <ul className="nav navbar-nav navbar-right">
@@ -114,7 +134,7 @@ export default React.createClass({
           </nav>
           <LoginModal ref='loginModal' self={this}/>
           <RegisterModal ref='registerModal' self={this}/>
-          {this.props.children}
+          {childrenWithProps}
         </div>
       )
     }

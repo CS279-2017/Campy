@@ -27,15 +27,14 @@ module.exports = Campsite;
 //window = {latLng1:l1, latLng2:l2}
 //l1 = {lng:103.42350, lat:134.324}
 //Note: They don't need to be in order
-module.exports.getCampsitesByWindow = function(window) {
-    let minLat = min(window.latLng1.lat, window.latLng2.lat);
-    let maxLat = max(window.latLng1.lat, window.latLng2.lat);
-    let minLng = min(window.latLng1.lng, window.latLng2.lng);
-    let maxLng = max(window.latLng1.lng, window.latLng2.lng);
+module.exports.getCampsitesByWindow = function(thewindow, callback) {
 
-    var query = {username: username};
+    let minLat = Math.min(thewindow.latLng1.lat, thewindow.latLng2.lat);
+    let maxLat = Math.max(thewindow.latLng1.lat, thewindow.latLng2.lat);
+    let minLng = Math.min(thewindow.latLng1.lng, thewindow.latLng2.lng);
+    let maxLng = Math.max(thewindow.latLng1.lng, thewindow.latLng2.lng);
 
-    User.find(query, callback);
+
 
     Campsite.find({
         lat:{
@@ -48,14 +47,15 @@ module.exports.getCampsitesByWindow = function(window) {
         }
     }, function (err, sites) {
 
-        if (err) {
-            console.log("An error occurred");
-            return;
+  
+        if(err){
+            callback(null);
         }
-
-        if (results.length > 0)
+        if (sites.length > 0)
         {
-            return sites;
+            callback(sites);
+        }else{
+            callback([]);
         }
     });
 

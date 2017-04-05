@@ -10,6 +10,7 @@ let express       = require('express'),
     User            = require('../models/User'),
     Review          = require('../models/Review'),
     Campsite        = require('../models/Campsite'),
+    rest            = require('../rest/rest'),
     ObjectId        = mongoose.Schema.ObjectId,
     passport        = require('passport'),
     LocalStrategy   = require('passport-local').Strategy,
@@ -277,11 +278,46 @@ app.get('/v1/campsites', loggedIn, function(req, res) {
 });
 // Provides all campsites in a response to the client.
 app.get('/v1/campsites/window', loggedIn, function(req, res) {    
-    console.log('GET campsites request made')
-    let window = req.query.window;
-    let sites = Campsite.getCampsitesByWindow(window);
-    res.send(sites);
+    console.log('GET campsites request made');
+    console.log("");
+
+    let thewindow = req.query;
+    let cb = function(data){
+        if(!data){
+            res.send(500, "An error occurred");
+        }else{
+            res.json(data);
+        }   
+    }
+    let sites = Campsite.getCampsitesByWindow(thewindow, cb);
+  
+    
 });
+
+app.get('/v1/place', loggedIn, function(req, res){
+    
+    console.log(req.query.query);
+
+    let path = encodeURI("/maps/api/place/textsearch/json?query="+req.query.query+"&key=AIzaSyAUimB4-PZ_y2N96diVv7i95xPIsayoF3E");
+    
+    let options = {
+    host: 'maps.googleapis.com',
+    port: 443,
+    path: path,
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }};
+
+    rest.getJSON(options, function(statusCode, result){
+        console.log("onResult: (" + statusCode + ")" + JSON.stringify(result));
+        res.statusCode = statusCode;
+        res.send(result);
+    });
+
+});
+
+
 
 
 let server = app.listen(listeningport, function () {

@@ -13,12 +13,28 @@ import {
   InfoBox,
 } from "react-google-maps";
 
+import SearchBox from "react-google-maps/lib/places/SearchBox";
+
 
 let ReactBootstrap = require('react-bootstrap');
 let Modal = ReactBootstrap.Modal
 let OverlayTrigger = ReactBootstrap.OverlayTrigger
 let Button = ReactBootstrap.Button
 
+const INPUT_STYLE = {
+  boxSizing: 'border-box',
+  MozBoxSizing: 'border-box',
+  border: '1px solid transparent',
+  width: '150px',
+  height: '32px',
+  marginTop: '10px',
+  padding: '0 15px',
+  borderRadius: '1px',
+  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+  fontSize: '14px',
+  outline: 'none',
+  textOverflow: 'ellipses',
+};
 
 const SmallMap = withGoogleMap(props => (
   <GoogleMap
@@ -26,7 +42,16 @@ const SmallMap = withGoogleMap(props => (
     zoom={props.zoom}
     center={props.center}
     onClick={props.onMapClick}
+    onBoundsChanged={props.onBoundsChanged}
   >
+  <SearchBox
+      ref={props.onSearchBoxMounted}
+      bounds={props.bounds}
+      controlPosition={google.maps.ControlPosition.TOP_LEFT}
+      onPlacesChanged={props.onPlacesChanged}
+      inputPlaceholder="Search location..."
+      inputStyle={INPUT_STYLE}
+  />
   {props.markers.map(marker => (
       <Marker
         {...marker}
@@ -47,7 +72,7 @@ export default class CampsiteModal extends React.Component {
        showModal: false, 
        error:"",
        step:1,
-       defaultCenter:{
+       center:{
         lng:-98.5795, lat:39.8282
        },
        zoom:3,
@@ -72,7 +97,44 @@ export default class CampsiteModal extends React.Component {
     this.handleMapClick = this.handleMapClick.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.selectTag = this.selectTag.bind(this);
+  
+    //test
+    this.handleMapLoad = this.handleMapLoad.bind(this);
+    this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
+    this.handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
+    this.handlePlacesChanged = this.handlePlacesChanged.bind(this);
+
   }
+  //test
+  handleMapLoad(map) {
+    this._map = map;
+  }
+
+  handleBoundsChanged() {
+    this.setState({
+      bounds: this._map.getBounds(),
+      center: this._map.getCenter(),
+    });
+  }
+
+  handleSearchBoxMounted(searchBox) {
+    this._searchBox = searchBox;
+  }
+
+  handlePlacesChanged() {
+    const places = this._searchBox.getPlaces();
+
+    console.log(places);
+
+    // Set markers; set map center to first search result
+    const mapCenter = places.length > 0 ? places[0].geometry.location : this.state.center;
+
+    this.setState({
+      center: mapCenter,
+      zoom: 15,
+    });
+  }
+  //endtest
 
   open(){
     this.setState({ showModal: true, step:1 });
@@ -92,7 +154,7 @@ export default class CampsiteModal extends React.Component {
        fires:false,
        price:0,
        tents:1,
-       tags:"",
+       tags:[],
        rating:3,
        error:"",
        images:[],
@@ -268,7 +330,7 @@ export default class CampsiteModal extends React.Component {
         name: s.campsiteName,
         rating: s.rating,
         size: s.tents,
-        tags: tags,
+        tags: s.tags,
         lat: marker.position.lat,
         long: marker.position.lng,
         images: s.images
@@ -330,10 +392,16 @@ export default class CampsiteModal extends React.Component {
                 }
                 onMapLoad={this.handleMapLoad}
                 onMapClick={this.handleMapClick}
-                center = {this.state.defaultCenter}
+                center = {this.state.center}
                 zoom = {this.state.zoom}
                 markers={this.state.marker}
                 onCenterChanged={this.handleCenterChanged}
+
+
+                onBoundsChanged={this.handleBoundsChanged}
+                onSearchBoxMounted={this.handleSearchBoxMounted}
+                bounds={this.state.bounds}
+                onPlacesChanged={this.handlePlacesChanged}
               />
               </div>
               <p className="error">{this.state.error}</p>

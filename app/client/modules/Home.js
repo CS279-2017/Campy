@@ -11,7 +11,7 @@ export default React.createClass({
 
   render() {
   	return(
-  		<GoogleMap/>
+  		<GoogleMap searchQuery={this.props.searchQuery}/>
   	)
   }
 })
