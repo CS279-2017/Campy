@@ -39,6 +39,7 @@ let listeningport = 8080
 let bucketname = process.env.BUCKETNAME
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
+mongoose.Promise = global.Promise;
 mongoose.connect(connection_string);
 let db = mongoose.connection;
 
@@ -169,6 +170,7 @@ app.post('/v1/register', function(req, res, next) {
 
 //Returns the rating array for a campsite and whether or not the user has already rated this campsite
 //so it can be blocked on clientside.
+//TS
 app.get('/v1/rate',loggedIn, function(req, res) {
     let siteId = req.query.campsiteid;
     Campsite.findOne({_id: siteId}, function (err, site) {
@@ -201,6 +203,7 @@ app.get('/v1/rate',loggedIn, function(req, res) {
 });
 
 //rates a campsite and pushes it into user array of voted campsites
+//TS
 app.post('/v1/rate',loggedIn, function(req, res) {
     let siteId = req.body.campsiteid;
     User.getUserByUsername(req.user.username, function(err, user){
@@ -317,8 +320,70 @@ app.get('/v1/place', loggedIn, function(req, res){
 
 });
 
+//returns reviews and if user has voted.
+app.get('/v1/reviews', loggedIn, function(req, res){
+    let siteid = req.query.campsiteid;
+    console.log("id");
+    console.log(siteid);
 
+    Review.getReviewsByCampsiteId(siteid, function(err, data){
+        let revData = {userReviewed:false, reviews:[]};
+        if(err){
+            console.log(err);
+            res.status(500).send("An error occurred");
+        }
+        if(!data){
+            res.send(revData);
+        }else{
+            revData.reviews = data;
+            if(req.user){
 
+                data.forEach(function(item){
+                    if(item.creator == req.user.username){
+                        revData.userReviewed = true;
+                    }
+                })
+            }
+            res.send(revData);
+        }
+    })
+});
+app.post('/v1/review', loggedIn, function(req, res){
+    let data = req.body;
+    let siteId = data.campsite;
+    console.log("data");
+    console.log(data);
+    User.getUserByUsername(req.user.username, function(err, user){
+        if(err){console.log("Trigger1");res.send(401, "User doesn't exist.");}
+        
+        if(user.votedReviews.indexOf(siteId) != -1){
+            console.log("Trigger2");
+            res.send(401, "User has already voted");
+        }else{
+            Campsite.findOneAndUpdate({ _id: siteId }, { $push: {rating: parseInt(data.rating)} }, function(err, campsite) {
+                if (err) res.send(500, 'Failed to update campsite');
+                user.votedReviews.push(siteId);
+                user.save(function(err){
+                    if(err){
+                        console.log(err);
+                        res.status(500).send();
+
+                    }
+                });
+            });  
+
+            data.user = user.username;
+            Review.addReview(data, function(cb){
+                if(cb){
+                    console.log("Error:" + cb);
+                    res.status(500).send();
+                }
+            });
+            res.status(200).send();
+        }
+    });
+
+});
 
 let server = app.listen(listeningport, function () {
     console.log('Campy listening on ' + listeningport);

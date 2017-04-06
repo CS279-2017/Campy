@@ -42,8 +42,48 @@
     color: white;
     text-transform:capitalize;
 }
+
+.nav-pills{
+    width: 100%;
+}
+.pill{
+        width:49%;
+
+}
+.nav-pills>li.active>a{
+    background-color: #f39a22;
+}
+
+.nav-pills>li.active>a:hover{
+    background-color: orange;
+}
+.top-message{
+    margin-top: 50px;
+}
+.review-container{
+    max-height: 80%;
+    overflow: scroll;
+}
+.review-submit{
+    background-color:#f39a22;
+    border: 0px;
+    color: #fff;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    padding: 17px 0px;
+    font-family: roboto;
+    font-size: 14px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin:5px;
+ 
+}
+.review-body{
+    color: black !important;
+}
 .sidebar-container{
-    padding-top: 60px; /* Place content 60px from the top */
+    padding-top: 80px; /* Place content 60px from the top */
     color:white;
     position: relative; /* Stay in place */
     width: 90%;

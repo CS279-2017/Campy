@@ -124,7 +124,6 @@ export default class CampsiteModal extends React.Component {
   handlePlacesChanged() {
     const places = this._searchBox.getPlaces();
 
-    console.log(places);
 
     // Set markers; set map center to first search result
     const mapCenter = places.length > 0 ? places[0].geometry.location : this.state.center;
@@ -141,7 +140,6 @@ export default class CampsiteModal extends React.Component {
   }
   
   close(){
-    console.log("closing");
     this.clearValues();
     this.setState({ showModal: false });
   }
@@ -173,7 +171,6 @@ export default class CampsiteModal extends React.Component {
   }
 
   handleRating(event, rate){
-    console.log(rate);
     const value = rate.rating;
     this.setState({rating:value});
   }
@@ -192,13 +189,11 @@ export default class CampsiteModal extends React.Component {
     }
     marker = [marker];
     this.setState({marker:marker});
-    console.log(marker);
   }
 
 
   //Handles step transition for the form.
   nextStep(num){
-    console.log(this.state.chooseTags);
     //TODO: check for all info
     let error = "";
     let s = this.state;
@@ -238,7 +233,6 @@ export default class CampsiteModal extends React.Component {
 
 
   onDrop(acceptedFile) {
-      console.log(acceptedFile);
       this.setState({
         uploadstatus: "uploading..."
       });
@@ -313,7 +307,6 @@ export default class CampsiteModal extends React.Component {
     }
     
     this.setState({tags:arr});
-    console.log(this.state.tags);
   }
 
   //handles submission of everything
