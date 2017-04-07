@@ -9,7 +9,7 @@
     right: 0;
     background-color: #333;
     overflow-x: hidden; /* Disable horizontal scroll */
-    overflow-y: hidden;
+    overflow-y: scroll;
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
 }

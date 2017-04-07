@@ -57,11 +57,14 @@ export default class GettingStartedExample extends Component {
   handleCenterChanged = this.handleCenterChanged.bind(this);
   handleZoomChange = this.handleZoomChange.bind(this);
   campsiteList = this.campsiteList.bind(this);
-
-  // handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
+  handleMarkerClick = this.handleMarkerClick.bind(this);
 
   handleMapLoad(map) {
     this._mapComponent = map;
+  }
+
+  handleMarkerClick(event){
+    this.setState({selectedSite:event.metadata});
   }
 
   /*
@@ -88,21 +91,25 @@ export default class GettingStartedExample extends Component {
     /*
     * Get geolocation
     */
-    let self = this;
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        self.setState({
-          defaultCenter:{
-            lng:position.coords.longitude,
-            lat:position.coords.latitude
-          },
-          zoom:10
-        });
-      },
-      (error) => console.log("Location Could Not be Retrieved."),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
 
+      let self = this;
+      navigator.geolocation.getCurrentPosition((position) => {
+          //for some reason this was causing an error, so check map is mounted first
+          if (!this.refs.mappy){return};
+          //use new center
+          self.setState({
+            defaultCenter:{
+              lng:position.coords.longitude,
+              lat:position.coords.latitude
+            },
+            zoom:10
+          });
+        },
+        (error) => console.log("Location Could Not be Retrieved."),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+
+      );
+    
   }
 
 
@@ -306,7 +313,7 @@ export default class GettingStartedExample extends Component {
       }
     }
     return (
-      <div className="map-container">
+      <div ref="mappy" className="map-container">
         <TagDropdown self={this}/>
         <SideBar selectedSite={this.state.selectedSite}/>
         <div style={{height: '100%'}}>
@@ -323,7 +330,7 @@ export default class GettingStartedExample extends Component {
             center = {this.state.defaultCenter}
             zoom = {this.state.zoom}
             markers={this.state.markers.filter(function(m){return m.show;})}
-            onMarkerClick={(marker)=>{this.setState({selectedSite:marker.metadata})}}
+            onMarkerClick={this.handleMarkerClick}
             onCenterChanged={this.handleCenterChanged}
             onZoomChanged={this.handleZoomChange}
 

@@ -16,6 +16,7 @@ export default React.createClass({
       username:"",
       searchQuery:"",
       finalQuery:"",
+      profileImg:"http://placehold.it/200x200&text=No Image",
     }
   },
   componentWillMount(){
@@ -26,13 +27,21 @@ export default React.createClass({
     $.getJSON('/v1/ping').done(function (data) {
       if(data.loggedIn != self.state.isLoggedIn){
         self.setState({isLoggedIn : data.loggedIn});
+        self.getProfilePic();
       }
       if(data.username != self.username){
         self.setState({username : data.username});
       }
     });
   },
-
+  getProfilePic(){
+    let self = this;
+    $.getJSON('/v1/profileimg').done(function(data){
+      if(data.profilePicture != self.state.profileImg && data.profilePicture != ""){
+        self.setState({profileImg : "https://s3.amazonaws.com/campyapp1/" + data.profilePicture});
+      }
+    });
+  },
   callPath(path){
      //post to login
     let self = this;
@@ -63,7 +72,8 @@ export default React.createClass({
       this.setState({finalQuery:this.state.searchQuery});
     }
   },
-  
+
+ 
 
   render() {
     const childrenWithProps = React.Children.map(this.props.children,
@@ -93,7 +103,7 @@ export default React.createClass({
                     </div>
                 </div>
                 <ul className="nav navbar-nav navbar-right">
-                  <li><img className="profile-img img-rounded" src={'http://placehold.it/200x200&text=profilepic'}/></li>
+                  <li><img className="profile-img img-rounded" src={this.state.profileImg}/></li>
                   <li><NavLink className="nav-links absolute" onClick={()=>{this.refs.campsiteModal.open()}}>+Add A Campsite</NavLink></li>
                   <li><NavLink className="nav-links profile-link absolute" onClick={()=>{this.callPath("/v1/logout"); this.checkLogin()}}>Logout</NavLink></li>
                 </ul>

@@ -34,25 +34,6 @@ export default class SideBar extends React.Component {
   handleRating(rate){
     if(this.props.selectedSite){
       this.setState({rating:rate})
-      // let data = {
-      //   rating:rate,
-      //   campsiteid: this.props.selectedSite._id,
-      // }
-      // let self = this;
-      // let success = function(){
-      //   self.getRating();
-      // }
-      // let error = function(xhr){
-      //   console.log(xhr);
-      //   self.getRating();
-      // }
-      // $.ajax({
-      //   type: "POST",
-      //   url: "/v1/rate",
-      //   data: data,
-      //   success:success,
-      //   error:error
-      // });
     }
   }
   getkey(){
@@ -81,6 +62,7 @@ export default class SideBar extends React.Component {
   }
   
   showCampsite(campsite){
+    console.log(this.state.ratings)
     let date = this.formatDate(campsite.dateCreated);
     let images = this.getImages(campsite.images);
 

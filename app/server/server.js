@@ -260,6 +260,24 @@ app.post('/v1/addsite', function(req, res) {
     });
 });
 
+app.get('/v1/profileimg', function(req, res){
+    if(req.user){
+        User.getProfilePicByUsername(req.user.username, function(cb){
+            if(cb.error){
+                console.log(cb.error);
+                res.status(500).send();
+            }else if(cb.profilePicture != null){
+                res.send(cb);
+            }else{
+                console.log(cb);
+                res.status(500).send();
+            }
+        });
+
+    }else{
+        res.status(500).send();
+    }
+});
 
 app.post('/v1/campsiteimage', upload.single('images'), function(req,res){
     console.log(req.file);

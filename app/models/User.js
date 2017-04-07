@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     salt: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    profilePicture:{ type: String},
     reviews: [String],
     votedReviews: [String],
     email: String
@@ -20,6 +21,18 @@ module.exports = User;
 module.exports.getUserByUsername = function(username, callback) {
     var query = {username: username};
     User.findOne(query, callback);
+}
+
+module.exports.getProfilePicByUsername = function(username, callback) {
+    var query = {username: username};
+    User.findOne(query, function(err, user){
+        if(err){
+            callback({error:err});
+        }else{
+            console.log(user);
+            callback({profilePicture:user.profilePicture});
+        }
+    })
 }
 
 module.exports.comparePassword = function comparePassword(candidatePassword, hash,  callback) {
@@ -41,7 +54,7 @@ module.exports.createUser = function(user, callback) {
             let salt = bcrypt.genSaltSync(saltRounds);
             var hash = bcrypt.hashSync(user.password, salt);
 
-            var userToInsert = new User({username: user.username, password: hash, email: user.email, salt: salt});
+            var userToInsert = new User({username: user.username, password: hash, email: user.email, salt: salt, profilePicture: user.profilePicture});
             userToInsert.save(function(err) {
                 if (err) {
                     callback(err);

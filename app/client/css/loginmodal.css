@@ -19,6 +19,9 @@
     box-shadow: none;
 
 }
+.white{
+  color: white !important;
+}
 .loginmodal-container {
 
   padding: 30px;

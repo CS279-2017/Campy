@@ -1,5 +1,7 @@
 import React from 'react'
 import NavLink from '../modules/NavLink'
+import Dropzone from 'react-dropzone';
+
 require("style-loader!css-loader!../css/loginmodal.css");
 
 let ReactBootstrap = require('react-bootstrap');
@@ -17,11 +19,14 @@ export default class registerModal extends React.Component {
        passwordCheck:"",
   		 user: "",
        email:"",
-       error:""
+       error:"",
+       profilePicture:"",
+       uploadstatus:"",
   		});
   	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state.user 
+    this.onDrop = this.onDrop.bind(this);
+    this.state.user;
 
   }
 
@@ -32,8 +37,50 @@ export default class registerModal extends React.Component {
   close(){
     this.setState({ showModal: false });
   }
+  onDrop(acceptedFile) {
+      this.setState({
+        uploadstatus: "uploading..."
+      });
 
+
+      let formData = new FormData();
+      //acceptedFile.forEach(function(file){
+
+      let file = acceptedFile[0];
+      let blob = new Blob([file], { type: file.type});
+      //rename
+      let name =  (new Date().toDateString()) + file.name;
+      formData.append("images", blob, name);
+
+      let request = new XMLHttpRequest();
+      request.open("POST", "/v1/campsiteimage");
+      let self = this;
+
+      //callback
+      request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          //add image
+          self.setState({
+            uploadstatus:"",
+            profilePicture: name,
+            error:"",
+          });
+
+        }else if (this.readyState == 4 && this.status == 500) {
+          //produce error msg
+          self.setState({
+            uploadstatus:"",
+            error: "An has error occurred.",
+          });
+        }
+      };
+      //send request
+      request.send(formData);
+
+
+  }
   handleSubmit(event) {
+    console.log(this.state);
     event.preventDefault();
 
     if(this.state.password != this.state.passwordCheck){
@@ -44,7 +91,8 @@ export default class registerModal extends React.Component {
     const data = {
     	username:this.state.user,
     	password:this.state.password,
-      email:this.state.email
+      email:this.state.email,
+      profilePicture:this.state.profilePicture,
     }
     let self = this;
     let success = function(){
@@ -85,14 +133,18 @@ export default class registerModal extends React.Component {
           <p className="closeButton" onClick={()=>{this.close()}}>x</p>
           <h1><img className="login-register-image" src={"/img/register.png"}/></h1><br/>
 
-				  <form onSubmit={this.handleSubmit}>
 					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
           <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Password"/>
 					<input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email"/>
+          <form className="uploadImage" encType="multipart/form-data">
+          <Dropzone className="image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
+            <div><p className="center-text white">Drop Profile jpg/png here or Click to Open File Browser</p></div>
+          </Dropzone>
+          </form>
+          <p className="white">{this.state.uploadstatus}</p>
           <p className="error">{this.state.error}</p>
-          <input type="submit" name="login" className="login loginmodal-submit" value="Register"/>
-				  </form>
+          <input type="submit" onClick={this.handleSubmit} name="login" className="login loginmodal-submit" value="Register"/>
 				</div>	          
 	     </Modal>
 	)
