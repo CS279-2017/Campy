@@ -1,0 +1,84 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+/****** LOGIN MODAL ******/
+
+.welcomemodal-modal{
+  margin-top: 20%;
+}
+.closeButton:hover{
+    transform: scale(1.2);
+}
+.modal-content{
+    background-color: rgba(0,0,0,0);
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+}
+.welcomemodal-container>h4{
+  font-weight: 100;
+
+}
+.d-blue{
+  color: #086788 !important;
+}
+.l-blue{
+  color: #07A0C3 !important;
+}
+.white{
+  color: white !important;
+}
+.welcomemodal-container {
+
+  padding: 0px 30px;
+  max-width: 350px;
+  width: 100% !important;
+  background-color: #FFF1D0;
+  margin: 0 auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family: roboto;
+    padding-bottom: 10px;
+
+}
+
+.welcomemodal-container h1 {
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: lighter;
+  color: #f39a22;
+  color : -webkit-linear-gradient(#f39a22, #f8b217);
+}
+
+.welcome-image{
+    height: 60px;
+    margin-top: 20px;
+}
+
+.welcomemodal {
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+  height: 36px;
+  padding: 0 8px;
+}
+
+
+.welcomemodal-container a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 400;
+  text-align: center;
+  display: inline-block;
+  opacity: 0.6;
+  transition: opacity ease 0.5s;
+} 
+.error{
+  color:red;
+}
+.login-help{
+  font-size: 12px;
+}

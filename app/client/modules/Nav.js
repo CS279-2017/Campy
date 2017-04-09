@@ -3,6 +3,7 @@ import NavLink from './NavLink'
 import LoginModal from '../components/LoginModal'
 import CampsiteModal from '../components/CampsiteModal'
 import RegisterModal from '../components/RegisterModal'
+import WelcomeModal from '../components/WelcomeModal'
 import ReactDOM from 'react-dom'
 
 require("style-loader!css-loader!../css/nav.css");
@@ -144,6 +145,7 @@ export default React.createClass({
           </nav>
           <LoginModal ref='loginModal' self={this}/>
           <RegisterModal ref='registerModal' self={this}/>
+          <WelcomeModal ref='WelcomeModal' isLoggedIn={this.state.isLoggedIn}/>
           {childrenWithProps}
         </div>
       )
