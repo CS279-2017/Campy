@@ -261,7 +261,7 @@ export default class SideBar extends React.Component {
     }else{
       let ret = [];
       images.forEach(function(imName){
-        ret.push({imageUrl:"https://s3.amazonaws.com/campyapp1/" + imName});
+        ret.push({imageUrl:"https://s3.amazonaws.com/campyapp1/images/" + imName});
       });
       return ret;
     }

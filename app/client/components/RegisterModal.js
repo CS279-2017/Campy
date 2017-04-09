@@ -37,6 +37,7 @@ export default class registerModal extends React.Component {
   close(){
     this.setState({ showModal: false });
   }
+
   onDrop(acceptedFile) {
       this.setState({
         uploadstatus: "uploading..."
@@ -115,6 +116,13 @@ export default class registerModal extends React.Component {
 
   }
 
+  removeImage(){
+
+    this.setState({
+      profilePicture:""
+    });
+  }
+
   handleChange(event) {
   	const target = event.target;
     const name = target.name;
@@ -137,12 +145,22 @@ export default class registerModal extends React.Component {
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
           <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Password"/>
 					<input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email"/>
-          <form className="uploadImage" encType="multipart/form-data">
-          <Dropzone className="image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
-            <div><p className="center-text white">Drop Profile jpg/png here or Click to Open File Browser</p></div>
-          </Dropzone>
-          </form>
-          <p className="white">{this.state.uploadstatus}</p>
+          
+          {this.state.profilePicture != "" ? 
+              <div>
+                <p className="white">Click to Remove</p>
+                <div><img onClick={()=>{this.removeImage()}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/images/" + this.state.profilePicture} /> )}</div>
+              </div>
+               :
+               <div className="register-image-drop">
+              <form className="uploadImage" encType="multipart/form-data">
+              <Dropzone className="image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
+                <div><p className="center-text white">Drop Profile jpg/png here or Click to Open File Browser</p></div>
+              </Dropzone>
+              </form>
+              <p className="center-text white">{this.state.uploadstatus}</p>
+              </div>
+            }
           <p className="error">{this.state.error}</p>
           <input type="submit" onClick={this.handleSubmit} name="login" className="login loginmodal-submit" value="Register"/>
 				</div>	          

@@ -20,8 +20,8 @@ let express       = require('express'),
     AWS             = require('aws-sdk'),
     multer          = require('multer'),
     multerS3        = require('multer-s3'),
-    flash           = require ('connect-flash');
-
+    flash           = require ('connect-flash'),
+    imager          = require('multer-imager');
 
 const app = express();
 app.set('views', './views')
@@ -45,17 +45,33 @@ let db = mongoose.connection;
 
 var s3 = new AWS.S3();
 var upload = multer({
-  storage: multerS3({
-    s3: s3,
+  storage: imager({
+    dirname:"images", //imager makes you have a dirname
     bucket: bucketname,
+    accessKeyId: s3.config.credentials.accessKeyId,
+    secretAccessKey: s3.config.credentials.secretAccessKey,
+    region: 'us-east-1',
     acl: 'public-read',
-    metadata: function (req, file, cb) {
-      console.log(file)
-      cb(null, {fieldName: file.fieldname});
+    gm: {                                 // [Optional]: define graphicsmagick options
+      width: 200,                         // doc: http://aheckmann.github.io/gm/docs.html#resize      
+      options: '!',                       // Default: jpg
+      format: 'jpg'
     },
-    key: function (req, file, cb) {
-      cb(null, file.originalname)
-    }
+    
+        
+    s3 : {                                // [Optional]: define s3 options
+        ACL:'public-read',
+        Metadata: {                         // http://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html
+          'customkey': 'data'               // "x-amz-meta-customkey","value":"data"
+        }
+    },
+    
+    filename: function (req, file, cb) {  // [Optional]: define filename (default: random)
+      cb(null, file.originalname)         // i.e. with a timestamp
+    },                                    //
+    // key: function (req, file, cb) {
+    //   cb(null, file.originalname)
+    // }
   })
 });
 
@@ -126,6 +142,7 @@ app.get('/', function(req, res){
 // Endpoint used for testing the loggedIn middleware and ensure that
 // authentication functions properly
 app.get('/v1/ping', function(req, res) {
+
     if(req.user){
         res.send(JSON.stringify({username: req.user.username, loggedIn : true}));
     }else{

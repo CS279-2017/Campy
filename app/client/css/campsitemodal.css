@@ -86,8 +86,8 @@ label{
   color:#333;
 }
 .preview-image{
-  width:50px;
-  height: auto;
+  width: auto;
+  height: 100px;
   float: center;
   padding: 0px 5px;
 }

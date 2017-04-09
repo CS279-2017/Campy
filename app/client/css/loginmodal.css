@@ -19,6 +19,15 @@
     box-shadow: none;
 
 }
+
+.register-image-drop{
+  border: dashed white;
+  height: 80px;
+  text-align: center;
+  border-radius: 10px;
+
+}
+
 .white{
   color: white !important;
 }

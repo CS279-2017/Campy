@@ -8,10 +8,10 @@ const userSchema = new mongoose.Schema({
     salt: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
-    profilePicture:{ type: String},
+    profilePicture:{type: String},
     reviews: [String],
     votedReviews: [String],
-    email: String
+    email: { type: String, unique: true }
 
 }, { timestamps: true });
 const saltRounds = 10;

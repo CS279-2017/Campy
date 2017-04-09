@@ -38,7 +38,7 @@ export default React.createClass({
     let self = this;
     $.getJSON('/v1/profileimg').done(function(data){
       if(data.profilePicture != self.state.profileImg && data.profilePicture != ""){
-        self.setState({profileImg : "https://s3.amazonaws.com/campyapp1/" + data.profilePicture});
+        self.setState({profileImg : "https://s3.amazonaws.com/campyapp1/images/" + data.profilePicture});
       }
     });
   },
