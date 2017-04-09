@@ -169,7 +169,7 @@ app.post('/v1/register', function(req, res, next) {
 
         User.createUser(data, function(err) {
             if (err) {
-                res.status(400).send({error: 'User already exists in the database'});
+                res.status(400).send({error: 'Username is taken.'});
             }
             else {
                 let responseString = 'Successfully created user ' + data.username;
@@ -181,7 +181,7 @@ app.post('/v1/register', function(req, res, next) {
     passport.authenticate('local'),
     function(req, res) {
         console.log('Logged in after registering.');
-        res.send({success: 'Registration successful'});
+        res.send({success: 'Registration successful', firstlogin:true});
     });
 
 

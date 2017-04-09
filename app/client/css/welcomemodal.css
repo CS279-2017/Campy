@@ -26,6 +26,10 @@
 .white{
   color: white !important;
 }
+.thankyou-image{
+  margin-bottom: 10px;
+  width: 100%;
+}
 .welcomemodal-container {
 
   padding: 20px 30px;

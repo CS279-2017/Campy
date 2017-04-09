@@ -4,6 +4,8 @@ import LoginModal from '../components/LoginModal'
 import CampsiteModal from '../components/CampsiteModal'
 import RegisterModal from '../components/RegisterModal'
 import WelcomeModal from '../components/WelcomeModal'
+import FirstLoginHelpModal from '../components/FirstLoginHelpModal'
+
 import ReactDOM from 'react-dom'
 
 require("style-loader!css-loader!../css/nav.css");
@@ -18,6 +20,7 @@ export default React.createClass({
       searchQuery:"",
       finalQuery:"",
       profileImg:"/img/profile.png",
+      firstLogin:false
     }
   },
   componentWillMount(){
@@ -104,14 +107,15 @@ export default React.createClass({
                     </div>
                 </div>
                 <ul className="nav navbar-nav navbar-right">
-                  <li><img className="profile-img img-rounded" src={this.state.profileImg}/></li>
+                  <li><img className="profile-img img-rounded" key={this.state.profileImg} src={this.state.profileImg}/></li>
                   <li><NavLink className="nav-links absolute" onClick={()=>{this.refs.campsiteModal.open()}}>+Add A Campsite</NavLink></li>
-                  <li><NavLink className="nav-links profile-link absolute" onClick={()=>{this.callPath("/v1/logout"); this.checkLogin()}}>Logout</NavLink></li>
+                  <li><NavLink className="nav-links profile-link absolute" onClick={()=>{this.callPath("/v1/logout"); this.checkLogin()}}>{this.state.username.length < 7 ? "Logout " + this.state.username.charAt(0).toUpperCase() + this.state.username.slice(1) : "Logout"}</NavLink></li>
                 </ul>
               </div>
             </div>
           </nav>
           <CampsiteModal ref='campsiteModal' self={this}/>
+          <FirstLoginHelpModal firstLogin={this.state.firstLogin}/>
           {childrenWithProps}
         </div>
         )

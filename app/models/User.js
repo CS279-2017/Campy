@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     profilePicture:{type: String},
     reviews: [String],
     votedReviews: [String],
-    email: { type: String, unique: true }
+    email: { type: String, unique: true, dropDups: true }
 
 }, { timestamps: true });
 const saltRounds = 10;

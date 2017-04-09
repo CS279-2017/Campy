@@ -23,13 +23,12 @@ export default class registerModal extends React.Component {
        profilePicture:"",
        uploadstatus:"",
        page:0,
-       agree:false,
-       lntRules:['Plan ahead and prepare',
-        'Travel and camp on durable surfaces',
-        'Dispose of waste properly',
-        'Leave what you find',
-        'Minimize campfire impacts',
-        'Respect wildlife',
+       lntRules:['Plan ahead and prepare.',
+        'Travel and camp on durable surfaces.',
+        'Dispose of waste properly.',
+        'Leave what you find.',
+        'Minimize campfire impacts.',
+        'Respect wildlife.',
         'Be considerate of other visitors.']
   		});
   	this.handleChange = this.handleChange.bind(this);
@@ -94,7 +93,6 @@ export default class registerModal extends React.Component {
 
   }
   handleSubmit(event) {
-    console.log(this.state);
     event.preventDefault();
 
     if(this.state.password != this.state.passwordCheck){
@@ -109,8 +107,9 @@ export default class registerModal extends React.Component {
       profilePicture:this.state.profilePicture,
     }
     let self = this;
-    let success = function(){
+    let success = function(xhr, ajaxOptions, thrownError){
       self.close();
+      self.props.self.setState({firstLogin:true});
       self.props.self.update();
     }
     let error = function(xhr, ajaxOptions, thrownError){
@@ -176,7 +175,7 @@ export default class registerModal extends React.Component {
                 </div>
               }
             <p className="error">{this.state.error}</p>
-            <input type="submit" name="login" onClick={()=>{this.setState({page:1})}} className="login loginmodal-submit" value="Next"/>
+            <input type="button" name="login" onClick={()=>{this.setState({page:1})}} className="login loginmodal-submit" value="Next"/>
   				</div>	          
   	     </Modal>
   	  )
@@ -192,7 +191,8 @@ export default class registerModal extends React.Component {
               {this.state.lntRules.map((item, i)=> (<p key={'lnt'+i} className="l-blue">{i+1}. {item}</p>) )}
             
             <p className="error">{this.state.error}</p>
-            <input type="submit" onClick={this.handleSubmit} name="login" className="login loginmodal-submit" value="Register"/>
+              <input type="button" onClick={()=>{this.setState({page:0})}} name="back" className="login register-half-button" value="Back"/>
+              <input type="button" onClick={this.handleSubmit} name="login" className="login register-half-button" value="Register"/>
           </div>            
          </Modal>
     )}

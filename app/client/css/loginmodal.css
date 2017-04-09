@@ -62,6 +62,11 @@
   margin-bottom: 10px;
   position: relative;
 }
+.loginmodal-container input[type=button] {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 
 .loginmodal-container input[type=text], input[type=password] {
   height: 44px;
@@ -110,6 +115,19 @@
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
+.register-half-button {
+  /* border: 1px solid #3079ed; */
+  width:40% !important;
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  background-color: #4d90fe;
+  padding: 17px 0px;
+  margin: 0px 2.5% !important;
+  font-family: roboto;
+  font-size: 14px;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
 .loginmodal-submit:hover {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
