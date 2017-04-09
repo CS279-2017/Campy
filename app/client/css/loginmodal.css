@@ -17,9 +17,14 @@
     box-shadow: none;
 
 }
+.my-image-drop{
+    border: dashed #086788 !important;
+    border-radius: 10px;
+    height: 80px;
+    text-align: center;
+}
 
 .register-image-drop{
-  border: dashed #FFF1D0;
   height: 80px;
   text-align: center;
   border-radius: 10px;
@@ -35,12 +40,15 @@
 .white{
   color: white !important;
 }
+.grey{
+  color:#333 !important;
+}
 .loginmodal-container {
 
   padding: 30px;
   max-width: 350px;
   width: 100% !important;
-  background-color: #333;
+  background-color: #FFF1D0;
   margin: 0 auto;
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);

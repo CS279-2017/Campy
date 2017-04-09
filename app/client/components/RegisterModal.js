@@ -158,18 +158,18 @@ export default class registerModal extends React.Component {
             <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
             <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Password"/>
   					<input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email"/>
-            <p className="center-text cream">{this.state.uploadstatus}</p>
+            <p className="center-text grey">{this.state.uploadstatus}</p>
 
             {this.state.profilePicture != "" ? 
                 <div>
-                  <p className="cream">Click to Remove</p>
-                  <div><img onClick={()=>{this.removeImage()}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/images/" + this.state.profilePicture} /> )}</div>
+                  <p className="d-blue">Click to Remove</p>
+                  <div><img onClick={()=>{this.removeImage()}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/images/" + this.state.profilePicture}/></div>
                 </div>
                  :
                  <div className="register-image-drop">
                 <form className="uploadImage" encType="multipart/form-data">
-                <Dropzone className="image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
-                  <div><h4 className="center-text cream">(Optional) Profile Picture</h4></div>
+                <Dropzone className="my-image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
+                  <div><h4 className="center-text d-blue">(Optional) Profile Picture</h4></div>
                 </Dropzone>
                 </form>
                 </div>
