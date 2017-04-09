@@ -22,6 +22,15 @@ export default class registerModal extends React.Component {
        error:"",
        profilePicture:"",
        uploadstatus:"",
+       page:0,
+       agree:false,
+       lntRules:['Plan ahead and prepare',
+        'Travel and camp on durable surfaces',
+        'Dispose of waste properly',
+        'Leave what you find',
+        'Minimize campfire impacts',
+        'Respect wildlife',
+        'Be considerate of other visitors.']
   		});
   	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,11 +40,15 @@ export default class registerModal extends React.Component {
   }
 
   open(){
-    this.setState({ showModal: true });
+    this.setState({ showModal: true,
+    page:0
+     });
   }
   
   close(){
-    this.setState({ showModal: false });
+    this.setState({ 
+      showModal: false,
+     });
   }
 
   onDrop(acceptedFile) {
@@ -134,37 +147,54 @@ export default class registerModal extends React.Component {
   }
 
   render() {
+    if(this.state.page == 0){
 
-    return (
-	     <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
-				<div className="loginmodal-container">
-          <p className="closeButton" onClick={()=>{this.close()}}>x</p>
-          <h1><img className="login-register-image" src={"/img/register.png"}/></h1><br/>
+      return (
+  	     <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
+  				<div className="loginmodal-container">
+            <p className="closeButton" onClick={()=>{this.close()}}>x</p>
+            <h1><img className="login-register-image" src={"/img/register.png"}/></h1><br/>
 
-					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
-          <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
-          <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Password"/>
-					<input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email"/>
-          <p className="center-text cream">{this.state.uploadstatus}</p>
+  					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
+            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
+            <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Password"/>
+  					<input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email"/>
+            <p className="center-text cream">{this.state.uploadstatus}</p>
 
-          {this.state.profilePicture != "" ? 
-              <div>
-                <p className="cream">Click to Remove</p>
-                <div><img onClick={()=>{this.removeImage()}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/images/" + this.state.profilePicture} /> )}</div>
-              </div>
-               :
-               <div className="register-image-drop">
-              <form className="uploadImage" encType="multipart/form-data">
-              <Dropzone className="image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
-                <div><h4 className="center-text cream">Profile Picture</h4></div>
-              </Dropzone>
-              </form>
-              </div>
-            }
-          <p className="error">{this.state.error}</p>
-          <input type="submit" onClick={this.handleSubmit} name="login" className="login loginmodal-submit" value="Register"/>
-				</div>	          
-	     </Modal>
-	)
+            {this.state.profilePicture != "" ? 
+                <div>
+                  <p className="cream">Click to Remove</p>
+                  <div><img onClick={()=>{this.removeImage()}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/images/" + this.state.profilePicture} /> )}</div>
+                </div>
+                 :
+                 <div className="register-image-drop">
+                <form className="uploadImage" encType="multipart/form-data">
+                <Dropzone className="image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
+                  <div><h4 className="center-text cream">(Optional) Profile Picture</h4></div>
+                </Dropzone>
+                </form>
+                </div>
+              }
+            <p className="error">{this.state.error}</p>
+            <input type="submit" name="login" onClick={()=>{this.setState({page:1})}} className="login loginmodal-submit" value="Next"/>
+  				</div>	          
+  	     </Modal>
+  	  )
+    }else{
+        return (
+         <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
+          <div className="loginmodal-container lnt-container">
+            <p className="closeButton" onClick={()=>{this.close()}}>x</p>
+            <h1><img className="login-register-image" src={"/img/lntlogo.png"}/></h1><br/>
+            <h3 className="d-blue">Campy Loves our Campsites</h3>
+            <h4 className="l-blue">By registering, you are agreeing to be a good steward to the outdoors.</h4>
+            
+              {this.state.lntRules.map((item, i)=> (<p key={'lnt'+i} className="l-blue">{i+1}. {item}</p>) )}
+            
+            <p className="error">{this.state.error}</p>
+            <input type="submit" onClick={this.handleSubmit} name="login" className="login loginmodal-submit" value="Register"/>
+          </div>            
+         </Modal>
+    )}
   }
 }

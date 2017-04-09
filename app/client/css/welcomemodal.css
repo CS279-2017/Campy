@@ -3,10 +3,7 @@
 /****** LOGIN MODAL ******/
 
 .welcomemodal-modal{
-  margin-top: 20%;
-}
-.closeButton:hover{
-    transform: scale(1.2);
+  margin-top: 10%;
 }
 .modal-content{
     background-color: rgba(0,0,0,0);
@@ -31,7 +28,7 @@
 }
 .welcomemodal-container {
 
-  padding: 0px 30px;
+  padding: 20px 30px;
   max-width: 350px;
   width: 100% !important;
   background-color: #FFF1D0;
@@ -40,7 +37,7 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   font-family: roboto;
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 
 }
 
@@ -53,7 +50,7 @@
 }
 
 .welcome-image{
-    height: 60px;
+    width: 100%;
     margin-top: 20px;
 }
 

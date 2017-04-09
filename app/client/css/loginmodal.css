@@ -25,7 +25,9 @@
   border-radius: 10px;
 
 }
-
+.lnt-container{
+  background-color:#FFF1D0 !important;
+}
 .cream{
   color:#FFF1D0 !important;
 }

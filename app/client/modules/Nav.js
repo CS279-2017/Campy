@@ -17,7 +17,7 @@ export default React.createClass({
       username:"",
       searchQuery:"",
       finalQuery:"",
-      profileImg:"http://placehold.it/200x200&text=No Image",
+      profileImg:"/img/profile.png",
     }
   },
   componentWillMount(){
@@ -132,7 +132,7 @@ export default React.createClass({
               <div id="navbar">
                 <div className="nav navbar-nav">
                     <div className="text-box logged-out-text-box">
-                     <input type="text" className="searchBar" value={this.state.searchQuery} onChange={this.handleChange} onKeyPress={this.handleKeyPress} placeholder="Where would you like to camp?" />
+                     <input type="text" className="searchBar" value={this.state.searchQuery} onKeyPress={()=>{}} placeholder="Where would you like to camp?" />
                     
                     </div>
                 </div>

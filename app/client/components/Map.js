@@ -126,7 +126,7 @@ export default class GettingStartedExample extends Component {
         self.placeMarkers(data);
       }
       let error = function(err){
-        console.log(err);
+        //console.log(err);
       }
 
       $.ajax({
@@ -138,7 +138,7 @@ export default class GettingStartedExample extends Component {
           error:error
       });
     }else{
-      console.log("zoom in");
+      //console.log("zoom in");
     }
 
   }
