@@ -21,7 +21,9 @@ let express       = require('express'),
     multer          = require('multer'),
     multerS3        = require('multer-s3'),
     flash           = require ('connect-flash'),
-    imager          = require('multer-imager');
+    imager          = require('multer-imager'),
+    nodemailer      = require('nodemailer'),
+    crypto          = require('crypto');
 
 const app = express();
 app.set('views', './views')
@@ -37,6 +39,8 @@ let appname = process.env.APPNAME
 let ip = process.env.MONGOIP
 let listeningport = 8080
 let bucketname = process.env.BUCKETNAME
+let emailpass = process.env.EMAILPASS
+let emailuser = process.env.EMAILUSER
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
 mongoose.Promise = global.Promise;
@@ -74,6 +78,16 @@ var upload = multer({
     // }
   })
 });
+
+// Create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: emailuser,
+        pass: emailpass
+    }
+});
+
 
 app.use(express.static(path.join(__dirname, '../public/')));
 var sess = {
@@ -422,6 +436,90 @@ app.post('/v1/review', loggedIn, function(req, res){
         }
     });
 
+});
+
+// Used for generating reset token
+app.post('/v1/generatetoken', function(req, res) {
+    let data = req.body;
+    let user = data.username;
+
+    User.getUserByUsername(user, function(err, userres) {
+        console.log(user)
+        console.log(userres)
+
+        if (!userres) {
+            console.log('User does not exist');
+            res.status(400).send({'error' : 'user to reset password of does not exist'});
+            return;
+        }
+
+        crypto.randomBytes(48, function(err, buffer) {     
+            var token = buffer.toString('hex');
+            
+            // Used for generate expiration dates
+            var d1 = new Date (),
+                d2 = new Date (d1);
+            d2.setMinutes ( d1.getMinutes() + 30 );
+            var timeToExpire = d2;
+            
+            User.update({username: user}, { $set: {passwordResetToken: token, passwordResetExpires: timeToExpire}}, function(err, updateduser) {
+                if (err) console.log('Requested a username not in the database.');
+                else {
+
+                    let email = userres.email;
+
+                    // setup email data with unicode symbols
+                    let mailOptions = {
+                        from: '"Campy Resets" <campyreset@gmail.com>', // sender address
+                        to: email,
+                        subject: 'Reset your Campy Password',
+                        html: '<p>You have requested to reset your password for Campy. If you did not trigger this message, ' +
+                            'there is a chance someone is tryign to access your account.</p><br>' + 
+                            '<p>To reset your password, click <a href="ilovecampy.com/v1/reset/' + token + '>here</a>.</p>'
+                    };
+
+                    // send mail with defined transport object
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            return console.log(error);
+                        }
+                        console.log('Message %s sent: %s', info.messageId, info.response);
+                        let emailString = 'Email sent to ' + email
+                        res.status(200).send({"Success" : emailString})
+                    });
+                }
+            })
+        });
+    });
+});
+
+app.post('/v1/resetpassword', function(req, res) {
+    let data = req.body;
+    let username = data.username;
+    let resetToken = data.resettoken;
+    let newPassword = data.newpassword
+
+    User.findOne({username: username}, function(err, user) {
+        if (err) console.log('No user matching ' + username);
+        else {
+            if (user.passwordResetToken != resetToken) {
+                res.status(400).send({'Error' : 'Password reset token doesn\'t match'})
+            } else {
+                var now = new Date()
+                if (user.passwordResetExpires.getTime() > now.getTime()) {
+                    console.log('We can reset your password!');
+                    let salt = bcrypt.genSaltSync(saltRounds);
+                    var hash = bcrypt.hashSync(newPassword, salt);
+                    user.password = hash;
+                    user.save();
+                    res.status(200).send({"Success":"Password successfully reset"});
+                } else {
+                    console.log('Unable to reset password')
+                    res.status(400).send({"Err": "token expired"});
+                }
+            }
+        }
+    });
 });
 
 let server = app.listen(listeningport, function () {
