@@ -170,7 +170,7 @@ app.post('/v1/register', function(req, res, next) {
         User.createUser(data, function(err) {
             if (err) {
                 if (err == 'Email already exists in the database') {
-                    res.status(400).send({error: 'Email is taken.'});
+                    res.status(400).send({error: 'Email is in use. Please refer to forgot password link below login.'});
                 } else {
                     res.status(400).send({error: 'Username is taken.'});
                 }
