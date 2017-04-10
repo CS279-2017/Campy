@@ -18,7 +18,7 @@
 
 }
 .my-image-drop{
-    border: dashed #086788 !important;
+    border: dashed #07A0C3 !important;
     border-radius: 10px;
     height: 80px;
     text-align: center;
@@ -30,8 +30,14 @@
   border-radius: 10px;
 
 }
+.lnt-image{
+  width:40%;
+}
 .lnt-container{
-  background-color:#FFF1D0 !important;
+  background-color:#333 !important;
+}
+.lnt-rules{
+  margin-bottom: 15px;
 }
 .cream{
   color:#FFF1D0 !important;
@@ -48,7 +54,7 @@
   padding: 30px;
   max-width: 350px;
   width: 100% !important;
-  background-color: #FFF1D0;
+  background-color: #333;
   margin: 0 auto;
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -116,7 +122,7 @@
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
+  background-color: #f39a22;
   padding: 17px 0px;
   font-family: roboto;
   font-size: 14px;
@@ -129,7 +135,7 @@
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0,0,0,0.1); 
-  background-color: #4d90fe;
+  background-color: #f39a22;
   padding: 17px 0px;
   margin: 0px 2.5% !important;
   font-family: roboto;
@@ -137,11 +143,15 @@
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 .loginmodal-submit:hover {
-  /* border: 1px solid #2f5bb7; */
   border: 0px;
   text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #357ae8;
-  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+  background-color: #f8b217;
+}
+.register-half-button:hover{
+  border: 0px;
+  text-shadow: 0 1px rgba(0,0,0,0.3);
+  background-color: #f8b217;
+
 }
 
 .loginmodal-container a {

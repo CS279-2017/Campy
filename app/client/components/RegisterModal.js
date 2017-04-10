@@ -169,7 +169,7 @@ export default class registerModal extends React.Component {
                  <div className="register-image-drop">
                 <form className="uploadImage" encType="multipart/form-data">
                 <Dropzone className="my-image-drop" onDrop={this.onDrop} multiple={false} accept={"image/jpeg, image/png"}>
-                  <div><h4 className="center-text d-blue">(Optional) Profile Picture</h4></div>
+                  <div><h4 className="center-text l-blue">(Optional) Profile Picture</h4></div>
                 </Dropzone>
                 </form>
                 </div>
@@ -184,12 +184,12 @@ export default class registerModal extends React.Component {
          <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
           <div className="loginmodal-container lnt-container">
             <p className="closeButton" onClick={()=>{this.close()}}>x</p>
-            <h1><img className="login-register-image" src={"/img/lntlogo.png"}/></h1><br/>
-            <h3 className="d-blue">Campy Loves our Campsites</h3>
+            <h1><img className="lnt-image" src={"/img/lntlogo.png"}/></h1><br/>
+            <h3 className="l-blue">Campy Loves our Campsites</h3>
             <h4 className="l-blue">By registering, you are agreeing to be a good steward to the outdoors.</h4>
-            
+            <div className="lnt-rules">
               {this.state.lntRules.map((item, i)=> (<p key={'lnt'+i} className="l-blue">{i+1}. {item}</p>) )}
-            
+            </div>
             <p className="error">{this.state.error}</p>
               <input type="button" onClick={()=>{this.setState({page:0})}} name="back" className="login register-half-button" value="Back"/>
               <input type="button" onClick={this.handleSubmit} name="login" className="login register-half-button" value="Register"/>
