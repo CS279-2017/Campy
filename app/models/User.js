@@ -23,6 +23,11 @@ module.exports.getUserByUsername = function(username, callback) {
     User.findOne(query, callback);
 }
 
+module.exports.getUserByEmail = function(email, callback) {
+    var query = {email: email};
+    User.findOne(query, callback);
+}
+
 module.exports.getProfilePicByUsername = function(username, callback) {
     var query = {username: username};
     User.findOne(query, function(err, user){
@@ -50,19 +55,26 @@ module.exports.getUserById = function(id, callback) {
 module.exports.createUser = function(user, callback) {
     this.getUserByUsername(user.username, function(err, res) {
         // If there is no record in the DB that matches the username, then we can add a new user to the DB.
-        if (!res) {
-            let salt = bcrypt.genSaltSync(saltRounds);
-            var hash = bcrypt.hashSync(user.password, salt);
 
-            var userToInsert = new User({username: user.username, password: hash, email: user.email, salt: salt, profilePicture: user.profilePicture});
-            userToInsert.save(function(err) {
-                if (err) {
-                    callback(err);
-                } else {
-                    console.log('Added user ' + user.username);
-                    callback(null);
+        if (!res) {
+            module.exports.getUserByEmail(user.email, function(err, res) {
+                if (!res) {
+                    let salt = bcrypt.genSaltSync(saltRounds);
+                    var hash = bcrypt.hashSync(user.password, salt);
+                    var userToInsert = new User({username: user.username, password: hash, email: user.email, salt: salt, profilePicture: user.profilePicture});
+                    userToInsert.save(function(err) {
+                        if (err) {
+                            callback(err);
+                        } else {
+                            console.log('Added user ' + user.username);
+                            callback(null);
+                        }
+                    });
                 }
-            })
+                else {
+                    callback('Email already exists in the database')
+                }
+            });
         } else {
             callback('User already exists in the database');
         }
