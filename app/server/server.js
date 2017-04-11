@@ -455,6 +455,7 @@ app.post('/v1/generatetoken', function(req, res) {
 
         crypto.randomBytes(48, function(err, buffer) {     
             var token = buffer.toString('hex');
+            console.log(token);
             
             // Used for generate expiration dates
             var d1 = new Date (),
@@ -475,7 +476,7 @@ app.post('/v1/generatetoken', function(req, res) {
                         subject: 'Reset your Campy Password',
                         html: '<p>You have requested to reset your password for Campy. If you did not trigger this message, ' +
                             'there is a chance someone is tryign to access your account.</p><br>' + 
-                            '<p>To reset your password, click <a href="ilovecampy.com/v1/reset/' + token + '>here</a>.</p>'
+                            '<p>To reset your password, click <a href="ilovecampy.com/?pwdreset=true&token=' + token + '>here</a>.</p>'
                     };
 
                     // send mail with defined transport object
@@ -498,12 +499,21 @@ app.post('/v1/resetpassword', function(req, res) {
     let username = data.username;
     let resetToken = data.resettoken;
     let newPassword = data.newpassword
+    var passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})");
+    if(!passwordRegex.test(newPassword)){
+        res.status(400).send({error: 'Password must be 6 characters long, contain one uppercase, one lowercase, and one number'});
+        return;
+    }
 
     User.findOne({username: username}, function(err, user) {
         if (err) console.log('No user matching ' + username);
         else {
+            if(!user.passwordResetToken || user.passwordResetToken == ""){
+                res.status(400).send({'error' : 'Unauthorized'})
+            }
             if (user.passwordResetToken != resetToken) {
-                res.status(400).send({'Error' : 'Password reset token doesn\'t match'})
+                console.log(user.passwordResetToken);
+                res.status(400).send({'error' : 'Password reset token doesn\'t match'})
             } else {
                 var now = new Date()
                 if (user.passwordResetExpires.getTime() > now.getTime()) {
@@ -512,10 +522,10 @@ app.post('/v1/resetpassword', function(req, res) {
                     var hash = bcrypt.hashSync(newPassword, salt);
                     user.password = hash;
                     user.save();
-                    res.status(200).send({"Success":"Password successfully reset"});
+                    res.status(200).send({"success":"Password successfully reset"});
                 } else {
                     console.log('Unable to reset password')
-                    res.status(400).send({"Err": "token expired"});
+                    res.status(400).send({"error": "token expired"});
                 }
             }
         }

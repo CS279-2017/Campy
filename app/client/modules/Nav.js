@@ -5,7 +5,7 @@ import CampsiteModal from '../components/CampsiteModal'
 import RegisterModal from '../components/RegisterModal'
 import WelcomeModal from '../components/WelcomeModal'
 import FirstLoginHelpModal from '../components/FirstLoginHelpModal'
-
+import PasswordResetModal from '../components/PasswordResetModal'
 import ReactDOM from 'react-dom'
 
 require("style-loader!css-loader!../css/nav.css");
@@ -80,6 +80,11 @@ export default React.createClass({
  
 
   render() {
+
+    let reset = this.props.location.query.pwdreset ? true : false;
+    let token = reset ? this.props.location.query.token : null;
+    console.log(reset + token);
+
     const childrenWithProps = React.Children.map(this.props.children,
      (child) => React.cloneElement(child, {
        searchQuery: this.state.finalQuery,
@@ -149,7 +154,12 @@ export default React.createClass({
           </nav>
           <LoginModal ref='loginModal' self={this}/>
           <RegisterModal ref='registerModal' self={this}/>
+          {reset ? 
+          <PasswordResetModal show={reset} self={this} token={token}/>
+          :
           <WelcomeModal ref='WelcomeModal' isLoggedIn={this.state.isLoggedIn}/>
+          }
+
           {childrenWithProps}
         </div>
       )

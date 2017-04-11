@@ -9,6 +9,9 @@
 .closeButton:hover{
     transform: scale(1.2);
 }
+.resetpassword-image{
+  width: 100%;
+}
 .modal-content{
     background-color: rgba(0,0,0,0);
     border: none;

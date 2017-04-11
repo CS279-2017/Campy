@@ -15,13 +15,13 @@ export default class LoginModal extends React.Component {
   		{ showModal: false, 
   		 password: "",
   		 user: "" ,
-       error:""
+       error:"",
+       emailed:false,
   		});
   	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
     this.loginerror = this.loginerror.bind(this);
-
-    this.state.user 
 
   }
 
@@ -88,25 +88,77 @@ export default class LoginModal extends React.Component {
 
   }
 
+  handleReset(event){
+    event.preventDefault();
+    const data = {
+      username:this.state.user
+    }
+
+    let self = this;
+    let success = function(){
+      self.setState({emailed:true});
+    }
+
+    let error = function(xhr, ajaxOptions, thrownError){
+      console.log(xhr);
+      if(xhr.responseText == "Unauthorized"){
+        self.setState({error:"Username is not valid. Capitalization matters!"});
+      }else{
+        self.setState({error:("An error occurred. Please try again.")});
+      }
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "/v1/generatetoken",
+      data: data,
+      success:success,
+      error:error
+    });
+  }
+
   render() {
-
-    return (
-	     <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
-				<div className="loginmodal-container">
+    //login
+    if(!this.state.forgotPassword){
+      return (
+       <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
+        <div className="loginmodal-container">
           <p className="closeButton" onClick={()=>{this.close()}}>x</p>
-					<h1><img className="login-register-image" src={"/img/login.png"}/></h1><br/>
+          <h1><img className="login-register-image" src={"/img/login.png"}/></h1><br/>
 
-				  <form onSubmit={this.handleSubmit}>
-					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
-					<input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
-					<p className = "error">{this.state.error}</p>
+          <form onSubmit={this.handleSubmit}>
+          <input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
+          <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
+          <p className = "error">{this.state.error}</p>
           <input type="submit" name="login" className="login loginmodal-submit" value="Login"/>
-				  </form>
-				  <div className="login-help">
-					   <a href="#">Forgot Password</a>
-				  </div>
-				</div>	          
-	     </Modal>
-	)
+          </form>
+          <div className="login-help">
+             <a onClick={()=>{this.setState({forgotPassword:true})}}>Forgot Password</a>
+          </div>
+        </div>            
+       </Modal>
+      )
+    }else{
+      //forgot password
+
+      return (
+        <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
+          <div className="loginmodal-container">
+            <p className="closeButton" onClick={()=>{this.close()}}>x</p>
+            <h1><img className="resetpassword-image" src={"/img/resetpassword.png"}/></h1><br/>
+            {!this.state.emailed ?
+                <form onSubmit={this.handleReset}>
+                <input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
+                <p className = "error">{this.state.error}</p>
+                <input type="submit" name="login" className="login loginmodal-submit" value="reset"/>
+                </form>
+            :
+                <p className="d-blue center-text">Email Sent!</p>
+            }    
+            </div>            
+           </Modal>
+          )
+    }
+    
   }
 }
