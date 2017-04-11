@@ -1,5 +1,7 @@
 import React from 'react'
 import NavLink from '../modules/NavLink'
+import {browserHistory} from 'react-router'
+
 require("style-loader!css-loader!../css/loginmodal.css");
 
 let ReactBootstrap = require('react-bootstrap');
@@ -16,7 +18,8 @@ export default class PasswordResetModal extends React.Component {
   		 password: "",
        passwordCheck: "",
   		 user: "" ,
-       error:""
+       error:"",
+       success:false,
   		});
   	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,6 +33,7 @@ export default class PasswordResetModal extends React.Component {
   
   close(){
     this.setState({ showModal: false });
+    browserHistory.replace('');
   }
 
   login(){
@@ -61,8 +65,7 @@ export default class PasswordResetModal extends React.Component {
     }
     let self = this;
     let success = function(){
-      self.close();
-      self.props.self.update();
+      self.setState({success:true});
     }
     let error = function(xhr, ajaxOptions, thrownError){
       console.log(xhr.responseText);
@@ -95,7 +98,6 @@ export default class PasswordResetModal extends React.Component {
   }
   componentDidMount(){
     if(this.props.show){
-      console.log("here");
       this.setState({showModal:true});
     }
   }
@@ -105,19 +107,31 @@ export default class PasswordResetModal extends React.Component {
       return null;
     }
 
-    return (
-	     <Modal className="login-modal" show={this.state.showModal}>
-				<div className="loginmodal-container">
-          <h1><img className="resetpassword-image" src={"/img/resetpassword.png"}/></h1><br/>
-				  <form onSubmit={this.handleSubmit}>
-					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
-          <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
-          <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Re-enter Password"/>
-					<p className = "error">{this.state.error}</p>
-          <input type="submit" name="login" className="login loginmodal-submit" value="Reset"/>
-				  </form>
-				</div>	          
-	     </Modal>
-	)
+    if(!this.state.success){
+      return (
+  	     <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
+  				<div className="loginmodal-container">
+            <h1><img className="resetpassword-image" src={"/img/resetpassword.png"}/></h1><br/>
+  				  <form onSubmit={this.handleSubmit}>
+  					<input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
+            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password"/>
+            <input type="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} placeholder="Re-enter Password"/>
+  					<p className = "error">{this.state.error}</p>
+            <input type="submit" name="login" className="login loginmodal-submit" value="Reset"/>
+  				  </form>
+  				</div>	          
+  	     </Modal>
+  	)
+    }else{
+      return (
+        <Modal className="login-modal" show={this.state.showModal} onHide={()=>{this.close()}}>
+            <div className="loginmodal-container">
+              <h1><img className="resetpassword-image" src={"/img/resetpassword.png"}/></h1><br/>
+              <h3 className="d-blue">Success!</h3>
+            </div>            
+        </Modal>
+      )
+    }
+
   }
 }

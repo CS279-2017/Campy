@@ -28,7 +28,6 @@ export default class SideBar extends React.Component {
     this.key = 0;
     this.handleRating = this.handleRating.bind(this);
     this.getRating = this.getRating.bind(this);
-    this.generateReviewHtml = this.generateReviewHtml.bind(this);
   }
 
   handleRating(rate){
@@ -42,7 +41,6 @@ export default class SideBar extends React.Component {
   }
 
   getRating(){
-    console.log("Getting rating for:" + this.props.selectedSite._id);
     let data  = {campsiteid: this.props.selectedSite._id};
     let self = this;
     let success = function(data){
@@ -62,7 +60,6 @@ export default class SideBar extends React.Component {
   }
   
   showCampsite(campsite){
-    console.log(this.state.ratings)
     let date = this.formatDate(campsite.dateCreated);
     let images = this.getImages(campsite.images);
 
@@ -111,7 +108,16 @@ export default class SideBar extends React.Component {
           
           </div>
           <p className='sidebar-info'><b>Campfire - </b> {campsite.fire ? "Allowed" : "Not Allowed"}</p>
-          <p className='sidebar-info left-align'><b>Tags - </b>{campsite.tags.map(function(tag, i){if(i+1 == campsite.tags.length){return tag;}else{return tag+", ";}})}</p>
+          <p className='sidebar-info left-align' key="tags"><b>Tags - </b>{campsite.tags.map(function(tag, i){
+            if(i+1 == campsite.tags.length){
+            
+            return (<span key={tag+i}> {tag} </span>);
+
+            }else{
+              return (<span key={tag+i}> {tag}, </span>);
+            }
+          })}
+          </p>
 
         </div>
       </div>
@@ -191,10 +197,6 @@ export default class SideBar extends React.Component {
       )
   }
 
-  generateReviewHtml(review){
-    
-  }
-
   handleChange(event) {
     const target = event.target;
     const name = target.name;
@@ -205,7 +207,6 @@ export default class SideBar extends React.Component {
   }
   //returns all reviews for a campsite
   getReviews(campsite_id){
-    console.log("Getting reviews for:" + this.props.selectedSite._id);
     let data  = {campsiteid: campsite_id};
     
     let self = this;
@@ -237,7 +238,6 @@ export default class SideBar extends React.Component {
 
     let self = this;
     let success = function(data){
-      console.log("success");
       self.getReviews(self.props.selectedSite._id);
     }
     
@@ -277,17 +277,15 @@ export default class SideBar extends React.Component {
   }
 
   checkSiteChange(site){
-    if(site._id != this.siteCheckid){
-      this.siteCheckid = site._id;
       this.setState({reviewSelected:false});
-
-    }
   }
 
-  //need to figure out how to do this...
+  componentWillReceiveProps(){
+      this.checkSiteChange(this.props.selectedSite);
+  }
+
   render(props) {
     if(this.props.selectedSite){
-      this.checkSiteChange(this.props.selectedSite);
       if(this.state.reviewSelected){
         return this.showReviews(this.props.selectedSite);
       }else{

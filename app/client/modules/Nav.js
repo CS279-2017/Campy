@@ -83,7 +83,6 @@ export default React.createClass({
 
     let reset = this.props.location.query.pwdreset ? true : false;
     let token = reset ? this.props.location.query.token : null;
-    console.log(reset + token);
 
     const childrenWithProps = React.Children.map(this.props.children,
      (child) => React.cloneElement(child, {

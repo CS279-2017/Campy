@@ -150,7 +150,7 @@ export default class LoginModal extends React.Component {
                 <form onSubmit={this.handleReset}>
                 <input type="text" name="user" value={this.state.user} onChange={this.handleChange} placeholder="Username"/>
                 <p className = "error">{this.state.error}</p>
-                <input type="submit" name="login" className="login loginmodal-submit" value="reset"/>
+                <input type="submit" name="login" className="login loginmodal-submit" value="Send Email"/>
                 </form>
             :
                 <p className="d-blue center-text">Email Sent!</p>

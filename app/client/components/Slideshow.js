@@ -44,7 +44,7 @@ export default class Slideshow extends React.Component {
         <ul className="slideshow-slides">
           {
             this.props.slides.map((slide, index) => (
-              <li className={ classNames({ active: index == this.state.activeIndex }) }>
+              <li key={slide.imageUrl + "image"} className={ classNames({ active: index == this.state.activeIndex }) }>
                   <img className='campsite-img' key={slide.imageUrl} src={ slide.imageUrl } />
               </li>
             ))

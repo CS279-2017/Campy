@@ -2,7 +2,7 @@
 import _ from "lodash";
 import TagDropdown from './TagDropdown'
 import SideBar from './SideBar'
-import canUseDOM from "can-use-dom";
+import canUseDOM from "can-use-dom"
 
 import {
   default as React,
@@ -126,7 +126,7 @@ export default class GettingStartedExample extends Component {
         self.placeMarkers(data);
       }
       let error = function(err){
-        //console.log(err);
+        console.log(err);
       }
 
       $.ajax({
@@ -137,8 +137,6 @@ export default class GettingStartedExample extends Component {
           success:success,
           error:error
       });
-    }else{
-      //console.log("zoom in");
     }
 
   }
