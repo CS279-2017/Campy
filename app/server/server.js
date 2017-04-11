@@ -475,8 +475,8 @@ app.post('/v1/generatetoken', function(req, res) {
                         to: email,
                         subject: 'Reset your Campy Password',
                         html: '<p>You have requested to reset your password for Campy. If you did not trigger this message, ' +
-                            'there is a chance someone is tryign to access your account.</p><br>' + 
-                            '<p>To reset your password, click <a href="ilovecampy.com/?pwdreset=true&token=' + token + '>here</a>.</p>'
+                            'there is a chance someone is trying to access your account.</p>' + 
+                            '<p>To reset your password, click <a href="ilovecampy.com/?pwdreset=true&token=' + token + '"">here</a>.</p>'
                     };
 
                     // send mail with defined transport object
