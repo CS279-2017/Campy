@@ -444,7 +444,6 @@ app.post('/v1/generatetoken', function(req, res) {
     let user = data.username;
 
     User.getUserByUsername(user, function(err, userres) {
-        console.log(userres)
 
         if (!userres) {
             console.log('User does not exist');
@@ -463,7 +462,6 @@ app.post('/v1/generatetoken', function(req, res) {
             console.log(token);
             userres.passwordResetToken = token;
             userres.passwordResetExpires = timeToExpire;
-            userres.save();
 
             userres.save(function(err, updatedusercount) {
                 if (err) console.log('Requested a username not in the database.');
