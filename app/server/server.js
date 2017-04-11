@@ -444,7 +444,6 @@ app.post('/v1/generatetoken', function(req, res) {
     let user = data.username;
 
     User.getUserByUsername(user, function(err, userres) {
-        console.log(user)
         console.log(userres)
 
         if (!userres) {
@@ -455,18 +454,20 @@ app.post('/v1/generatetoken', function(req, res) {
 
         crypto.randomBytes(48, function(err, buffer) {     
             var token = buffer.toString('hex');
-            console.log(token);
             
             // Used for generate expiration dates
             var d1 = new Date (),
                 d2 = new Date (d1);
             d2.setMinutes ( d1.getMinutes() + 30 );
             var timeToExpire = d2;
-            
-            User.update({username: user}, { $set: {passwordResetToken: token, passwordResetExpires: timeToExpire}}, function(err, updateduser) {
+            console.log(token);
+            userres.passwordResetToken = token;
+            userres.passwordResetExpires = timeToExpire;
+            userres.save();
+
+            userres.save(function(err, updatedusercount) {
                 if (err) console.log('Requested a username not in the database.');
                 else {
-
                     let email = userres.email;
 
                     // setup email data with unicode symbols
