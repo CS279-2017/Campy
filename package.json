@@ -61,5 +61,9 @@
       "syntax-class-properties",
       "transform-class-properties"
     ]
-  }
+  },
+  "engines": {
+        "node": "6.4.0",
+        "npm": "4.2.0"
+    } 
 }
