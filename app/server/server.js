@@ -94,7 +94,8 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-var folder = (process.env.PWD + '/public').slice(1);
+var folder = ('../public')
+console.log(__dirname)
 console.log(folder)
 app.use(express.static(/*path.join(process.env.PWD, '../public/')*/folder));
 var sess = {
