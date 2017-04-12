@@ -282,13 +282,13 @@ export default class CampsiteModal extends React.Component {
   }
 
   removeImage(file){
-    arr = this.state.images;
+    let arr = this.state.images;
     
-    for (let i = 0; i < arr.length(); i++)
+    for (let i = 0; i < arr.length; i++)
     {
-      if (arr[i].equals(file))
+      if (arr[i] == (file))
       {
-        array.splice(i, 1);
+        arr.splice(i, 1);
         break;
       }
     }
@@ -531,7 +531,8 @@ export default class CampsiteModal extends React.Component {
                       </form>
                       {this.state.images.length > 0 ? <div>
                       <p className="dark-gray">{this.state.uploadstatus}</p>
-                      <div>{this.state.images.map((url) => <img key={this.getkey()} onClick={()=>{this.removeImage(file)}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/images/" + url} /> )}</div>
+                      <p className="white">Click to Remove</p>
+                      <div>{this.state.images.map((url) => <img key={this.getkey()} onClick={()=>{this.removeImage(url)}} className="preview-image" src={"https://s3.amazonaws.com/campyapp1/images/" + url} /> )}</div>
 
                       </div> : null}
                     </div>
