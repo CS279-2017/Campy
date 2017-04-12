@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel watch:server watch:build",
-    "watch:build": "webpack --watch",
-    "watch:server": "nodemon server/server.js --watch ./dist"
+    "watch:build": "webpack app/",
+    "watch:server": "node app/server/server.js ./dist"
   },
   "author": "",
   "license": "ISC",
@@ -29,7 +29,6 @@
     "morgan": "^1.7.0",
     "multer": "^1.3.0",
     "multer-imager": "^3.1.0",
-    "multer-s3": "^2.5.0",
     "nodemailer": "^4.0.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
