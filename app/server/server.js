@@ -32,6 +32,8 @@ app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({ extended: true }));
 const saltRounds = 10;
 
+
+
 let port = process.env.MONGOPORT
 let user = process.env.MONGOUSER
 let mongopass = process.env.MONGOPASSWORD
@@ -92,7 +94,7 @@ let transporter = nodemailer.createTransport({
 });
 
 
-app.use(express.static(path.join(__dirname, '../public/')));
+app.use(express.static(path.join(__dirname, '../public')));
 var sess = {
   secret: 'keyboard cat',
   saveUninitialized: false,
