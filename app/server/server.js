@@ -534,6 +534,6 @@ app.post('/v1/resetpassword', function(req, res) {
     });
 });
 
-let server = app.listen(listeningport, function () {
+let server = app.listen(process.env.PORT || 80, function () {
     console.log('Campy listening on ' + listeningport);
 });
