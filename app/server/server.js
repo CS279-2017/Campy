@@ -45,6 +45,7 @@ let emailpass = process.env.EMAILPASS
 let emailuser = process.env.EMAILUSER
 let awskeyID = process.env.AWS_ACCESS_KEY_ID
 let awsSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
+process.env.PWD = process.cwd()
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
 mongoose.Promise = global.Promise;
@@ -93,8 +94,9 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-
-app.use(express.static(path.join(__dirname, '../public')));
+var folder = process.env.PWD + '/app/public/';
+console.log(folder)
+app.use(express.static(/*path.join(process.env.PWD, '../public/')*/folder));
 var sess = {
   secret: 'keyboard cat',
   saveUninitialized: false,
