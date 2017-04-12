@@ -41,19 +41,22 @@ let listeningport = 8080
 let bucketname = process.env.BUCKETNAME
 let emailpass = process.env.EMAILPASS
 let emailuser = process.env.EMAILUSER
+let awskeyID = process.env.AWS_ACCESS_KEY_ID
+let awsSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
 
 let connection_string = 'mongodb://'+user+':'+mongopass+"@"+ip+":"+port+"/"+appname
 mongoose.Promise = global.Promise;
 mongoose.connect(connection_string);
 let db = mongoose.connection;
 
+
 var s3 = new AWS.S3();
 var upload = multer({
   storage: imager({
     dirname:"images", //imager makes you have a dirname
     bucket: bucketname,
-    accessKeyId: s3.config.credentials.accessKeyId,
-    secretAccessKey: s3.config.credentials.secretAccessKey,
+    accessKeyId: awskeyID,
+    secretAccessKey: awsSecretAccessKey,
     region: 'us-east-1',
     acl: 'public-read',
     gm: {                                 // [Optional]: define graphicsmagick options
