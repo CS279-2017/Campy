@@ -39,7 +39,54 @@ body, html{
 .navbar-right{
 	height:100%;
 }
+@media(max-width: 768px) {
+	a.navbar-brand::before{
+		width: 0;
+	}
+}
+@media(max-width: 1000px) {
+	.add-site::before{
+	    content: url(/img/addsite.png); /* 50% 50% centers image in div */
+	    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ 
+	    width: 40px;
+	    height: 40px;
+	}
+	
+	.logout::after{
+	    content: url(/img/logout.png); /* 50% 50% centers image in div */
+	    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ 
+	    width: 40px;
+	    height: 40px;
+	}
+	.profile-img{
+		width: 0;
+	}
+}
 
+
+
+@media(min-width: 1000px){
+	.profile-img{
+		margin-top: 30%;
+	    background: url(http://placehold.it/200x200&text=profilepic) 50% 50% no-repeat; /* 50% 50% centers image in div */
+	    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ 
+	    width: 40px;
+	    height: 40px;
+	}
+	.add-site::before{
+		content: '+ Add a Campsite';
+	}
+	.logout::before{
+		content: 'Logout';
+	}
+	
+}
+.searchbar-holder{
+	overflow: hidden;
+	height: 100%;
+	width: 45%;
+
+}
 
 .searchBar{
 	width: 100%;
@@ -56,15 +103,15 @@ body, html{
 	position: absolute;
 }
 .text-box{
-	position: absolute;
+	margin-top: 3%;
 	bottom: 25%;
-	width: 40%;
 }
 .logged-in-text-box{
-	width: 35%;
+	width: 100%;
 }
+
 .logged-out-text-box{
-	width: 40%;
+	width: 100%;
 }
 
 .searchBar::-webkit-input-placeholder{
@@ -150,13 +197,7 @@ body, html{
 	transform: scale(1.2);
 }
 
-.profile-img{
-	margin-top: 30%;
-    background: url(http://placehold.it/200x200&text=profilepic) 50% 50% no-repeat; /* 50% 50% centers image in div */
-    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ 
-    width: 40px;
-    height: 40px;
-}
+
 .profile-link{
 	margin-left: 0px;
 }

@@ -100,9 +100,10 @@ export default React.createClass({
                 <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                   <span className="sr-only">Toggle navigation</span>
                 </button>
-                <a className="navbar-brand" to="/">
+                <a className="hidden-xs navbar-brand" to="/">
                   <img className="navbar-brand-img" src="/img/logo.png"/>
                 </a>
+
               </div>
               <div id="navbar">
                 <div className="nav navbar-nav searchbar-holder">
@@ -112,8 +113,8 @@ export default React.createClass({
                 </div>
                 <ul className="nav navbar-nav navbar-right">
                   <li><img className="profile-img img-rounded" key={this.state.profileImg} src={this.state.profileImg}/></li>
-                  <li><NavLink className="nav-links absolute" onClick={()=>{this.refs.campsiteModal.open()}}>+Add A Campsite</NavLink></li>
-                  <li><NavLink className="nav-links profile-link absolute" onClick={()=>{this.callPath("/v1/logout"); this.checkLogin()}}>{this.state.username.length < 7 ? "Logout " + this.state.username.charAt(0).toUpperCase() + this.state.username.slice(1) : "Logout"}</NavLink></li>
+                  <li><NavLink className="nav-links absolute add-site" onClick={()=>{this.refs.campsiteModal.open()}}></NavLink></li>
+                  <li><NavLink className="nav-links profile-link absolute logout img-rounded" onClick={()=>{this.callPath("/v1/logout"); this.checkLogin()}}></NavLink></li>
                 </ul>
               </div>
             </div>

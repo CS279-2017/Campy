@@ -25680,7 +25680,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'a',
-	                { className: 'navbar-brand', to: '/' },
+	                { className: 'hidden-xs navbar-brand', to: '/' },
 	                _react2.default.createElement('img', { className: 'navbar-brand-img', src: '/img/logo.png' })
 	              )
 	            ),
@@ -25707,24 +25707,16 @@
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  _react2.default.createElement(
-	                    _NavLink2.default,
-	                    { className: 'nav-links absolute', onClick: function onClick() {
-	                        _this.refs.campsiteModal.open();
-	                      } },
-	                    '+Add A Campsite'
-	                  )
+	                  _react2.default.createElement(_NavLink2.default, { className: 'nav-links absolute add-site', onClick: function onClick() {
+	                      _this.refs.campsiteModal.open();
+	                    } })
 	                ),
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  _react2.default.createElement(
-	                    _NavLink2.default,
-	                    { className: 'nav-links profile-link absolute', onClick: function onClick() {
-	                        _this.callPath("/v1/logout");_this.checkLogin();
-	                      } },
-	                    this.state.username.length < 7 ? "Logout " + this.state.username.charAt(0).toUpperCase() + this.state.username.slice(1) : "Logout"
-	                  )
+	                  _react2.default.createElement(_NavLink2.default, { className: 'nav-links profile-link absolute logout img-rounded', onClick: function onClick() {
+	                      _this.callPath("/v1/logout");_this.checkLogin();
+	                    } })
 	                )
 	              )
 	            )
@@ -46075,44 +46067,40 @@
 	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit(event) {
-	      var _this2 = this;
-
 	      var s = this.state;
 	      if (s.campsiteName && s.marker[0] && s.description && s.tags[0]) {
-	        (function () {
-	          //im assuming you'll do creator, date, and transform size (if you want) SS
-	          var marker = s.marker[0];
-	          //post data
-	          var data = {
-	            description: s.description,
-	            directions: s.specialdirections,
-	            fire: s.fires,
-	            name: s.campsiteName,
-	            rating: s.rating,
-	            size: s.tents,
-	            tags: s.tags,
-	            lat: marker.position.lat,
-	            long: marker.position.lng,
-	            images: s.images
-	          };
+	        //im assuming you'll do creator, date, and transform size (if you want) SS
+	        var marker = s.marker[0];
+	        //post data
+	        var data = {
+	          description: s.description,
+	          directions: s.specialdirections,
+	          fire: s.fires,
+	          name: s.campsiteName,
+	          rating: s.rating,
+	          size: s.tents,
+	          tags: s.tags,
+	          lat: marker.position.lat,
+	          long: marker.position.lng,
+	          images: s.images
+	        };
 
-	          var self = _this2;
-	          var success = function success() {
-	            self.close();
-	          };
-	          var error = function error(xhr, ajaxOptions, thrownError) {
-	            self.setState({ error: JSON.parse(xhr.responseText).error });
-	          };
+	        var self = this;
+	        var success = function success() {
+	          self.close();
+	        };
+	        var error = function error(xhr, ajaxOptions, thrownError) {
+	          self.setState({ error: JSON.parse(xhr.responseText).error });
+	        };
 
-	          $.ajax({
-	            type: "POST",
-	            dataType: 'json',
-	            url: "/v1/addsite",
-	            data: data,
-	            success: success,
-	            error: error
-	          });
-	        })();
+	        $.ajax({
+	          type: "POST",
+	          dataType: 'json',
+	          url: "/v1/addsite",
+	          data: data,
+	          success: success,
+	          error: error
+	        });
 	      } else {
 	        this.setState({
 	          error: "Please fill all required fields and give site at least one tag."
@@ -46127,12 +46115,12 @@
 	  }, {
 	    key: 'NameAndMap',
 	    value: function NameAndMap() {
-	      var _this3 = this;
+	      var _this2 = this;
 
 	      return _react2.default.createElement(
 	        Modal,
 	        { className: 'campsite-modal', show: this.state.showModal, onHide: function onHide() {
-	            _this3.close();
+	            _this2.close();
 	          } },
 	        _react2.default.createElement(
 	          'div',
@@ -46140,7 +46128,7 @@
 	          _react2.default.createElement(
 	            'p',
 	            { className: 'closeButton', onClick: function onClick() {
-	                _this3.close();
+	                _this2.close();
 	              } },
 	            'x'
 	          ),
@@ -46211,7 +46199,7 @@
 	                this.state.error
 	              ),
 	              _react2.default.createElement('input', { type: 'button', name: 'next', className: 'login campsitemodal-submit', onClick: function onClick() {
-	                  _this3.nextStep();
+	                  _this2.nextStep();
 	                }, value: 'Next' })
 	            )
 	          )
@@ -46221,12 +46209,12 @@
 	  }, {
 	    key: 'DirectionsAndDescription',
 	    value: function DirectionsAndDescription() {
-	      var _this4 = this;
+	      var _this3 = this;
 
 	      return _react2.default.createElement(
 	        Modal,
 	        { className: 'campsite-modal', show: this.state.showModal, onHide: function onHide() {
-	            _this4.close();
+	            _this3.close();
 	          } },
 	        _react2.default.createElement(
 	          'div',
@@ -46237,7 +46225,7 @@
 	            _react2.default.createElement(
 	              'p',
 	              { className: 'closeButton', onClick: function onClick() {
-	                  _this4.close();
+	                  _this3.close();
 	                } },
 	              'x'
 	            ),
@@ -46318,10 +46306,10 @@
 	                  this.state.error
 	                ),
 	                _react2.default.createElement('input', { type: 'button', name: 'back', className: 'login campsitemodal-submit', onClick: function onClick() {
-	                    _this4.previousStep();
+	                    _this3.previousStep();
 	                  }, value: 'Back' }),
 	                _react2.default.createElement('input', { type: 'button', name: 'next', className: 'login campsitemodal-submit', onClick: function onClick() {
-	                    _this4.nextStep();
+	                    _this3.nextStep();
 	                  }, value: 'Next' })
 	              )
 	            )
@@ -46332,12 +46320,12 @@
 	  }, {
 	    key: 'SizeAndTags',
 	    value: function SizeAndTags() {
-	      var _this5 = this;
+	      var _this4 = this;
 
 	      return _react2.default.createElement(
 	        Modal,
 	        { className: 'campsite-modal', show: this.state.showModal, onHide: function onHide() {
-	            _this5.close();
+	            _this4.close();
 	          } },
 	        _react2.default.createElement(
 	          'div',
@@ -46348,7 +46336,7 @@
 	            _react2.default.createElement(
 	              'p',
 	              { className: 'closeButton', onClick: function onClick() {
-	                  _this5.close();
+	                  _this4.close();
 	                } },
 	              'x'
 	            ),
@@ -46427,11 +46415,11 @@
 	                    'div',
 	                    { className: 'tag-box' },
 	                    this.state.chooseTags.map(function (tag) {
-	                      if (_this5.state.tags.indexOf(tag.name) > -1) {
+	                      if (_this4.state.tags.indexOf(tag.name) > -1) {
 	                        return _react2.default.createElement(
 	                          'a',
 	                          { className: 'btn btn-lg campsite-tag campsite-tag-active', key: tag.name, onClick: function onClick() {
-	                              return _this5.selectTag(tag.name);
+	                              return _this4.selectTag(tag.name);
 	                            } },
 	                          tag.name
 	                        );
@@ -46439,7 +46427,7 @@
 	                        return _react2.default.createElement(
 	                          'a',
 	                          { className: 'btn btn-lg campsite-tag', key: tag.name, onClick: function onClick() {
-	                              return _this5.selectTag(tag.name);
+	                              return _this4.selectTag(tag.name);
 	                            } },
 	                          tag.name
 	                        );
@@ -46453,10 +46441,10 @@
 	                  )
 	                ),
 	                _react2.default.createElement('input', { type: 'button', name: 'back', className: 'login campsitemodal-submit', onClick: function onClick() {
-	                    _this5.previousStep();
+	                    _this4.previousStep();
 	                  }, value: 'Back' }),
 	                _react2.default.createElement('input', { type: 'button', name: 'next', className: 'login campsitemodal-submit', onClick: function onClick() {
-	                    _this5.nextStep();
+	                    _this4.nextStep();
 	                  }, value: 'Next' })
 	              )
 	            )
@@ -46467,12 +46455,12 @@
 	  }, {
 	    key: 'Images',
 	    value: function Images() {
-	      var _this6 = this;
+	      var _this5 = this;
 
 	      return _react2.default.createElement(
 	        Modal,
 	        { className: 'campsite-modal', show: this.state.showModal, onHide: function onHide() {
-	            _this6.close();
+	            _this5.close();
 	          } },
 	        _react2.default.createElement(
 	          'div',
@@ -46483,7 +46471,7 @@
 	            _react2.default.createElement(
 	              'p',
 	              { className: 'closeButton', onClick: function onClick() {
-	                  _this6.close();
+	                  _this5.close();
 	                } },
 	              'x'
 	            ),
@@ -46544,8 +46532,8 @@
 	                      'div',
 	                      null,
 	                      this.state.images.map(function (url) {
-	                        return _react2.default.createElement('img', { key: _this6.getkey(), onClick: function onClick() {
-	                            _this6.removeImage(url);
+	                        return _react2.default.createElement('img', { key: _this5.getkey(), onClick: function onClick() {
+	                            _this5.removeImage(url);
 	                          }, className: 'preview-image', src: "https://s3.amazonaws.com/campyapp1/images/" + url });
 	                      })
 	                    )
@@ -46557,10 +46545,10 @@
 	                  this.state.error
 	                ),
 	                _react2.default.createElement('input', { type: 'button', name: 'back', className: 'login campsitemodal-submit', onClick: function onClick() {
-	                    _this6.previousStep();
+	                    _this5.previousStep();
 	                  }, value: 'Back' }),
 	                this.state.uploadstatus == "" ? _react2.default.createElement('input', { type: 'button', name: 'next', className: 'login campsitemodal-submit', onClick: function onClick() {
-	                    _this6.handleSubmit();
+	                    _this5.handleSubmit();
 	                  }, value: 'Submit' }) : null
 	              )
 	            )
@@ -57595,7 +57583,7 @@
 
 
 	// module
-	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n.container{\n\theight:100%;\n}\n.navbar-header{\n\theight:100%;\n}\n\n.navbar-brand-img{\n    max-height: 100%;\n    height:auto;\n    width: auto;\n}\n.navbar-brand{\n\tposition: relative;\n \tdisplay: inline;\n    max-height: 100%;\n    width: auto;\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 100%;\n}\n.navbar-nav > li {\n\theight: 100%;\n}\n.navbar {\n\theight:7%;\n\tmin-height: 59px;\n\n}\n#navbar {\n\theight: 100%;\n}\n\n.navbar-right{\n\theight:100%;\n}\n\n\n.searchBar{\n\twidth: 100%;\n\theight: 100%;\n\tborder: none;\n\tbackground: transparent;\n\toutline: none;\n\tcolor: #959595;\n\tfont-size: 25px;\n\tfont-weight: lighter;\n\tpadding-left: 2px;\n}\n.absolute{\n\tposition: absolute;\n}\n.text-box{\n\tposition: absolute;\n\tbottom: 25%;\n\twidth: 40%;\n}\n.logged-in-text-box{\n\twidth: 35%;\n}\n.logged-out-text-box{\n\twidth: 40%;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 2rem;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n\n.nav-links:hover{\n\ttransform: scale(1.1);\n}\n\n.row{\n\tmargin-right: 0px;\n\tmargin-left: 0px;\n}\n.filter-tag{\n\tpadding: .4% 1%;\n\tfont-size:1.2em;\n\tfloat:left;\n\tmargin-top:.5%;\n\tmargin-left:.5%;\n\tborder: 1px solid #dadada;\n\tcolor: #dadada;\n\tborder-radius: 4px;\n\tbackground-color: transparent;\n\tposition:relative;\n}\n.filter-tag:hover{\n  border: 1px solid white;\n  color: #333;\n  background-color:#959595;\n}\n.filter-tag-active{\n  border: 1px solid white;\n  color: #333;\n  background-color:#959595;\n}\n.nav-dropdown{\n\tbackground-color: #333;\n\tz-index: 2; /* Stay on top */\n\tposition: relative;\n}\n\n.nav-dropdown-up{\n\theight: 2%;\n\tmin-height:20px;\n}\n.nav-dropdown-down{\n\theight: 100px;\n}\n.nav-dropdown-arrow{\n\tposition: absolute;\n\twidth:100%;\n    bottom: 5px;\n\twidth: auto;\n\theight: 8px;\n\tmargin-top: 5px;\n\tleft:50%;\n}\n.nav-dropdown-arrow:hover{\n\ttransform: scale(1.2);\n}\n\n.profile-img{\n\tmargin-top: 30%;\n    background: url(http://placehold.it/200x200&text=profilepic) 50% 50% no-repeat; /* 50% 50% centers image in div */\n    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ \n    width: 40px;\n    height: 40px;\n}\n.profile-link{\n\tmargin-left: 0px;\n}", ""]);
+	exports.push([module.id, "body, html{\n   height: 98%;\n   padding: 0;\n}\n.container{\n\theight:100%;\n}\n.navbar-header{\n\theight:100%;\n}\n\n.navbar-brand-img{\n    max-height: 100%;\n    height:auto;\n    width: auto;\n}\n.navbar-brand{\n\tposition: relative;\n \tdisplay: inline;\n    max-height: 100%;\n    width: auto;\n    padding: 5px;\n}\n.navbar-nav > li > a, .navbar-brand{\n    height: 100%;\n}\n.navbar-nav > li {\n\theight: 100%;\n}\n.navbar {\n\theight:7%;\n\tmin-height: 59px;\n\n}\n#navbar {\n\theight: 100%;\n}\n\n.navbar-right{\n\theight:100%;\n}\n@media(max-width: 768px) {\n\ta.navbar-brand::before{\n\t\twidth: 0;\n\t}\n}\n@media(max-width: 1000px) {\n\t.add-site::before{\n\t    content: url(/img/addsite.png); /* 50% 50% centers image in div */\n\t    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ \n\t    width: 40px;\n\t    height: 40px;\n\t}\n\t\n\t.logout::after{\n\t    content: url(/img/logout.png); /* 50% 50% centers image in div */\n\t    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ \n\t    width: 40px;\n\t    height: 40px;\n\t}\n\t.profile-img{\n\t\twidth: 0;\n\t}\n}\n\n\n\n@media(min-width: 1000px){\n\t.profile-img{\n\t\tmargin-top: 30%;\n\t    background: url(http://placehold.it/200x200&text=profilepic) 50% 50% no-repeat; /* 50% 50% centers image in div */\n\t    background-size: auto 100%;  /*Interchange this value depending on prefering width vs. height*/ \n\t    width: 40px;\n\t    height: 40px;\n\t}\n\t.add-site::before{\n\t\tcontent: '+ Add a Campsite';\n\t}\n\t.logout::before{\n\t\tcontent: 'Logout';\n\t}\n\t\n}\n.searchbar-holder{\n\toverflow: hidden;\n\theight: 100%;\n\twidth: 45%;\n\n}\n\n.searchBar{\n\twidth: 100%;\n\theight: 100%;\n\tborder: none;\n\tbackground: transparent;\n\toutline: none;\n\tcolor: #959595;\n\tfont-size: 25px;\n\tfont-weight: lighter;\n\tpadding-left: 2px;\n}\n.absolute{\n\tposition: absolute;\n}\n.text-box{\n\tmargin-top: 3%;\n\tbottom: 25%;\n}\n.logged-in-text-box{\n\twidth: 100%;\n}\n\n.logged-out-text-box{\n\twidth: 100%;\n}\n\n.searchBar::-webkit-input-placeholder{\n\tborder-bottom: 1px solid #C3C3C3;\n\n}\n\n\n.searchBar:focus {\n\toutline: none;\n}\n\n.navbar-default{\n\tmargin-bottom: 0;\n}\n\n.navbar-nav li a {\n\tline-height: 35px;\n}\n\n.nav-links{\n\tmargin-left: 20px;\n\tcolor:#f39a22;\n\tfont-size: 2rem;\n\tbackground: -webkit-linear-gradient(#f39a22, #f8b217);\n\t-webkit-background-clip: text;\n\t-webkit-text-fill-color: transparent;\n}\n\n.nav-links:hover{\n\ttransform: scale(1.1);\n}\n\n.row{\n\tmargin-right: 0px;\n\tmargin-left: 0px;\n}\n.filter-tag{\n\tpadding: .4% 1%;\n\tfont-size:1.2em;\n\tfloat:left;\n\tmargin-top:.5%;\n\tmargin-left:.5%;\n\tborder: 1px solid #dadada;\n\tcolor: #dadada;\n\tborder-radius: 4px;\n\tbackground-color: transparent;\n\tposition:relative;\n}\n.filter-tag:hover{\n  border: 1px solid white;\n  color: #333;\n  background-color:#959595;\n}\n.filter-tag-active{\n  border: 1px solid white;\n  color: #333;\n  background-color:#959595;\n}\n.nav-dropdown{\n\tbackground-color: #333;\n\tz-index: 2; /* Stay on top */\n\tposition: relative;\n}\n\n.nav-dropdown-up{\n\theight: 2%;\n\tmin-height:20px;\n}\n.nav-dropdown-down{\n\theight: 100px;\n}\n.nav-dropdown-arrow{\n\tposition: absolute;\n\twidth:100%;\n    bottom: 5px;\n\twidth: auto;\n\theight: 8px;\n\tmargin-top: 5px;\n\tleft:50%;\n}\n.nav-dropdown-arrow:hover{\n\ttransform: scale(1.2);\n}\n\n\n.profile-link{\n\tmargin-left: 0px;\n}", ""]);
 
 	// exports
 
@@ -59548,28 +59536,24 @@
 	  }, {
 	    key: 'campsiteList',
 	    value: function campsiteList(thewindow) {
-	      var _this3 = this;
-
 	      if (this.state.zoom > 7) {
-	        (function () {
 
-	          var self = _this3;
-	          var success = function success(data) {
-	            self.placeMarkers(data);
-	          };
-	          var error = function error(err) {
-	            console.log(err);
-	          };
+	        var self = this;
+	        var success = function success(data) {
+	          self.placeMarkers(data);
+	        };
+	        var error = function error(err) {
+	          console.log(err);
+	        };
 
-	          $.ajax({
-	            type: "GET",
-	            dataType: 'json',
-	            url: "/v1/campsites/window",
-	            data: thewindow,
-	            success: success,
-	            error: error
-	          });
-	        })();
+	        $.ajax({
+	          type: "GET",
+	          dataType: 'json',
+	          url: "/v1/campsites/window",
+	          data: thewindow,
+	          success: success,
+	          error: error
+	        });
 	      }
 	    }
 
@@ -76990,8 +76974,6 @@
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -77453,17 +77435,11 @@
 	      if (!images || images.length == 0) {
 	        return [{ imageUrl: 'http://placehold.it/600x400&text=No Images' }];
 	      } else {
-	        var _ret = function () {
-	          var ret = [];
-	          images.forEach(function (imName) {
-	            ret.push({ imageUrl: "https://s3.amazonaws.com/campyapp1/images/" + imName });
-	          });
-	          return {
-	            v: ret
-	          };
-	        }();
-
-	        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	        var ret = [];
+	        images.forEach(function (imName) {
+	          ret.push({ imageUrl: "https://s3.amazonaws.com/campyapp1/images/" + imName });
+	        });
+	        return ret;
 	      }
 	      //if no image exists, use http://placehold.it/600x400&text=No-Images
 	      //return([{imageUrl:'http://eurotravel360.com/wp-content/uploads/2013/05/What-to-Consider-When-Choosing-a-Campsite.jpg'},{imageUrl:'http://placehold.it/600x400&text=c2'},{imageUrl:'http://placehold.it/600x400&text=c3'}])
